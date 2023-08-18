@@ -3,6 +3,7 @@ package com.piazzariap1.pizzaria.service;
 import com.piazzariap1.pizzaria.dto.SaborDTO;
 import com.piazzariap1.pizzaria.entity.Sabor;
 import com.piazzariap1.pizzaria.repository.SaborRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class SaborService {
     @Autowired
     private SaborRepository repository;
 
+    @Transactional
     public Sabor cadastrar(SaborDTO saborDTO){
         Sabor sabor = new Sabor();
 
@@ -22,26 +24,40 @@ public class SaborService {
         sabor.setDescricao(saborDTO.getDescricao());
         sabor.setAtivo(sabor.isAtivo());
 
-        return repository.save(sabor);
+        if(repository.verificarNome(sabor.getNome()).isEmpty()){
+            return repository.save(sabor);
+        } else{
+            throw new RuntimeException("sabor informado já esta cadastrado!");
+        }
     }
 
-    public SaborDTO buscarPorId(Long id){
-        Sabor sabor = repository.findById(id).orElse(null);
-        SaborDTO saborDTO = new SaborDTO();
+    public SaborDTO buscarPorId(Long id) {
 
-        saborDTO.setId(sabor.getId());
-        saborDTO.setCadastro(sabor.getCadastro());
-        saborDTO.setEdicao(sabor.getEdicao());
-        saborDTO.setAtivo(sabor.isAtivo());
-        saborDTO.setNome(sabor.getNome());
-        saborDTO.setDescricao(sabor.getDescricao());
+        if (id == 0) {
+            throw new RuntimeException("por favor, informe um valor valido!");
+        } else if (repository.findById(id).isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+        } else {
 
-        return saborDTO;
+            Sabor sabor = repository.findById(id).orElse(null);
+            SaborDTO saborDTO = new SaborDTO();
+
+            saborDTO.setId(sabor.getId());
+            saborDTO.setCadastro(sabor.getCadastro());
+            saborDTO.setEdicao(sabor.getEdicao());
+            saborDTO.setAtivo(sabor.isAtivo());
+            saborDTO.setNome(sabor.getNome());
+            saborDTO.setDescricao(sabor.getDescricao());
+
+            return saborDTO;
+        }
     }
 
     public List<SaborDTO> listar(){
         List<Sabor> sabores = repository.findAll();
-
+        if(sabores.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum sabor cadastrado!");
+        }
         return sabores.stream().map(this::converterParaDTO).collect(Collectors.toList());
     }
 
@@ -58,6 +74,7 @@ public class SaborService {
         return saborDTO;
     }
 
+    @Transactional
     public SaborDTO editar(Long id, SaborDTO saborNovo){
         Sabor saborBanco = repository.findById(id).orElse(null);
 
@@ -72,6 +89,7 @@ public class SaborService {
         return this.converterParaDTO(saborBanco);
     }
 
+    @Transactional
     public String deletar(Long id){
         repository.deleteById(id);
         return ("Sabor informado deletado com sucesso!");

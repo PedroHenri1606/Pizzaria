@@ -1,10 +1,9 @@
 package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.dto.AcompanhamentoDTO;
-import com.piazzariap1.pizzaria.dto.ProdutoDTO;
 import com.piazzariap1.pizzaria.entity.Acompanhamento;
-import com.piazzariap1.pizzaria.entity.Produto;
 import com.piazzariap1.pizzaria.repository.AcompanhamentoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,7 @@ public class AcompanhamentoService {
     @Autowired
     private AcompanhamentoRepository repository;
 
+    @Transactional
     public Acompanhamento cadastrar(AcompanhamentoDTO acompanhamentoDTO){
         Acompanhamento acompanhamento = new Acompanhamento();
 
@@ -24,26 +24,40 @@ public class AcompanhamentoService {
         acompanhamento.setDescricao(acompanhamentoDTO.getDescricao());
         acompanhamento.setValor(acompanhamentoDTO.getValor());
 
-        return repository.save(acompanhamento);
+        if(repository.verificaDescricao(acompanhamento.getDescricao()).isEmpty()){
+           return repository.save(acompanhamento);
+        } else{
+           throw new RuntimeException("Acompanhamento informado já esta cadastrado!");
+        }
     }
 
-    public AcompanhamentoDTO buscarPorId(Long id){
+    public AcompanhamentoDTO buscarPorId(Long id) {
 
-        Acompanhamento acompanhamento = repository.findById(id).orElse(null);
-        AcompanhamentoDTO acompanhamentoDTO = new AcompanhamentoDTO();
+        if (id == 0) {
+            throw new RuntimeException("por favor, informe um valor valido!");
+        } else if (repository.findById(id).isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+        } else {
 
-        acompanhamentoDTO.setId(acompanhamento.getId());
-        acompanhamentoDTO.setCadastro(acompanhamento.getCadastro());
-        acompanhamentoDTO.setEdicao(acompanhamento.getEdicao());
-        acompanhamentoDTO.setAtivo(acompanhamento.isAtivo());
-        acompanhamentoDTO.setDescricao(acompanhamento.getDescricao());
-        acompanhamentoDTO.setValor(acompanhamento.getValor());
+            Acompanhamento acompanhamento = repository.findById(id).orElse(null);
+            AcompanhamentoDTO acompanhamentoDTO = new AcompanhamentoDTO();
 
-        return acompanhamentoDTO;
+            acompanhamentoDTO.setId(acompanhamento.getId());
+            acompanhamentoDTO.setCadastro(acompanhamento.getCadastro());
+            acompanhamentoDTO.setEdicao(acompanhamento.getEdicao());
+            acompanhamentoDTO.setAtivo(acompanhamento.isAtivo());
+            acompanhamentoDTO.setDescricao(acompanhamento.getDescricao());
+            acompanhamentoDTO.setValor(acompanhamento.getValor());
+
+            return acompanhamentoDTO;
+        }
     }
 
     public List<AcompanhamentoDTO> listar(){
         List<Acompanhamento> acompanhamentos = repository.findAll();
+        if(acompanhamentos.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum acompanhamento cadastrado!");
+        }
 
         return acompanhamentos.stream().map(this::converterParaDTO).collect(Collectors.toList());
     }
@@ -61,6 +75,7 @@ public class AcompanhamentoService {
         return acompanhamentoDTO;
     }
 
+    @Transactional
     public AcompanhamentoDTO editar(Long id, AcompanhamentoDTO acompanhamentoNovo){
         Acompanhamento acompanhamento = repository.findById(id).orElse(null);
 
@@ -75,6 +90,7 @@ public class AcompanhamentoService {
         return this.converterParaDTO(acompanhamento);
     }
 
+    @Transactional
     public String deletar(Long id){
         repository.deleteById(id);
         return ("Acompanhamento deletado com sucesso!");

@@ -4,6 +4,8 @@ import com.piazzariap1.pizzaria.entity.abstractEntity.AbstractEntity;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +18,8 @@ public class Pedido extends AbstractEntity {
 
     @ManyToOne
     @Getter @Setter
+    @NotNull(message = "Cliente do pedido informado é um campo obrigatorio!")
+    @NotBlank(message = "Cliente do pedido informado não pode ser vazio!")
     @JoinColumn(name = "idCliente_pedido")
     private Cliente cliente;
 
@@ -26,6 +30,8 @@ public class Pedido extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )
     @Getter @Setter
+    @NotNull(message = "Itens do pedido informado é um campo obrigatorio!")
+    @NotBlank(message = "Itens do pedido informado não pode ser vazio!")
     private Set<ItemPedido> item = new HashSet<>();
 
     @ManyToMany
@@ -39,6 +45,8 @@ public class Pedido extends AbstractEntity {
 
     @ManyToOne
     @Getter @Setter
+    @NotNull(message = "Funcionario responsável pelo pedido é um campo obrigatorio!")
+    @NotBlank(message = "Funcionario responsável pelo pedido informado não pode ser vazio!")
     @JoinColumn(name = "idFuncionario_pedido")
     private Funcionario funcionario;
 
@@ -47,6 +55,8 @@ public class Pedido extends AbstractEntity {
     private String observacao;
 
     @Getter @Setter
+    @NotNull(message = "Entrega do pedido informado é um campo obrigatorio!")
+    @NotBlank(message = "Entrega do pedido informado não pode ser vazio!")
     @JoinColumn(name = "entregar_pedido")
     private Boolean entregar;
 
@@ -59,6 +69,8 @@ public class Pedido extends AbstractEntity {
     private SituacaoPedido situacaoPedido;
 
     @Getter @Setter
+    @NotNull(message = "Forma de pagamento do pedido informado é um campo obrigatorio!")
+    @NotBlank(message = "Forma de pagamento do pedido informado não pode ser vazio!")
     @JoinColumn(name = "forma_pagamento_pedido")
     private FormaDePagamento formaDePagamento;
 

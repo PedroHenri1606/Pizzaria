@@ -1,9 +1,9 @@
 package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.dto.PedidoDTO;
-import com.piazzariap1.pizzaria.dto.ProdutoDTO;
 import com.piazzariap1.pizzaria.entity.Pedido;
 import com.piazzariap1.pizzaria.repository.PedidoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,7 @@ public class PedidoService {
     @Autowired
     private PedidoRepository repository;
 
+    @Transactional
     public Pedido cadastrar(PedidoDTO pedidoDTO){
         Pedido pedido = new Pedido();
 
@@ -35,30 +36,41 @@ public class PedidoService {
         return pedido;
     }
 
-    public PedidoDTO buscarPorId(Long id){
-        Pedido pedido = repository.findById(id).orElse(null);
-        PedidoDTO pedidoDTO = new PedidoDTO();
+    public PedidoDTO buscarPorId(Long id) {
 
-        pedidoDTO.setId(pedido.getId());
-        pedidoDTO.setCadastro(pedido.getCadastro());
-        pedidoDTO.setEdicao(pedido.getEdicao());
-        pedidoDTO.setAtivo(pedidoDTO.isAtivo());
-        pedidoDTO.setCliente(pedido.getCliente());
-        pedidoDTO.setItem(pedido.getItem());
-        pedidoDTO.setAcompanhamento(pedido.getAcompanhamento());
-        pedidoDTO.setFuncionario(pedido.getFuncionario());
-        pedidoDTO.setObservacao(pedido.getObservacao());
-        pedidoDTO.setEntregar(pedido.getEntregar());
-        pedidoDTO.setPago(pedido.getPago());
-        pedidoDTO.setSituacaoPedido(pedido.getSituacaoPedido());
-        pedidoDTO.setFormaDePagamento(pedido.getFormaDePagamento());
-        pedidoDTO.setValorTotal(pedido.getValorTotal());
+        if (id == 0) {
+            throw new RuntimeException("por favor, informe um valor valido!");
+        } else if (repository.findById(id).isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar o pedido informado!");
+        } else {
 
-        return pedidoDTO;
+            Pedido pedido = repository.findById(id).orElse(null);
+            PedidoDTO pedidoDTO = new PedidoDTO();
+
+            pedidoDTO.setId(pedido.getId());
+            pedidoDTO.setCadastro(pedido.getCadastro());
+            pedidoDTO.setEdicao(pedido.getEdicao());
+            pedidoDTO.setAtivo(pedidoDTO.isAtivo());
+            pedidoDTO.setCliente(pedido.getCliente());
+            pedidoDTO.setItem(pedido.getItem());
+            pedidoDTO.setAcompanhamento(pedido.getAcompanhamento());
+            pedidoDTO.setFuncionario(pedido.getFuncionario());
+            pedidoDTO.setObservacao(pedido.getObservacao());
+            pedidoDTO.setEntregar(pedido.getEntregar());
+            pedidoDTO.setPago(pedido.getPago());
+            pedidoDTO.setSituacaoPedido(pedido.getSituacaoPedido());
+            pedidoDTO.setFormaDePagamento(pedido.getFormaDePagamento());
+            pedidoDTO.setValorTotal(pedido.getValorTotal());
+
+            return pedidoDTO;
+        }
     }
 
     public List<PedidoDTO> listar(){
         List<Pedido> pedidos = repository.findAll();
+        if(pedidos.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum pedido cadastrado!");
+        }
 
         return pedidos.stream().map(this::converterParaDTO).collect(Collectors.toList());
     }
@@ -84,6 +96,7 @@ public class PedidoService {
         return pedidoDTO;
     }
 
+    @Transactional
     public PedidoDTO editar(Long id, PedidoDTO pedidoNovo){
          Pedido pedidoBanco = repository.findById(id).orElse(null);
 
@@ -108,6 +121,7 @@ public class PedidoService {
         return converterParaDTO(pedidoBanco);
     }
 
+    @Transactional
     public String deletar(Long id){
         repository.deleteById(id);
 

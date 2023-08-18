@@ -2,6 +2,8 @@ package com.piazzariap1.pizzaria.entity;
 
 import com.piazzariap1.pizzaria.entity.abstractEntity.AbstractEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +19,8 @@ public class ItemPedido extends AbstractEntity {
     private Produto idProduto;
 
     @Getter @Setter
+    @NotNull(message = "Quantidade do produto informado é um campo obrigatorio!")
+    @NotBlank(message = "Quantidade do produto informado não pode ser vazio!")
     @Column(name = "quantidade_item")
     private Integer quantidade;
 
@@ -27,5 +31,7 @@ public class ItemPedido extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "id_sabor")
     )
     @Getter @Setter
+    @NotNull(message = "Sabor do produto informado é um campo obrigatorio!")
+    @NotBlank(message = "Sabor do produto informado não pode ser vazio!")
     private Set<Sabor> sabor = new HashSet<>();
 }
