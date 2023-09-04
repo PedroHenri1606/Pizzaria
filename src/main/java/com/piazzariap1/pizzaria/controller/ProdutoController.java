@@ -1,14 +1,26 @@
 package com.piazzariap1.pizzaria.controller;
 
 import com.piazzariap1.pizzaria.dto.ProdutoDTO;
-import com.piazzariap1.pizzaria.entity.Produto;
 import com.piazzariap1.pizzaria.service.ProdutoService;
-import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+/*
+
+    {
+        "id": 1,
+        "cadastro": "2023-09-03T23:31:33.6303253",
+        "edicao": null,
+        "ativo": true,
+        "descricao": "Pizza GG",
+        "tamanho": "GG",
+        "valor": 8
+    }
+
+ */
 
 @RestController
 @RequestMapping(value = "/produto")
@@ -17,48 +29,53 @@ public class ProdutoController {
     @Autowired
     private ProdutoService service;
 
-    @GetMapping
-    public ResponseEntity<ProdutoDTO> buscarPorId(@RequestParam("id") final Long id){
+    @PostMapping
+    private ResponseEntity<Object> cadastrar(@Valid @RequestBody final ProdutoDTO produtoDTO){
         try {
-            return ResponseEntity.ok().body(service.buscarPorId(id));
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(produtoDTO));
+
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar")
+    private ResponseEntity<Object> buscarPorId(@RequestParam("id") final Long id){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
         }
     }
 
     @GetMapping(value = "/listar")
-    public ResponseEntity<List<ProdutoDTO>> listar(){
+    private ResponseEntity<Object> listar(){
         try {
-            return ResponseEntity.ok().body(service.listar());
-        } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
+            return ResponseEntity.status(HttpStatus.OK).body(service.listar());
 
-    @PostMapping
-    public ResponseEntity<Produto> cadastrar(@RequestBody final ProdutoDTO produtoDTO){
-        try {
-            return ResponseEntity.ok().body(service.cadastrar(produtoDTO));
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
         }
     }
 
     @PutMapping(value = "/editar")
-    public ResponseEntity<ProdutoDTO> editar(@RequestParam("id") final Long id, @RequestBody final ProdutoDTO produtoNovo){
+    private ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final ProdutoDTO produtoDTO){
         try {
-            return ResponseEntity.ok().body(service.editar(id,produtoNovo));
+            return ResponseEntity.status(HttpStatus.OK).body(service.editar(id,produtoDTO));
+
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
         }
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
-            return ResponseEntity.ok().body(service.deletar(id));
+            service.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Aluno deletado com sucesso!");
         } catch (Exception e){
-            return ResponseEntity.badRequest().body("Error, não foi possivel deletar o produto informado!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, não foi possivel localizar o produto informado");
         }
     }
 }

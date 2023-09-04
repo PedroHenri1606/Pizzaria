@@ -1,26 +1,24 @@
 package com.piazzariap1.pizzaria.controller;
 
-
 import com.piazzariap1.pizzaria.dto.ClienteDTO;
-import com.piazzariap1.pizzaria.entity.Cliente;
 import com.piazzariap1.pizzaria.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /*
 
-{
-    "id": 1,
-    "cadastro": "2023-08-16T18:46:08.180458",
-    "edicao": null,
-    "ativo": true,
-    "nome": "Pedro Henrique",
-    "cpf": "10250870975",
-    "telefone": "45 998265476"
-}
+    {
+        "id": 1,
+        "cadastro": "2023-09-03T23:14:02.563571",
+        "edicao": null,
+        "ativo": true,
+        "nome": "Pedro Henrique",
+        "cpf": "12345678911",
+        "telefone": "45 998265476"
+    }
 
  */
 
@@ -31,48 +29,53 @@ public class ClienteController {
     @Autowired
     private ClienteService service;
 
-    @GetMapping
-    public ResponseEntity<ClienteDTO> buscarPorId(@RequestParam("id") Long id){
+    @PostMapping
+    private ResponseEntity<Object> cadastrar(@Valid @RequestBody final ClienteDTO clienteDTO){
         try {
-            return ResponseEntity.ok().body(service.buscarPorId(id));
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(clienteDTO));
+
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar")
+    private ResponseEntity<Object> buscarPorId(@RequestParam("id") final Long id){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
         }
     }
 
     @GetMapping(value = "/listar")
-    public ResponseEntity<List<ClienteDTO>> listar(){
+    private ResponseEntity<Object> listar(){
         try {
-            return ResponseEntity.ok().body(service.listar());
-        } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
+            return ResponseEntity.status(HttpStatus.OK).body(service.listar());
 
-    @PostMapping
-    public ResponseEntity<Cliente> cadastrar(@RequestBody final ClienteDTO clienteDTO){
-        try {
-            return ResponseEntity.ok().body(service.cadastrar(clienteDTO));
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
         }
     }
 
     @PutMapping(value = "/editar")
-    public ResponseEntity<ClienteDTO> editar(@RequestParam("id") final Long id, @RequestBody final ClienteDTO clienteNovo){
+    private ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final ClienteDTO clienteDTO){
         try {
-            return ResponseEntity.ok().body(service.editar(id,clienteNovo));
+            return ResponseEntity.status(HttpStatus.OK).body(service.editar(id,clienteDTO));
+
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
         }
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
-            return ResponseEntity.ok().body(service.deletar(id));
+            service.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Aluno deletado com sucesso!");
         } catch (Exception e){
-            return ResponseEntity.badRequest().body("Error " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, não foi possivel localizar o cliente informado");
         }
     }
 }

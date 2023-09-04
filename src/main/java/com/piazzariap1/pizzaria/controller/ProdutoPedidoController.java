@@ -1,48 +1,24 @@
 package com.piazzariap1.pizzaria.controller;
 
-import com.piazzariap1.pizzaria.dto.EnderecoDTO;
-import com.piazzariap1.pizzaria.service.EnderecoService;
+import com.piazzariap1.pizzaria.dto.ProdutoPedidoDTO;
+import com.piazzariap1.pizzaria.service.ProdutoPedidoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/*
-
-    {
-        "id": 1,
-        "cadastro": "2023-09-03T23:16:50.058455",
-        "edicao": null,
-        "ativo": true,
-        "cep": "85859340",
-        "bairro": "Morumbi II",
-        "logadouro": "Belmiro",
-        "numero": "2",
-        "cliente": {
-            "id": 1,
-            "cadastro": "2023-09-03T23:14:02.563571",
-            "edicao": null,
-            "ativo": true,
-            "nome": "Pedro Henrique",
-            "cpf": "12345678911",
-            "telefone": "45 998265476"
-        }
-    }
-
- */
-
 @RestController
-@RequestMapping(value = "/endereco")
-public class EnderecoController {
+@RequestMapping(value = "/produto-pedido")
+public class ProdutoPedidoController {
 
     @Autowired
-    private EnderecoService service;
+    private ProdutoPedidoService service;
 
     @PostMapping
-    private ResponseEntity<Object> cadastrar(@Valid @RequestBody final EnderecoDTO enderecoDTO){
+    private ResponseEntity<Object> cadastrar(@Valid @RequestBody final ProdutoPedidoDTO produtoPedidoDTO){
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(enderecoDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(produtoPedidoDTO));
 
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
@@ -70,9 +46,9 @@ public class EnderecoController {
     }
 
     @PutMapping(value = "/editar")
-    private ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final EnderecoDTO enderecoDTO){
+    private ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final ProdutoPedidoDTO produtoPedidoDTO){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(service.editar(id,enderecoDTO));
+            return ResponseEntity.status(HttpStatus.OK).body(service.editar(id, produtoPedidoDTO));
 
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
@@ -85,7 +61,7 @@ public class EnderecoController {
             service.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body("Aluno deletado com sucesso!");
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, não foi possivel localizar o endereço informado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, não foi possivel localizar o item informado");
         }
     }
 }

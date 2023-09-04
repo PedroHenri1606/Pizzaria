@@ -4,11 +4,12 @@ import com.piazzariap1.pizzaria.dto.EnderecoDTO;
 import com.piazzariap1.pizzaria.entity.Endereco;
 import com.piazzariap1.pizzaria.repository.EnderecoRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class EnderecoService {
@@ -20,82 +21,48 @@ public class EnderecoService {
     public Endereco cadastrar(EnderecoDTO enderecoDTO){
         Endereco endereco = new Endereco();
 
-        endereco.setCep(enderecoDTO.getCep());
-        endereco.setLogadouro(enderecoDTO.getLogadouro());
-        endereco.setBairro(enderecoDTO.getBairro());
-        endereco.setNumero(enderecoDTO.getNumero());
-        endereco.setIdCliente(enderecoDTO.getClienteId());
+        BeanUtils.copyProperties(enderecoDTO,endereco);
 
         return repository.save(endereco);
     }
 
-    public EnderecoDTO buscarPorId(Long id) {
-
-        if (id == 0) {
-            throw new RuntimeException("por favor, informe um valor valido!");
-        } else if (repository.findById(id).isEmpty()) {
-            throw new RuntimeException("não foi possivel localizar o endereço informado!");
+    public Endereco buscarPorId(Long id){
+        Optional<Endereco> endereco = repository.findById(id);
+        if(endereco.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o endereco informado!");
         } else {
-
-            Endereco endereco = repository.findById(id).orElse(null);
-            EnderecoDTO enderecoDTO = new EnderecoDTO();
-
-            enderecoDTO.setId(endereco.getId());
-            enderecoDTO.setCep(endereco.getCep());
-            enderecoDTO.setLogadouro(endereco.getLogadouro());
-            enderecoDTO.setBairro(endereco.getBairro());
-            enderecoDTO.setNumero(endereco.getNumero());
-            enderecoDTO.setClienteId(endereco.getIdCliente());
-
-            return enderecoDTO;
+            return endereco.get();
         }
     }
 
-    public List<EnderecoDTO> listar(){
-        List<Endereco> enderecos = repository.findAll();
-        if(enderecos.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum endereço cadastrado!");
+    public List<Endereco> listar(){
+        if(repository.findAll().isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum endereco cadastrado!");
+        } else {
+            return repository.findAll();
         }
-
-        return enderecos.stream().map(this::converterParaDTO).collect(Collectors.toList());
-    }
-
-    public EnderecoDTO converterParaDTO(Endereco endereco){
-        EnderecoDTO enderecoDTO = new EnderecoDTO();
-
-        enderecoDTO.setId(endereco.getId());
-        enderecoDTO.setCep(endereco.getCep());
-        enderecoDTO.setLogadouro(endereco.getLogadouro());
-        enderecoDTO.setBairro(endereco.getBairro());
-        enderecoDTO.setNumero(endereco.getNumero());
-        enderecoDTO.setClienteId(endereco.getIdCliente());
-
-        return enderecoDTO;
     }
 
     @Transactional
-    public EnderecoDTO editar(Long id, EnderecoDTO enderecoNovo){
+    public Endereco editar(Long id, EnderecoDTO enderecoNovo){
+        Endereco enderecoBanco = this.buscarPorId(id);
 
-        Endereco enderecoBanco = repository.findById(id).orElse(null);
-
-        if(enderecoNovo.getId() == 0 || !enderecoBanco.getId().equals(enderecoNovo.getId())){
-            throw new RuntimeException("Não foi possivel localizar o endereço informado!");
+        if(id == 0 || !enderecoNovo.getId().equals(enderecoBanco.getId())){
+            throw new RuntimeException("não foi possivel localizar o endereco informado!");
         }
 
-        enderecoBanco.setCep(enderecoNovo.getCep());
-        enderecoBanco.setLogadouro(enderecoNovo.getLogadouro());
-        enderecoBanco.setBairro(enderecoNovo.getBairro());
         enderecoBanco.setNumero(enderecoNovo.getNumero());
-        enderecoBanco.setIdCliente(enderecoNovo.getClienteId());
+        enderecoBanco.setBairro(enderecoNovo.getBairro());
+        enderecoBanco.setLogadouro(enderecoNovo.getLogadouro());
+        enderecoBanco.setCep(enderecoNovo.getCep());
 
-        repository.save(enderecoBanco);
-
-        return converterParaDTO(enderecoBanco);
+        return repository.save(enderecoBanco);
     }
 
     @Transactional
-    public String deletar(Long id){
-        repository.deleteById(id);
-        return ("Endereço deletado com sucesso!");
+    public void delete(Long id){
+        Endereco endereco = this.buscarPorId(id);
+
+        repository.delete(endereco);
     }
 }

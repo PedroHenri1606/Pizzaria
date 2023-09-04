@@ -1,7 +1,6 @@
 package com.piazzariap1.pizzaria.dto;
 
 import com.piazzariap1.pizzaria.dto.abstractEntityDTO.AbstractEntityDTO;
-import com.piazzariap1.pizzaria.entity.enuns.tamanhoProduto;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,15 +1,12 @@
 package com.piazzariap1.pizzaria.controller;
 
 import com.piazzariap1.pizzaria.dto.PedidoDTO;
-import com.piazzariap1.pizzaria.dto.ProdutoDTO;
-import com.piazzariap1.pizzaria.entity.Pedido;
-import com.piazzariap1.pizzaria.entity.Produto;
 import com.piazzariap1.pizzaria.service.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/pedido")
@@ -18,48 +15,53 @@ public class PedidoController {
     @Autowired
     private PedidoService service;
 
-    @GetMapping
-    public ResponseEntity<PedidoDTO> buscarPorId(@RequestParam("id") final Long id){
+    @PostMapping
+    private ResponseEntity<Object> cadastrar(@Valid @RequestBody final PedidoDTO pedidoDTO){
         try {
-            return ResponseEntity.ok().body(service.buscarPorId(id));
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(pedidoDTO));
+
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar")
+    private ResponseEntity<Object> buscarPorId(@RequestParam("id") final Long id){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
         }
     }
 
     @GetMapping(value = "/listar")
-    public ResponseEntity<List<PedidoDTO>> listar(){
+    private ResponseEntity<Object> listar(){
         try {
-            return ResponseEntity.ok().body(service.listar());
-        } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
+            return ResponseEntity.status(HttpStatus.OK).body(service.listar());
 
-    @PostMapping
-    public ResponseEntity<Pedido> cadastrar(@RequestBody final PedidoDTO pedidoDTO){
-        try {
-            return ResponseEntity.ok().body(service.cadastrar(pedidoDTO));
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
         }
     }
 
     @PutMapping(value = "/editar")
-    public ResponseEntity<PedidoDTO> editar(@RequestParam("id") final Long id, @RequestBody final PedidoDTO pedidoDTO){
+    private ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final PedidoDTO pedidoDTO){
         try {
-            return ResponseEntity.ok().body(service.editar(id,pedidoDTO));
+            return ResponseEntity.status(HttpStatus.OK).body(service.editar(id,pedidoDTO));
+
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
         }
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
-            return ResponseEntity.ok().body(service.deletar(id));
+            service.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Aluno deletado com sucesso!");
         } catch (Exception e){
-            return ResponseEntity.badRequest().body("Error, não foi possivel deletar o pedido informado!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, não foi possivel localizar o pedido informado");
         }
     }
 }

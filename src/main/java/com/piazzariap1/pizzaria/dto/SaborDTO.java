@@ -4,6 +4,7 @@ import com.piazzariap1.pizzaria.dto.abstractEntityDTO.AbstractEntityDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+
 public class SaborDTO extends AbstractEntityDTO {
 
     @Getter @Setter

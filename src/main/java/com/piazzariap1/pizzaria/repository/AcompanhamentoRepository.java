@@ -11,6 +11,4 @@ import java.util.List;
 @Repository
 public interface AcompanhamentoRepository extends JpaRepository<Acompanhamento,Long> {
 
-    @Query("SELECT Acompanhamento FROM Acompanhamento acompanhamento WHERE acompanhamento.descricao = :descricao")
-    public List<Acompanhamento> verificaDescricao(@Param("descricao") String descricao);
 }

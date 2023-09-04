@@ -1,8 +1,8 @@
 package com.piazzariap1.pizzaria.service;
 
-import com.piazzariap1.pizzaria.dto.AcompanhamentoDTO;
-import com.piazzariap1.pizzaria.entity.Acompanhamento;
-import com.piazzariap1.pizzaria.repository.AcompanhamentoRepository;
+import com.piazzariap1.pizzaria.dto.AcompanhamentoPedidoDTO;
+import com.piazzariap1.pizzaria.entity.AcompanhamentoPedido;
+import com.piazzariap1.pizzaria.repository.AcompanhamentoPedidoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,22 +12,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AcompanhamentoService {
+public class AcompanhamentoPedidoService {
 
     @Autowired
-    private AcompanhamentoRepository repository;
+    private AcompanhamentoPedidoRepository repository;
 
     @Transactional
-    public Acompanhamento cadastrar(AcompanhamentoDTO acompanhamentoDTO){
-        Acompanhamento acompanhamento = new Acompanhamento();
+    public AcompanhamentoPedido cadastrar(AcompanhamentoPedidoDTO acompanhamentoPedidoDTO){
+        AcompanhamentoPedido acompanhamento = new AcompanhamentoPedido();
 
-        BeanUtils.copyProperties(acompanhamentoDTO,acompanhamento);
+        BeanUtils.copyProperties(acompanhamentoPedidoDTO,acompanhamento);
 
         return repository.save(acompanhamento);
     }
 
-    public Acompanhamento buscarPorId(Long id){
-        Optional<Acompanhamento> acompanhamento = repository.findById(id);
+    public AcompanhamentoPedido buscarPorId(Long id){
+        Optional<AcompanhamentoPedido> acompanhamento = repository.findById(id);
         if(acompanhamento.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
         } else {
@@ -35,7 +35,7 @@ public class AcompanhamentoService {
         }
     }
 
-    public List<Acompanhamento> listar(){
+    public List<AcompanhamentoPedido> listar(){
         if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum acompanhamento cadastrado!");
         } else {
@@ -44,22 +44,21 @@ public class AcompanhamentoService {
     }
 
     @Transactional
-    public Acompanhamento editar(Long id, AcompanhamentoDTO acompanhamentoNovo){
-        Acompanhamento acompanhamentoBanco = this.buscarPorId(id);
+    public AcompanhamentoPedido editar(Long id, AcompanhamentoPedidoDTO acompanhamentoNovo){
+        AcompanhamentoPedido acompanhamentoBanco = this.buscarPorId(id);
 
         if(id == 0 || !acompanhamentoNovo.getId().equals(acompanhamentoBanco.getId())){
             throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
         }
 
-        acompanhamentoBanco.setDescricao(acompanhamentoNovo.getDescricao());
-        acompanhamentoBanco.setValor(acompanhamentoBanco.getValor());
+        acompanhamentoBanco.setQuantidade(acompanhamentoBanco.getQuantidade());
 
         return repository.save(acompanhamentoBanco);
     }
 
     @Transactional
     public void delete(Long id){
-        Acompanhamento acompanhamento = this.buscarPorId(id);
+        AcompanhamentoPedido acompanhamento = this.buscarPorId(id);
 
         repository.delete(acompanhamento);
     }

@@ -1,6 +1,5 @@
 package com.piazzariap1.pizzaria.dto;
 
-
 import com.piazzariap1.pizzaria.dto.abstractEntityDTO.AbstractEntityDTO;
 import com.piazzariap1.pizzaria.entity.Cliente;
 import lombok.Getter;
@@ -21,5 +20,5 @@ public class EnderecoDTO extends AbstractEntityDTO {
     private String numero;
 
     @Getter @Setter
-    private Cliente clienteId;
+    private Cliente cliente;
 }

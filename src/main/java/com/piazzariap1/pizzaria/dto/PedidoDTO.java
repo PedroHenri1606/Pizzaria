@@ -4,7 +4,7 @@ import com.piazzariap1.pizzaria.dto.abstractEntityDTO.AbstractEntityDTO;
 import com.piazzariap1.pizzaria.entity.Acompanhamento;
 import com.piazzariap1.pizzaria.entity.Cliente;
 import com.piazzariap1.pizzaria.entity.Funcionario;
-import com.piazzariap1.pizzaria.entity.ItemPedido;
+import com.piazzariap1.pizzaria.entity.ProdutoPedido;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class PedidoDTO extends AbstractEntityDTO {
     private Cliente cliente;
 
     @Getter @Setter
-    private Set<ItemPedido> item = new HashSet<>();
+    private Set<ProdutoPedido> item = new HashSet<>();
 
     @Getter @Setter
     private Set<Acompanhamento> acompanhamento = new HashSet<>();

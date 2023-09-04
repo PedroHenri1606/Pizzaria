@@ -4,11 +4,12 @@ import com.piazzariap1.pizzaria.dto.ClienteDTO;
 import com.piazzariap1.pizzaria.entity.Cliente;
 import com.piazzariap1.pizzaria.repository.ClienteRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -20,80 +21,47 @@ public class ClienteService {
     public Cliente cadastrar(ClienteDTO clienteDTO){
         Cliente cliente = new Cliente();
 
-        cliente.setNome(clienteDTO.getNome());
-        cliente.setCpf(clienteDTO.getCpf());
-        cliente.setTelefone(cliente.getTelefone());
+        BeanUtils.copyProperties(clienteDTO,cliente);
 
-        if(repository.verificaCPF(cliente.getCpf()).isEmpty()){
-            return repository.save(cliente);
-        } else{
-            throw new RuntimeException("cliente informado já esta cadastrado!");
-        }
+        return repository.save(cliente);
     }
 
-    public ClienteDTO buscarPorId(Long id) {
-
-        if (id == 0) {
-            throw new RuntimeException("por favor, informe um valor valido!");
-        } else if (repository.findById(id).isEmpty()) {
+    public Cliente buscarPorId(Long id){
+        Optional<Cliente> cliente = repository.findById(id);
+        if(cliente.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o cliente informado!");
         } else {
-
-            Cliente cliente = repository.findById(id).orElse(null);
-            ClienteDTO clienteDTO = new ClienteDTO();
-
-            clienteDTO.setId(cliente.getId());
-            clienteDTO.setNome(cliente.getNome());
-            clienteDTO.setCpf(cliente.getCpf());
-            clienteDTO.setTelefone(cliente.getTelefone());
-            clienteDTO.setAtivo(cliente.isAtivo());
-            clienteDTO.setCadastro(cliente.getCadastro());
-
-            return clienteDTO;
+            return cliente.get();
         }
     }
 
-    public List<ClienteDTO> listar(){
-        List<Cliente> clientes = repository.findAll();
-        if(clientes.isEmpty()){
+    public List<Cliente> listar(){
+        if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum cliente cadastrado!");
+        } else {
+            return repository.findAll();
         }
-        return clientes.stream().map(this::converterParaDTO).collect(Collectors.toList());
-    }
-    private ClienteDTO converterParaDTO(Cliente cliente) {
-        ClienteDTO clienteDTO = new ClienteDTO();
-
-        clienteDTO.setId(cliente.getId());
-        clienteDTO.setNome(cliente.getNome());
-        clienteDTO.setCpf(cliente.getCpf());
-        clienteDTO.setTelefone(cliente.getTelefone());
-        clienteDTO.setAtivo(cliente.isAtivo());
-        clienteDTO.setCadastro(cliente.getCadastro());
-        return clienteDTO;
     }
 
     @Transactional
-    public ClienteDTO editar(Long id, ClienteDTO clienteNovo){
+    public Cliente editar(Long id, ClienteDTO clienteNovo){
+        Cliente clienteBanco = this.buscarPorId(id);
 
-        Cliente clienteBanco = repository.findById(id).orElse(null);
-
-        if(clienteNovo.getId() == 0 || !clienteNovo.getId().equals(clienteBanco.getId())) {
-            throw new RuntimeException("Não foi possivel localizar cliente informado!");
+        if(id == 0 || !clienteNovo.getId().equals(clienteBanco.getId())){
+            throw new RuntimeException("não foi possivel localizar o cliente informado!");
         }
 
         clienteBanco.setNome(clienteNovo.getNome());
-        clienteBanco.setCpf(clienteNovo.getCpf());
         clienteBanco.setTelefone(clienteNovo.getTelefone());
-        clienteBanco.setAtivo(clienteNovo.isAtivo());
+        clienteBanco.setCpf(clienteNovo.getCpf());
 
-        repository.save(clienteBanco);
-
-        return converterParaDTO(clienteBanco);
+        return repository.save(clienteBanco);
     }
 
     @Transactional
-    public String deletar(Long id){
-         repository.deleteById(id);
-         return ("Cliente deletado com sucesso!");
+    public void delete(Long id){
+        Cliente cliente = this.buscarPorId(id);
+
+        repository.delete(cliente);
     }
 }

@@ -4,11 +4,12 @@ import com.piazzariap1.pizzaria.dto.ProdutoDTO;
 import com.piazzariap1.pizzaria.entity.Produto;
 import com.piazzariap1.pizzaria.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -16,82 +17,50 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
 
-
     @Transactional
     public Produto cadastrar(ProdutoDTO produtoDTO){
         Produto produto = new Produto();
 
-        produto.setDescricao(produtoDTO.getDescricao());
-        produto.setValor(produtoDTO.getValor());
-        produto.setTamanho(produto.getTamanho());
+        BeanUtils.copyProperties(produtoDTO,produto);
 
         return repository.save(produto);
     }
 
-    public ProdutoDTO buscarPorId(Long id){
-
-        if (id == 0) {
-            throw new RuntimeException("por favor, informe um valor valido!");
-        } else if (repository.findById(id).isEmpty()) {
+    public Produto buscarPorId(Long id){
+        Optional<Produto> produto = repository.findById(id);
+        if(produto.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o produto informado!");
         } else {
-
-            Produto produto = repository.findById(id).orElse(null);
-            ProdutoDTO produtoDTO = new ProdutoDTO();
-
-            produtoDTO.setId(produto.getId());
-            produtoDTO.setCadastro(produto.getCadastro());
-            produtoDTO.setEdicao(produto.getEdicao());
-            produtoDTO.setAtivo(produto.isAtivo());
-            produtoDTO.setDescricao(produto.getDescricao());
-            produtoDTO.setValor(produto.getValor());
-            produtoDTO.setTamanho(produto.getTamanho());
-
-            return produtoDTO;
+            return produto.get();
         }
     }
 
-    public List<ProdutoDTO> listar(){
-        List<Produto> produtos = repository.findAll();
-        if(produtos.isEmpty()){
+    public List<Produto> listar(){
+        if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum produto cadastrado!");
+        } else {
+            return repository.findAll();
         }
-
-        return produtos.stream().map(this::converterParaDTO).collect(Collectors.toList());
-    }
-
-    public ProdutoDTO converterParaDTO(Produto produto){
-        ProdutoDTO produtoDTO = new ProdutoDTO();
-
-        produtoDTO.setId(produto.getId());
-        produtoDTO.setCadastro(produto.getCadastro());
-        produtoDTO.setEdicao(produto.getEdicao());
-        produtoDTO.setAtivo(produto.isAtivo());
-        produtoDTO.setDescricao(produto.getDescricao());
-        produtoDTO.setValor(produto.getValor());
-        produtoDTO.setTamanho(produto.getTamanho());
-
-        return produtoDTO;
     }
 
     @Transactional
-    public ProdutoDTO editar(Long id, ProdutoDTO produtoNovo){
-        Produto produtoBanco = repository.findById(id).orElse(null);
+    public Produto editar(Long id, ProdutoDTO produtoNovo){
+        Produto produtoBanco = this.buscarPorId(id);
 
-        if(produtoNovo.getId() == 0 || !produtoNovo.getId().equals(produtoBanco.getId())){
-            throw new RuntimeException("Não foi possivel localizar o produto informado!");
+        if(id == 0 || !produtoNovo.getId().equals(produtoBanco.getId())){
+            throw new RuntimeException("não foi possivel localizar o produto informado!");
         }
 
         produtoBanco.setDescricao(produtoNovo.getDescricao());
         produtoBanco.setValor(produtoNovo.getValor());
-        produtoBanco.setTamanho(produtoNovo.getTamanho());
 
-        return this.converterParaDTO(produtoBanco);
+        return repository.save(produtoBanco);
     }
 
     @Transactional
-    public String deletar(Long id){
-        repository.deleteById(id);
-        return ("Produto informado deletado com sucesso!");
+    public void delete(Long id){
+        Produto produto = this.buscarPorId(id);
+
+        repository.delete(produto);
     }
 }

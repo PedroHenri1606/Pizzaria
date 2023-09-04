@@ -4,77 +4,57 @@ import com.piazzariap1.pizzaria.entity.abstractEntity.AbstractEntity;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+
 
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
-@Table(name = "tb_pedido", schema = "public")
+@Table(name = "tb_pedido")
 public class Pedido extends AbstractEntity {
 
-    @ManyToOne
     @Getter @Setter
-    @NotNull(message = "Cliente do pedido informado é um campo obrigatorio!")
-    @NotBlank(message = "Cliente do pedido informado não pode ser vazio!")
-    @JoinColumn(name = "idCliente_pedido")
+    @ManyToOne
+    @JoinColumn(name = "cliente")
     private Cliente cliente;
 
-    @ManyToMany
-    @JoinTable(
-            name = "pedido_item",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id")
-    )
     @Getter @Setter
-    @NotNull(message = "Itens do pedido informado é um campo obrigatorio!")
-    @NotBlank(message = "Itens do pedido informado não pode ser vazio!")
-    private Set<ItemPedido> item = new HashSet<>();
+    @OneToMany(mappedBy = "pedido")
+    private Set<ProdutoPedido> item = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "pedido_acompanhamento",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "acompanhamento_id")
-    )
     @Getter @Setter
+    @OneToMany(mappedBy = "pedido")
     private Set<Acompanhamento> acompanhamento = new HashSet<>();
 
-    @ManyToOne
     @Getter @Setter
-    @NotNull(message = "Funcionario responsável pelo pedido é um campo obrigatorio!")
-    @NotBlank(message = "Funcionario responsável pelo pedido informado não pode ser vazio!")
-    @JoinColumn(name = "idFuncionario_pedido")
+    @ManyToOne
+    @JoinColumn(name = "funcionario")
     private Funcionario funcionario;
 
     @Getter @Setter
-    @JoinColumn(name = "observacao_pedido")
+    @Column(name = "observacao")
     private String observacao;
 
     @Getter @Setter
-    @NotNull(message = "Entrega do pedido informado é um campo obrigatorio!")
-    @NotBlank(message = "Entrega do pedido informado não pode ser vazio!")
-    @JoinColumn(name = "entregar_pedido")
+    @Column(name = "entregar")
     private Boolean entregar;
 
     @Getter @Setter
-    @JoinColumn(name = "pago_pedido")
+    @Column(name = "pago")
     private Boolean pago;
 
     @Getter @Setter
-    @JoinColumn(name = "situacao_pedido")
+    @Column(name = "situacao_pedido")
     private SituacaoPedido situacaoPedido;
 
     @Getter @Setter
-    @NotNull(message = "Forma de pagamento do pedido informado é um campo obrigatorio!")
-    @NotBlank(message = "Forma de pagamento do pedido informado não pode ser vazio!")
-    @JoinColumn(name = "forma_pagamento_pedido")
+    @Column(name = "forma_de_pagamento")
     private FormaDePagamento formaDePagamento;
 
     @Getter @Setter
-    @JoinColumn(name = "valor_total_pedido")
+    @Column(name = "valor_total")
     private Long valorTotal;
 }
