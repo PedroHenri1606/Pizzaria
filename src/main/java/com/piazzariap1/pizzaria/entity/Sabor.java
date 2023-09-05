@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_sabor")
 public class Sabor extends AbstractEntity {
@@ -18,7 +21,6 @@ public class Sabor extends AbstractEntity {
     private String descricao;
 
     @Getter @Setter
-    @ManyToOne
-    @JoinColumn(name = "produto_id")
-    private ProdutoPedido produtoPedido;
+    @ManyToMany(mappedBy = "sabores")
+    private Set<ProdutoPedido> produtosPedidos;
 }

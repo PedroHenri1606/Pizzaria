@@ -10,8 +10,5 @@ public class ProdutoDTO extends AbstractEntityDTO {
     private String descricao;
 
     @Getter @Setter
-    private tamanhoProduto tamanho;
-
-    @Getter @Setter
     private Long valor;
 }

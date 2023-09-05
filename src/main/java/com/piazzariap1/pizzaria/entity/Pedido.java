@@ -22,12 +22,12 @@ public class Pedido extends AbstractEntity {
     private Cliente cliente;
 
     @Getter @Setter
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
     private Set<ProdutoPedido> item = new HashSet<>();
 
     @Getter @Setter
-    @OneToMany(mappedBy = "pedido")
-    private Set<Acompanhamento> acompanhamento = new HashSet<>();
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+    private Set<AcompanhamentoPedido> acompanhamento = new HashSet<>();
 
     @Getter @Setter
     @ManyToOne
@@ -47,10 +47,12 @@ public class Pedido extends AbstractEntity {
     private Boolean pago;
 
     @Getter @Setter
+    @Enumerated(EnumType.STRING)
     @Column(name = "situacao_pedido")
     private SituacaoPedido situacaoPedido;
 
     @Getter @Setter
+    @Enumerated(EnumType.STRING)
     @Column(name = "forma_de_pagamento")
     private FormaDePagamento formaDePagamento;
 

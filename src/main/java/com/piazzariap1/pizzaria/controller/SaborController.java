@@ -1,7 +1,7 @@
 package com.piazzariap1.pizzaria.controller;
 
 import com.piazzariap1.pizzaria.dto.SaborDTO;
-import com.piazzariap1.pizzaria.service.SaborService;
+import com.piazzariap1.pizzaria.service.Implementada.SaborServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 public class SaborController {
 
     @Autowired
-    private SaborService service;
+    private SaborServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final SaborDTO saborDTO){

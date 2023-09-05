@@ -1,7 +1,7 @@
 package com.piazzariap1.pizzaria.controller;
 
 import com.piazzariap1.pizzaria.dto.FuncionarioDTO;
-import com.piazzariap1.pizzaria.service.FuncionarioService;
+import com.piazzariap1.pizzaria.service.Implementada.FuncionarioServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class FuncionarioController {
 
     @Autowired
-    private FuncionarioService service;
+    private FuncionarioServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final FuncionarioDTO funcionarioDTO){

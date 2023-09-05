@@ -2,65 +2,57 @@ package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.dto.ProdutoDTO;
 import com.piazzariap1.pizzaria.entity.Produto;
-import com.piazzariap1.pizzaria.repository.ProdutoRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class ProdutoService {
+public interface ProdutoService {
 
-    @Autowired
-    private ProdutoRepository repository;
+    /**@PostMapping
+     *
+     * Ao receber o objeto produto, deve ser efetuado as validações, e se for altorizado
+     * deve persistir os dados no banco de dados, apos a persistencia
+     * ser possivel cadastrar um produtoPedido
+     *
+     *
+     * @param produtoDTO novo produto
+     * @return
+     */
+    Produto cadastrar(ProdutoDTO produtoDTO);
 
-    @Transactional
-    public Produto cadastrar(ProdutoDTO produtoDTO){
-        Produto produto = new Produto();
 
-        BeanUtils.copyProperties(produtoDTO,produto);
+    /**@GetMapping
+     *
+     * Ao receber o id, deve buscar no banco de dados o produto referente ao id
+     *
+     * @param id do produto já existente
+     * @return
+     */
+    Produto buscarPorId(Long id);
 
-        return repository.save(produto);
-    }
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os produtos já cadastrados
+     *
+     * @return
+     */
+    List<Produto> listar();
 
-    public Produto buscarPorId(Long id){
-        Optional<Produto> produto = repository.findById(id);
-        if(produto.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o produto informado!");
-        } else {
-            return produto.get();
-        }
-    }
+    /**@PutMapping
+     *
+     * Ao receber o id do produto e as informações do produto a ser editado, deve comparar
+     * os dois ids e se forem iguais, deve persistir os dados atualizados
+     *
+     * @param id do produto já existente
+     * @param produtoDTO objeto produto que fornecera as novas informações do produto selecionado
+     * @return
+     */
+    Produto editar(Long id, ProdutoDTO produtoDTO);
 
-    public List<Produto> listar(){
-        if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum produto cadastrado!");
-        } else {
-            return repository.findAll();
-        }
-    }
-
-    @Transactional
-    public Produto editar(Long id, ProdutoDTO produtoNovo){
-        Produto produtoBanco = this.buscarPorId(id);
-
-        if(id == 0 || !produtoNovo.getId().equals(produtoBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o produto informado!");
-        }
-
-        produtoBanco.setDescricao(produtoNovo.getDescricao());
-        produtoBanco.setValor(produtoNovo.getValor());
-
-        return repository.save(produtoBanco);
-    }
-
-    @Transactional
-    public void delete(Long id){
-        Produto produto = this.buscarPorId(id);
-
-        repository.delete(produto);
-    }
+    /**@DeleteMapping
+     *
+     * Ao receber o id do produto, efetua a busca para verificar se o id é valido, e em seguida, deleta o produto
+     *
+     * @param id utilizado para passar as informações do produto a ser deletado
+     */
+    void delete(Long id);
 }

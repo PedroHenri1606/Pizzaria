@@ -2,65 +2,55 @@ package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.dto.AcompanhamentoDTO;
 import com.piazzariap1.pizzaria.entity.Acompanhamento;
-import com.piazzariap1.pizzaria.repository.AcompanhamentoRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class AcompanhamentoService {
+public interface AcompanhamentoService {
 
-    @Autowired
-    private AcompanhamentoRepository repository;
+    /**@PostMapping
+     *
+     * Ao receber o objeto acompanhamento, sera efetuado as validações e se for altorizado
+     * ira persistir os dados no banco de dados apos a persistencia,
+     * sera possivel cadastrar um AcompanhamentoPedido
+     *
+     * @param acompanhamento novo acompanhamento
+     * @return
+     */
+    Acompanhamento cadastrar(AcompanhamentoDTO acompanhamento);
 
-    @Transactional
-    public Acompanhamento cadastrar(AcompanhamentoDTO acompanhamentoDTO){
-        Acompanhamento acompanhamento = new Acompanhamento();
+    /**@GetMapping
+     *
+     * Ao receber o id, deve buscar no banco de dados o acompanhamento referente ao id
+     *
+     * @param id do acompanhamento já existente
+     * @return
+     */
+    Acompanhamento buscarPorId(Long id);
 
-        BeanUtils.copyProperties(acompanhamentoDTO,acompanhamento);
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os acompanhamentos já cadastrados
+     *
+     * @return
+     */
+    List<Acompanhamento> listar();
 
-        return repository.save(acompanhamento);
-    }
+    /**@PutMapping
+     *
+     * Ao receber o id do acompanhamento e as informações do acompanhamento a ser editado, deve comparar
+     * os ids e se forem iguais, deve persistir os dados atualizados
+     *
+     * @param id do acompanhamento já existente
+     * @param acompanhamento objeto acompanhamento que fornecera as novas informações do acompanhamento solucionado
+     * @return
+     */
+    Acompanhamento editar(Long id, AcompanhamentoDTO acompanhamento);
 
-    public Acompanhamento buscarPorId(Long id){
-        Optional<Acompanhamento> acompanhamento = repository.findById(id);
-        if(acompanhamento.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
-        } else {
-            return acompanhamento.get();
-        }
-    }
-
-    public List<Acompanhamento> listar(){
-        if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum acompanhamento cadastrado!");
-        } else {
-            return repository.findAll();
-        }
-    }
-
-    @Transactional
-    public Acompanhamento editar(Long id, AcompanhamentoDTO acompanhamentoNovo){
-        Acompanhamento acompanhamentoBanco = this.buscarPorId(id);
-
-        if(id == 0 || !acompanhamentoNovo.getId().equals(acompanhamentoBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
-        }
-
-        acompanhamentoBanco.setDescricao(acompanhamentoNovo.getDescricao());
-        acompanhamentoBanco.setValor(acompanhamentoBanco.getValor());
-
-        return repository.save(acompanhamentoBanco);
-    }
-
-    @Transactional
-    public void delete(Long id){
-        Acompanhamento acompanhamento = this.buscarPorId(id);
-
-        repository.delete(acompanhamento);
-    }
+    /**@DeleteMapping
+     *
+     * Ao receber o id do acompanhamento, efetua a busca para verificar se o id é valido e em seguida, deleta o acompanhamento
+     *
+     * @param id utilizado para passar as informações do acompanhamento a ser deletado
+     */
+    void delete(Long id);
 }

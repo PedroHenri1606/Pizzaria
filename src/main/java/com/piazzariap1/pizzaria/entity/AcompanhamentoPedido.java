@@ -1,5 +1,6 @@
 package com.piazzariap1.pizzaria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.piazzariap1.pizzaria.entity.abstractEntity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,16 +10,16 @@ import lombok.Setter;
 @Table(name = "tb_acompanhamento_pedido")
 public class AcompanhamentoPedido extends AbstractEntity {
 
-    @Getter
-    @Setter
+    @Getter @Setter
     @ManyToOne
-    @JoinColumn(name = "produto_id")
-    private Produto produto;
+    @JoinColumn(name = "acompanhamento_id")
+    private Acompanhamento acompanhamento;
 
     @Getter @Setter
     @Column(name = "quantidade")
     private Integer quantidade;
 
+    @JsonIgnore
     @Getter @Setter
     @ManyToOne
     @JoinColumn(name = "pedido_id")

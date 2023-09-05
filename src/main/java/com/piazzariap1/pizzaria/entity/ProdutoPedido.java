@@ -1,5 +1,6 @@
 package com.piazzariap1.pizzaria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.piazzariap1.pizzaria.entity.abstractEntity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,9 +24,15 @@ public class ProdutoPedido extends AbstractEntity {
     private Integer quantidade;
 
     @Getter @Setter
-    @OneToMany(mappedBy = "produtoPedido")
-    private Set<Sabor> sabor = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "tb_sabor_produto",
+            joinColumns = @JoinColumn(name = "produto_pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "sabor_id")
+    )
+    private Set<Sabor> sabores = new HashSet<>();
 
+    @JsonIgnore
     @Getter @Setter
     @ManyToOne
     @JoinColumn(name = "pedido_id")

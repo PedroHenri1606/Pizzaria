@@ -1,69 +1,49 @@
 package com.piazzariap1.pizzaria.service;
 
+
 import com.piazzariap1.pizzaria.dto.PedidoDTO;
 import com.piazzariap1.pizzaria.entity.Pedido;
-import com.piazzariap1.pizzaria.repository.PedidoRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class PedidoService {
+public interface PedidoService {
 
-    @Autowired
-    private PedidoRepository repository;
+    /**@PostMapping
+     *
+     * Ao receber o objeto pedido, deve ser efetuado as validações, e se for altorizado
+     * ira persistir os dados no banco de dados
+     *
+     * @param pedidoDTO novo pedido
+     * @return
+     */
+    Pedido cadastrar(PedidoDTO pedidoDTO);
 
-    @Transactional
-    public Pedido cadastrar(PedidoDTO pedidoDTO){
-        Pedido pedido = new Pedido();
+    /**@GetMapping
+     *
+     * Ao receber o id, deve buscar no banco de dados o pedido referente ao id
+     *
+     * @param id do pedido já existente
+     * @return
+     */
+    Pedido buscarPorId(Long id);
 
-        BeanUtils.copyProperties(pedidoDTO,pedido);
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os pedidos já cadastrados
+     *
+     * @return
+     */
+    List<Pedido> listar();
 
-        return repository.save(pedido);
-    }
+    /**@PutMapping
+     *
+     * Ao receber o id do pedido, e as informações do pedido a ser alterado, deve comparar os ids
+     * e se forem iguais, deve persistir os dados atualizados
+     *
+     * @param id do pedido já existente
+     * @param clienteDTO objeto pedido que fornece as novas informações do pedido selecionado
+     * @return
+     */
+    Pedido editar(Long id, PedidoDTO clienteDTO);
 
-    public Pedido buscarPorId(Long id){
-        Optional<Pedido> pedido = repository.findById(id);
-        if(pedido.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o pedido informado!");
-        } else {
-            return pedido.get();
-        }
-    }
-
-    public List<Pedido> listar(){
-        if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum pedido cadastrado!");
-        } else {
-            return repository.findAll();
-        }
-    }
-
-    @Transactional
-    public Pedido editar(Long id, PedidoDTO pedidoNovo){
-        Pedido pedidoBanco = this.buscarPorId(id);
-
-        if(id == 0 || !pedidoNovo.getId().equals(pedidoBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o pedido informado!");
-        }
-
-        pedidoBanco.setItem(pedidoNovo.getItem());
-        pedidoBanco.setAcompanhamento(pedidoNovo.getAcompanhamento());
-        pedidoBanco.setEntregar(pedidoNovo.getEntregar());
-        pedidoBanco.setObservacao(pedidoNovo.getObservacao());
-        pedidoBanco.setFormaDePagamento(pedidoNovo.getFormaDePagamento());
-
-        return repository.save(pedidoBanco);
-    }
-
-    @Transactional
-    public void delete(Long id){
-        Pedido pedido = this.buscarPorId(id);
-
-        repository.delete(pedido);
-    }
 }

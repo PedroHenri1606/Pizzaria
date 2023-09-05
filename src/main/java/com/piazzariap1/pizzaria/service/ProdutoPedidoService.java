@@ -2,65 +2,48 @@ package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.dto.ProdutoPedidoDTO;
 import com.piazzariap1.pizzaria.entity.ProdutoPedido;
-import com.piazzariap1.pizzaria.repository.ProdutoPedidoRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class ProdutoPedidoService {
+public interface ProdutoPedidoService {
 
-    @Autowired
-    private ProdutoPedidoRepository repository;
+    /**@PostMapping
+     *
+     * Ao receber o objeto produto, quantidade e sabores, deve ser efetuddo as validações
+     * e se for altorizado, ira persistir os dados no banco de dados
+     *
+     * @param produtoPedidoDTO novo produto do pedido
+     * @return
+     */
+    ProdutoPedido cadastrar(ProdutoPedidoDTO produtoPedidoDTO);
 
-    @Transactional
-    public ProdutoPedido cadastrar(ProdutoPedidoDTO produtoPedidoDTO){
-        ProdutoPedido itemPedido = new ProdutoPedido();
+    /**@GetMapping
+     *
+     * Ao receber o id, deve buscar no banco de dados o produtoPedido referente ao id
+     *
+     * @param id do produtoPedido já existente
+     * @return
+     */
+    ProdutoPedido buscarPorId(Long id);
 
-        BeanUtils.copyProperties(produtoPedidoDTO,itemPedido);
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os produtosPedidos já cadastrados
+     *
+     * @return
+     */
+    List<ProdutoPedido> listar();
 
-        return repository.save(itemPedido);
-    }
+    /**@PutMapping
+     *
+     * Ao receber o id do produtoPedido, e as informações do produtoPedido a ser alterado, deve comparar os ids
+     * e se forem iguais, deve persistir os dados atualizados
+     *
+     * @param id do produtoPedido já existente
+     * @param produtoPedidoDTO objeto produtoPedido que fornece novas informações do produtoPedido selecionado
+     * @return
+     */
+    ProdutoPedido editar(Long id, ProdutoPedidoDTO produtoPedidoDTO);
 
-    public ProdutoPedido buscarPorId(Long id){
-        Optional<ProdutoPedido> itemPedido = repository.findById(id);
-        if(itemPedido.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o item informado!");
-        } else {
-            return itemPedido.get();
-        }
-    }
-
-    public List<ProdutoPedido> listar(){
-        if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum item cadastrado!");
-        } else {
-            return repository.findAll();
-        }
-    }
-
-    @Transactional
-    public ProdutoPedido editar(Long id, ProdutoPedidoDTO itemPedidoNovo){
-        ProdutoPedido itemPedidoBanco = this.buscarPorId(id);
-
-        if(id == 0 || !itemPedidoNovo.getId().equals(itemPedidoBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o item informado!");
-        }
-
-        itemPedidoBanco.setSabor(itemPedidoNovo.getSabor());
-        itemPedidoBanco.setQuantidade(itemPedidoNovo.getQuantidade());
-
-        return repository.save(itemPedidoBanco);
-    }
-
-    @Transactional
-    public void delete(Long id){
-        ProdutoPedido itemPedido = this.buscarPorId(id);
-
-        repository.delete(itemPedido);
-    }
+    void delete(Long id);
 }

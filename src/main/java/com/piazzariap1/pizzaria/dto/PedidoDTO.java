@@ -1,10 +1,7 @@
 package com.piazzariap1.pizzaria.dto;
 
 import com.piazzariap1.pizzaria.dto.abstractEntityDTO.AbstractEntityDTO;
-import com.piazzariap1.pizzaria.entity.Acompanhamento;
-import com.piazzariap1.pizzaria.entity.Cliente;
-import com.piazzariap1.pizzaria.entity.Funcionario;
-import com.piazzariap1.pizzaria.entity.ProdutoPedido;
+import com.piazzariap1.pizzaria.entity.*;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
 import lombok.Getter;
@@ -22,7 +19,7 @@ public class PedidoDTO extends AbstractEntityDTO {
     private Set<ProdutoPedido> item = new HashSet<>();
 
     @Getter @Setter
-    private Set<Acompanhamento> acompanhamento = new HashSet<>();
+    private Set<AcompanhamentoPedido> acompanhamento = new HashSet<>();
 
     @Getter @Setter
     private Funcionario funcionario;
