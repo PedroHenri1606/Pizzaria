@@ -24,7 +24,7 @@ public class Endereco extends AbstractEntity {
 
     @Getter @Setter
     @Column(name = "numero")
-    private String numero;
+    private Integer numero;
 
     @Getter @Setter
     @ManyToOne
