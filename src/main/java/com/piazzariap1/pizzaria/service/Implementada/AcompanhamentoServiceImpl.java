@@ -23,6 +23,7 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
         Acompanhamento acompanhamento = new Acompanhamento();
 
         BeanUtils.copyProperties(acompanhamentoDTO,acompanhamento);
+        acompanhamento.setDescricao(acompanhamentoDTO.getDescricao().toUpperCase());
 
         return repository.save(acompanhamento);
     }
@@ -33,6 +34,61 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
             throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
         } else {
             return acompanhamento.get();
+        }
+    }
+
+    @Override
+    public List<Acompanhamento> buscarPorDescricao(String descricao) {
+        if(descricao.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+        } else if(repository.findByDescricao(descricao.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum acompanhamento!");
+        } else {
+            return repository.findByDescricao(descricao.toUpperCase());
+        }
+    }
+
+    @Override
+    public List<Acompanhamento> buscarPorValor(Long valor) {
+        if (valor == null || valor.equals(0)){
+            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+        } else if(repository.findByValor(valor).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum acompanhamento!");
+        } else {
+            return repository.findByValor(valor);
+        }
+    }
+
+    @Override
+    public List<Acompanhamento> buscarAcompanhamentoComecandoCom(String descricao) {
+        if(descricao.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+        } else if(repository.findByDescricaoStartingWith(descricao.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum acompanhamento!");
+        } else {
+            return repository.findByDescricaoStartingWith(descricao.toUpperCase());
+        }
+    }
+
+    @Override
+    public List<Acompanhamento> buscarAcompanhamentoTerminandoCom(String descricao) {
+        if(descricao.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+        } else if(repository.findByDescricaoEndingWith(descricao.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum acompanhamento!");
+        } else {
+            return repository.findByDescricaoEndingWith(descricao.toUpperCase());
+        }
+    }
+
+    @Override
+    public List<Acompanhamento> buscarAcompanhamentoQueContenha(String descricao) {
+        if (descricao.isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+        } else if (repository.findByDescricaoContaining(descricao.toUpperCase()).isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar nenhum acompanhamento!");
+        } else {
+            return repository.findByDescricaoContaining(descricao.toUpperCase());
         }
     }
 
