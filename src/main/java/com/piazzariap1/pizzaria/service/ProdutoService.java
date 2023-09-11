@@ -1,11 +1,13 @@
 package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.dto.ProdutoDTO;
+import com.piazzariap1.pizzaria.entity.Acompanhamento;
 import com.piazzariap1.pizzaria.entity.Produto;
 
 import java.util.List;
 
 public interface ProdutoService {
+
 
     /**@PostMapping
      *
@@ -29,6 +31,57 @@ public interface ProdutoService {
      */
     Produto buscarPorId(Long id);
 
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os produtos que possuem a mesma descrição
+     *
+     * @param descricao do produtos já existente
+     * @return
+     */
+    List<Produto> buscarPorDescricao(String descricao);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os produtos que possuem o valor enviado
+     *
+     * @param valor do produtos já existente
+     * @return
+     */
+    List<Produto> buscarPorValor(Long valor);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os produtos que começam pela string enviada
+     *
+     * @param descricao do produtos já existente
+     * @return
+     */
+    List<Produto> buscarProdutoComecandoCom(String descricao);
+
+
+    /**@GetMapping
+     *
+     *Busca no banco de dados, todos os produtos que terminam pela string enviada
+     *
+     * @param descricao do produtos já existente
+     * @return
+     */
+    List<Produto> buscarProdutoTerminandoCom(String descricao);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os produtos que contenha a string enviada
+     *
+     * @param descricao do produtos já existente
+     * @return
+     */
+    List<Produto> buscarProdutoQueContenha(String descricao);
+
+
     /**@GetMapping
      *
      * Busca no banco de dados, todos os produtos já cadastrados
@@ -36,6 +89,7 @@ public interface ProdutoService {
      * @return
      */
     List<Produto> listar();
+
 
     /**@PutMapping
      *
@@ -47,6 +101,7 @@ public interface ProdutoService {
      * @return
      */
     Produto editar(Long id, ProdutoDTO produtoDTO);
+
 
     /**@DeleteMapping
      *

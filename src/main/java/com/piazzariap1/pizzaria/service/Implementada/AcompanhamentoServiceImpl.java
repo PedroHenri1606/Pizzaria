@@ -37,7 +37,6 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
         }
     }
 
-    @Override
     public List<Acompanhamento> buscarPorDescricao(String descricao) {
         if(descricao.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
@@ -48,7 +47,6 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
         }
     }
 
-    @Override
     public List<Acompanhamento> buscarPorValor(Long valor) {
         if (valor == null || valor.equals(0)){
             throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
@@ -59,7 +57,6 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
         }
     }
 
-    @Override
     public List<Acompanhamento> buscarAcompanhamentoComecandoCom(String descricao) {
         if(descricao.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
@@ -70,7 +67,6 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
         }
     }
 
-    @Override
     public List<Acompanhamento> buscarAcompanhamentoTerminandoCom(String descricao) {
         if(descricao.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
@@ -81,7 +77,6 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
         }
     }
 
-    @Override
     public List<Acompanhamento> buscarAcompanhamentoQueContenha(String descricao) {
         if (descricao.isEmpty()) {
             throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");

@@ -23,6 +23,7 @@ public class ProdutoServiceImpl implements ProdutoService {
         Produto produto = new Produto();
 
         BeanUtils.copyProperties(produtoDTO,produto);
+        produto.setDescricao(produtoDTO.getDescricao().toUpperCase());
 
         return repository.save(produto);
     }
@@ -33,6 +34,57 @@ public class ProdutoServiceImpl implements ProdutoService {
             throw new RuntimeException("não foi possivel localizar o produto informado!");
         } else {
             return produto.get();
+        }
+    }
+
+    public List<Produto> buscarPorDescricao(String descricao) {
+        if(descricao.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+        } else if(repository.findByDescricao(descricao.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum acompanhamento!");
+        } else {
+            return repository.findByDescricao(descricao.toUpperCase());
+        }
+    }
+
+    public List<Produto> buscarPorValor(Long valor) {
+        if (valor == null || valor.equals(0)){
+            throw new RuntimeException("não foi possivel localizar o produto informado!");
+        } else if(repository.findByValor(valor).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum produto!");
+        } else {
+            return repository.findByValor(valor);
+        }
+    }
+
+    public List<Produto> buscarProdutoComecandoCom(String descricao) {
+        if(descricao.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o produto informado!");
+        } else if(repository.findByDescricaoStartingWith(descricao.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum produto!");
+        } else {
+            return repository.findByDescricaoStartingWith(descricao.toUpperCase());
+        }
+    }
+
+    public List<Produto> buscarProdutoTerminandoCom(String descricao) {
+        if(descricao.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o produto informado!");
+        } else if(repository.findByDescricaoEndingWith(descricao.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum produto!");
+        } else {
+            return repository.findByDescricaoEndingWith(descricao.toUpperCase());
+        }
+    }
+
+
+    public List<Produto> buscarProdutoQueContenha(String descricao) {
+        if (descricao.isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar o produto informado!");
+        } else if (repository.findByDescricaoContaining(descricao.toUpperCase()).isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar nenhum produto!");
+        } else {
+            return repository.findByDescricaoContaining(descricao.toUpperCase());
         }
     }
 
