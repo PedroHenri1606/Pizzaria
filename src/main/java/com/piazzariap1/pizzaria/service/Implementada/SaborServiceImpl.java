@@ -39,6 +39,54 @@ public class SaborServiceImpl implements SaborService {
         }
     }
 
+    public List<Sabor> buscarPorNome(String nome) {
+        if(nome.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+
+        } else if(repository.findByNome(nome.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum sabor!");
+
+        } else {
+            return repository.findByNome(nome.toUpperCase());
+        }
+    }
+
+    public List<Sabor> buscarSaborComecandoCom(String nome) {
+        if(nome.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+
+        } else if(repository.findByNomeStartingWith(nome.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum sabor!");
+
+        } else {
+            return repository.findByNomeStartingWith(nome.toUpperCase());
+        }
+    }
+
+    public List<Sabor> buscarSaborTerminandoCom(String nome) {
+        if(nome.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+
+        } else if(repository.findByNomeEndingWith(nome.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum sabor!");
+
+        } else {
+            return repository.findByNomeEndingWith(nome.toUpperCase());
+        }
+    }
+
+    public List<Sabor> buscarSaborQueContenha(String nome) {
+        if (nome.isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+
+        } else if (repository.findByNomeContaining(nome.toUpperCase()).isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar nenhum sabor!");
+
+        } else {
+            return repository.findByNomeContaining(nome.toUpperCase());
+        }
+    }
+
     public List<Sabor> listar(){
         if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum sabor cadastrado!");

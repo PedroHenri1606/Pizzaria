@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface SaborService {
 
+
     /**@PostMapping
      *
      * Ao receber o objeto sabor, deve ser efetuado as validações, e se for altorizado
@@ -16,6 +17,7 @@ public interface SaborService {
      * @return
      */
     Sabor cadastrar(SaborDTO saborDTO);
+
 
     /**@GetMapping
      *
@@ -28,11 +30,52 @@ public interface SaborService {
 
     /**@GetMapping
      *
+     * Busca no banco de dados, todos os sabores que possuem a mesmo id
+     *
+     * @param nome do sabor já existente
+     * @return
+     */
+    List<Sabor> buscarPorNome(String nome);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os sabores que começam pelo nome enviada
+     *
+     * @param nome do sabor já existente
+     * @return
+     */
+    List<Sabor> buscarSaborComecandoCom(String nome);
+
+
+    /**@GetMapping
+     *
+     *Busca no banco de dados, todos os sabores que terminam pelo nome enviada
+     *
+     * @param nome do sabor já existente
+     * @return
+     */
+    List<Sabor> buscarSaborTerminandoCom(String nome);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os sabores que contenha o nome enviada
+     *
+     * @param nome do sabor já existente
+     * @return
+     */
+    List<Sabor> buscarSaborQueContenha(String nome);
+
+
+    /**@GetMapping
+     *
      * Busca no banco de dados, todos os sabores já cadastrados
      *
      * @return
      */
     List<Sabor> listar();
+
 
     /**@PutMapping
      *
@@ -44,6 +87,7 @@ public interface SaborService {
      * @return
      */
     Sabor editar(Long id, SaborDTO saborDTO);
+
 
     /**@DeleteMapping
      *

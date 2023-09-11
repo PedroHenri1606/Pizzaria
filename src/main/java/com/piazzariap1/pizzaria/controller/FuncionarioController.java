@@ -71,7 +71,7 @@ public class FuncionarioController {
     }
 
     @GetMapping(value = "/buscar/comecando")
-    private ResponseEntity<Object> buscarClienteComecandoCom(@RequestParam("nome") final String nome){
+    private ResponseEntity<Object> buscarClienteComecandoCom(@RequestParam("conteudo") final String nome){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarFuncionarioComecandoCom(nome));
 
@@ -81,7 +81,7 @@ public class FuncionarioController {
     }
 
     @GetMapping(value = "/buscar/terminando")
-    private ResponseEntity<Object> buscarClienteTerminandoCom(@RequestParam("nome") final String nome){
+    private ResponseEntity<Object> buscarClienteTerminandoCom(@RequestParam("conteudo") final String nome){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarFuncionarioTerminandoCom(nome));
 
@@ -91,7 +91,7 @@ public class FuncionarioController {
     }
 
     @GetMapping(value = "/buscar/contendo")
-    private ResponseEntity<Object> buscarClienteQueContenha(@RequestParam("nome") final String nome){
+    private ResponseEntity<Object> buscarClienteQueContenha(@RequestParam("conteudo") final String nome){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarFuncionarioQueContenha(nome));
 

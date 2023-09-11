@@ -50,7 +50,7 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/buscar/descricao")
-    private ResponseEntity<Object> buscarPorDescricao(@RequestParam("descricao") String conteudo){
+    private ResponseEntity<Object> buscarPorDescricao(@RequestParam("conteudo") String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorDescricao(conteudo));
 
@@ -60,7 +60,7 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/buscar/valor")
-    private ResponseEntity<Object> buscarPorValor(@RequestParam("valor") Long valor){
+    private ResponseEntity<Object> buscarPorValor(@RequestParam("conteudo") Long valor){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorValor(valor));
 
@@ -70,7 +70,7 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/buscar/comecando")
-    private ResponseEntity<Object> buscarAcompanhamentoComecandoCom(@RequestParam("descricao") final String conteudo){
+        private ResponseEntity<Object> buscarAcompanhamentoComecandoCom(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarProdutoComecandoCom(conteudo));
 
@@ -80,7 +80,7 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/buscar/terminando")
-    private ResponseEntity<Object> buscarAcompanhamentoTerminandoCom(@RequestParam("descricao") final String conteudo){
+    private ResponseEntity<Object> buscarAcompanhamentoTerminandoCom(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarProdutoTerminandoCom(conteudo));
 
@@ -90,7 +90,7 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/buscar/contendo")
-    private ResponseEntity<Object> buscarAcompanhamntoQueContenha(@RequestParam("descricao") final String conteudo){
+    private ResponseEntity<Object> buscarAcompanhamntoQueContenha(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarProdutoQueContenha(conteudo));
 

@@ -48,6 +48,46 @@ public class SaborController {
         }
     }
 
+    @GetMapping(value = "/buscar/descricao")
+    private ResponseEntity<Object> buscarPorNome(@RequestParam("conteudo") String conteudo){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorNome(conteudo));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar/comecando")
+    private ResponseEntity<Object> buscarAcompanhamentoComecandoCom(@RequestParam("conteudo") final String conteudo){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarSaborComecandoCom(conteudo));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar/terminando")
+    private ResponseEntity<Object> buscarAcompanhamentoTerminandoCom(@RequestParam("conteudo") final String conteudo){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarSaborTerminandoCom(conteudo));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar/contendo")
+    private ResponseEntity<Object> buscarAcompanhamntoQueContenha(@RequestParam("conteudo") final String conteudo){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarSaborQueContenha(conteudo));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+        }
+    }
+
     @GetMapping(value = "/listar")
     private ResponseEntity<Object> listar(){
         try {

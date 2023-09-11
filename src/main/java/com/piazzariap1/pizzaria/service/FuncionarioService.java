@@ -1,7 +1,6 @@
 package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.dto.FuncionarioDTO;
-import com.piazzariap1.pizzaria.entity.Cliente;
 import com.piazzariap1.pizzaria.entity.Funcionario;
 
 import java.util.List;

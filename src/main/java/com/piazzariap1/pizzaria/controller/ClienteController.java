@@ -70,7 +70,7 @@ public class ClienteController {
     }
 
     @GetMapping(value = "/buscar/comecando")
-    private ResponseEntity<Object> buscarClienteComecandoCom(@RequestParam("nome") final String nome){
+    private ResponseEntity<Object> buscarClienteComecandoCom(@RequestParam("conteudo") final String nome){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarClienteComecandoCom(nome));
 
@@ -80,7 +80,7 @@ public class ClienteController {
     }
 
     @GetMapping(value = "/buscar/terminando")
-    private ResponseEntity<Object> buscarClienteTerminandoCom(@RequestParam("nome") final String nome){
+    private ResponseEntity<Object> buscarClienteTerminandoCom(@RequestParam("conteudo") final String nome){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarClienteTerminandoCom(nome));
 
@@ -90,7 +90,7 @@ public class ClienteController {
     }
 
     @GetMapping(value = "/buscar/contendo")
-    private ResponseEntity<Object> buscarClienteQueContenha(@RequestParam("nome") final String nome){
+    private ResponseEntity<Object> buscarClienteQueContenha(@RequestParam("conteudo") final String nome){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarClienteQueContenha(nome));
 
