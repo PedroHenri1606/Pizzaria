@@ -1,11 +1,13 @@
 package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.dto.FuncionarioDTO;
+import com.piazzariap1.pizzaria.entity.Cliente;
 import com.piazzariap1.pizzaria.entity.Funcionario;
 
 import java.util.List;
 
 public interface FuncionarioService {
+
 
     /**@PostMapping
      *
@@ -17,14 +19,66 @@ public interface FuncionarioService {
      */
     Funcionario cadastrar(FuncionarioDTO funcionarioDTO);
 
+
     /**@GetMapping
      *
      * Ao receber o id, deve buscar no banco de dados o funcionario referente ao id
      *
-     * @param id do cliente já existente
+     * @param id do funcionario já existente
      * @return
      */
     Funcionario buscarPorId(Long id);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os clientes que possuem a mesmo id
+     *
+     * @param nome do funcionario já existente
+     * @return
+     */
+    List<Funcionario> buscarPorNome(String nome);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, o cliente que possue o cpf enviado
+     *
+     * @param cpf do funcionario já existente
+     * @return
+     */
+    List<Funcionario> buscarPorCpf(String cpf);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os funcionarios que começam pelo nome enviada
+     *
+     * @param nome do funcionario já existente
+     * @return
+     */
+    List<Funcionario> buscarFuncionarioComecandoCom(String nome);
+
+
+    /**@GetMapping
+     *
+     *Busca no banco de dados, todos os funcionarios que terminam pelo nome enviada
+     *
+     * @param nome do funcionario já existente
+     * @return
+     */
+    List<Funcionario> buscarFuncionarioTerminandoCom(String nome);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os funcionarios que contenha o nome enviada
+     *
+     * @param nome do funcionario já existente
+     * @return
+     */
+    List<Funcionario> buscarFuncionarioQueContenha(String nome);
+
 
     /**@GetMapping
      *
@@ -33,6 +87,7 @@ public interface FuncionarioService {
      * @return
      */
     List<Funcionario> listar();
+
 
     /**@PutMapping
      *
@@ -44,6 +99,7 @@ public interface FuncionarioService {
      * @return
      */
     Funcionario editar(Long id, FuncionarioDTO funcionarioDTO);
+
 
     /**@DeleteMapping
      *

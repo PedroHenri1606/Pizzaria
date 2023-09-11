@@ -23,6 +23,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         Funcionario funcionario = new Funcionario();
 
         BeanUtils.copyProperties(funcionarioDTO,funcionario);
+        funcionario.setNome(funcionarioDTO.getNome().toUpperCase());
 
         return repository.save(funcionario);
     }
@@ -31,14 +32,77 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         Optional<Funcionario> funcionario = repository.findById(id);
         if(funcionario.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+
         } else {
             return funcionario.get();
+        }
+    }
+
+    public List<Funcionario> buscarPorNome(String nome) {
+        if(nome.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+
+        } else if(repository.findByNome(nome.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+
+        } else {
+            return repository.findByNome(nome.toUpperCase());
+        }
+    }
+
+    public List<Funcionario> buscarPorCpf(String cpf) {
+        if (cpf == null || cpf.equals(0)){
+            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+
+        } else if(repository.findByCpf(cpf).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+
+        } else {
+            return repository.findByCpf(cpf);
+        }
+    }
+
+    public List<Funcionario> buscarFuncionarioComecandoCom(String nome) {
+        if(nome.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+
+        } else if(repository.findByNomeStartingWith(nome.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+
+        } else {
+            return repository.findByNomeStartingWith(nome.toUpperCase());
+        }
+    }
+
+    public List<Funcionario> buscarFuncionarioTerminandoCom(String nome) {
+        if(nome.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+
+        } else if(repository.findByNomeEndingWith(nome.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+
+        } else {
+            return repository.findByNomeEndingWith(nome.toUpperCase());
+        }
+    }
+
+
+    public List<Funcionario> buscarFuncionarioQueContenha(String nome) {
+        if (nome.isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+
+        } else if (repository.findByNomeContaining(nome.toUpperCase()).isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+
+        } else {
+            return repository.findByNomeContaining(nome.toUpperCase());
         }
     }
 
     public List<Funcionario> listar(){
         if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum funcionario cadastrado!");
+
         } else {
             return repository.findAll();
         }
