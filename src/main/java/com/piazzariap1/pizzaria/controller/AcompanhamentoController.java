@@ -70,32 +70,32 @@ public class AcompanhamentoController {
     }
 
     @GetMapping(value = "/buscar/comecando")
-    private ResponseEntity<Object> buscarAcompanhamentoComecandoCom(@RequestParam("comecando") final String conteudo){
+    private ResponseEntity<Object> buscarAcompanhamentoComecandoCom(@RequestParam("descricao") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarAcompanhamentoComecandoCom(conteudo));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/terminando")
-    private ResponseEntity<Object> buscarAcompanhamentoTerminandoCom(@RequestParam("terminando") final String conteudo){
+    private ResponseEntity<Object> buscarAcompanhamentoTerminandoCom(@RequestParam("descricao") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarAcompanhamentoTerminandoCom(conteudo));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/contendo")
-    private ResponseEntity<Object> buscarAcompanhamntoQueContenha(@RequestParam("conteudo") final String conteudo){
+    private ResponseEntity<Object> buscarAcompanhamntoQueContenha(@RequestParam("descricao") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarAcompanhamentoQueContenha(conteudo));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
         }
     }
 

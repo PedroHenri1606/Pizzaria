@@ -49,6 +49,56 @@ public class ClienteController {
         }
     }
 
+    @GetMapping(value = "/buscar/nome")
+    private ResponseEntity<Object> buscarPorNome(@RequestParam("conteudo") String conteudo){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorNome(conteudo));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar/cpf")
+    private ResponseEntity<Object> buscarPorCpf(@RequestParam("conteudo") String cpf){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorCpf(cpf));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar/comecando")
+    private ResponseEntity<Object> buscarClienteComecandoCom(@RequestParam("nome") final String nome){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarClienteComecandoCom(nome));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar/terminando")
+    private ResponseEntity<Object> buscarClienteTerminandoCom(@RequestParam("nome") final String nome){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarClienteTerminandoCom(nome));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/buscar/contendo")
+    private ResponseEntity<Object> buscarClienteQueContenha(@RequestParam("nome") final String nome){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarClienteQueContenha(nome));
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+        }
+    }
+
     @GetMapping(value = "/listar")
     private ResponseEntity<Object> listar(){
         try {

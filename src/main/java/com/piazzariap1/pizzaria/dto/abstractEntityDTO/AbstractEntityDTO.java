@@ -1,6 +1,5 @@
 package com.piazzariap1.pizzaria.dto.abstractEntityDTO;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 

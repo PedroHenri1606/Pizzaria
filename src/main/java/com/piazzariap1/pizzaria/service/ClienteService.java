@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ClienteService {
 
+
     /**@PostMapping
      *
      * Ao receber o objeto cliente, sera efetuado as validações, e se for altorizado
@@ -17,6 +18,7 @@ public interface ClienteService {
      */
     Cliente cadastrar(ClienteDTO clienteDTO);
 
+
     /**@GetMapping
      *
      * Ao receber o id, deve buscar no banco de dados o cliente referente ao id
@@ -25,6 +27,55 @@ public interface ClienteService {
      * @return
      */
     Cliente buscarPorId(Long id);
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os clientes que possuem a mesmo id
+     *
+     * @param nome do clientes já existente
+     * @return
+     */
+    List<Cliente> buscarPorNome(String nome);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, o cliente que possue o cpf enviado
+     *
+     * @param cpf do cliente já existente
+     * @return
+     */
+    List<Cliente> buscarPorCpf(String cpf);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os clientes que começam pelo nome enviada
+     *
+     * @param nome do cliente já existente
+     * @return
+     */
+    List<Cliente> buscarClienteComecandoCom(String nome);
+
+
+    /**@GetMapping
+     *
+     *Busca no banco de dados, todos os clientes que terminam pelo nome enviada
+     *
+     * @param nome do cliente já existente
+     * @return
+     */
+    List<Cliente> buscarClienteTerminandoCom(String nome);
+
+
+    /**@GetMapping
+     *
+     * Busca no banco de dados, todos os clientes que contenha o nome enviada
+     *
+     * @param nome do cliente já existente
+     * @return
+     */
+    List<Cliente> buscarClienteQueContenha(String nome);
 
     /**@GetMapping
      *
@@ -45,6 +96,7 @@ public interface ClienteService {
      * @return
      */
     Cliente editar(Long id, ClienteDTO clienteDTO);
+
 
     /**@DeleteMapping
      *

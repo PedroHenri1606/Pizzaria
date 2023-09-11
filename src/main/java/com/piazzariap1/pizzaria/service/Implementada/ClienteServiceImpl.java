@@ -19,12 +19,18 @@ public class ClienteServiceImpl implements ClienteService {
     private ClienteRepository repository;
 
     @Transactional
-    public Cliente cadastrar(ClienteDTO clienteDTO){
-        Cliente cliente = new Cliente();
+    public Cliente cadastrar(ClienteDTO clienteDTO) {
+        if (!repository.findByCpf(clienteDTO.getCpf()).isEmpty()) {
+            throw new RuntimeException("o cpf informado já esta cadastrado!");
+        } else {
 
-        BeanUtils.copyProperties(clienteDTO,cliente);
+            Cliente cliente = new Cliente();
 
-        return repository.save(cliente);
+            BeanUtils.copyProperties(clienteDTO, cliente);
+            cliente.setNome(clienteDTO.getNome().toUpperCase());
+
+            return repository.save(cliente);
+        }
     }
 
     public Cliente buscarPorId(Long id){
@@ -33,6 +39,57 @@ public class ClienteServiceImpl implements ClienteService {
             throw new RuntimeException("não foi possivel localizar o cliente informado!");
         } else {
             return cliente.get();
+        }
+    }
+
+    public List<Cliente> buscarPorNome(String nome) {
+        if(nome.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+        } else if(repository.findByNome(nome.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+        } else {
+            return repository.findByNome(nome.toUpperCase());
+        }
+    }
+
+    public List<Cliente> buscarPorCpf(String cpf) {
+        if (cpf == null || cpf.equals(0)){
+            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+        } else if(repository.findByCpf(cpf).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+        } else {
+            return repository.findByCpf(cpf);
+        }
+    }
+
+    public List<Cliente> buscarClienteComecandoCom(String nome) {
+        if(nome.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+        } else if(repository.findByNomeStartingWith(nome.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+        } else {
+            return repository.findByNomeStartingWith(nome.toUpperCase());
+        }
+    }
+
+    public List<Cliente> buscarClienteTerminandoCom(String nome) {
+        if(nome.isEmpty()){
+            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+        } else if(repository.findByNomeEndingWith(nome.toUpperCase()).isEmpty()){
+            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+        } else {
+            return repository.findByNomeEndingWith(nome.toUpperCase());
+        }
+    }
+
+
+    public List<Cliente> buscarClienteQueContenha(String nome) {
+        if (nome.isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+        } else if (repository.findByNomeContaining(nome.toUpperCase()).isEmpty()) {
+            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+        } else {
+            return repository.findByNomeContaining(nome.toUpperCase());
         }
     }
 

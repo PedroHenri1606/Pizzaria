@@ -3,7 +3,6 @@ package com.piazzariap1.pizzaria.dto;
 import com.piazzariap1.pizzaria.dto.abstractEntityDTO.AbstractEntityDTO;
 import com.piazzariap1.pizzaria.entity.AcompanhamentoPedido;
 import com.piazzariap1.pizzaria.entity.Pedido;
-import com.piazzariap1.pizzaria.entity.Produto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

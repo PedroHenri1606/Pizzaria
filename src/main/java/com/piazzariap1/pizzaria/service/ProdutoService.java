@@ -1,7 +1,6 @@
 package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.dto.ProdutoDTO;
-import com.piazzariap1.pizzaria.entity.Acompanhamento;
 import com.piazzariap1.pizzaria.entity.Produto;
 
 import java.util.List;
