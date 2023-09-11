@@ -31,6 +31,7 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
         Optional<ProdutoPedido> itemPedido = repository.findById(id);
         if(itemPedido.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o item informado!");
+
         } else {
             return itemPedido.get();
         }
@@ -39,6 +40,7 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
     public List<ProdutoPedido> listar(){
         if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum item cadastrado!");
+
         } else {
             return repository.findAll();
         }

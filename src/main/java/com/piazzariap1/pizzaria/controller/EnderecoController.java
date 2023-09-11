@@ -83,7 +83,8 @@ public class EnderecoController {
     public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
             service.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Aluno deletado com sucesso!");
+            return ResponseEntity.status(HttpStatus.OK).body("Endereço deletado com sucesso!");
+
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, não foi possivel localizar o endereço informado");
         }

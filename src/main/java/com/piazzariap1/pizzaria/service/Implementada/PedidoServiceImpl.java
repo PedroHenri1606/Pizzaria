@@ -31,6 +31,7 @@ public class PedidoServiceImpl implements PedidoService {
         Optional<Pedido> pedido = repository.findById(id);
         if(pedido.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o pedido informado!");
+
         } else {
             return pedido.get();
         }
@@ -39,6 +40,7 @@ public class PedidoServiceImpl implements PedidoService {
     public List<Pedido> listar(){
         if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum pedido cadastrado!");
+
         } else {
             return repository.findAll();
         }

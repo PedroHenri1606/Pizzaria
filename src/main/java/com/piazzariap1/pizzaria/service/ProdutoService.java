@@ -35,7 +35,7 @@ public interface ProdutoService {
      *
      * Busca no banco de dados, todos os produtos que possuem a mesma descrição
      *
-     * @param descricao do produtos já existente
+     * @param descricao do produto já existente
      * @return
      */
     List<Produto> buscarPorDescricao(String descricao);
@@ -45,7 +45,7 @@ public interface ProdutoService {
      *
      * Busca no banco de dados, todos os produtos que possuem o valor enviado
      *
-     * @param valor do produtos já existente
+     * @param valor do produto já existente
      * @return
      */
     List<Produto> buscarPorValor(Long valor);
@@ -55,7 +55,7 @@ public interface ProdutoService {
      *
      * Busca no banco de dados, todos os produtos que começam pela string enviada
      *
-     * @param descricao do produtos já existente
+     * @param descricao do produto já existente
      * @return
      */
     List<Produto> buscarProdutoComecandoCom(String descricao);
@@ -65,7 +65,7 @@ public interface ProdutoService {
      *
      *Busca no banco de dados, todos os produtos que terminam pela string enviada
      *
-     * @param descricao do produtos já existente
+     * @param descricao do produto já existente
      * @return
      */
     List<Produto> buscarProdutoTerminandoCom(String descricao);
@@ -75,7 +75,7 @@ public interface ProdutoService {
      *
      * Busca no banco de dados, todos os produtos que contenha a string enviada
      *
-     * @param descricao do produtos já existente
+     * @param descricao do produto já existente
      * @return
      */
     List<Produto> buscarProdutoQueContenha(String descricao);

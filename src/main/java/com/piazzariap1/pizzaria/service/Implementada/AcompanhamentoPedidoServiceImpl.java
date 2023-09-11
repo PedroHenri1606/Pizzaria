@@ -31,6 +31,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
         Optional<AcompanhamentoPedido> acompanhamento = repository.findById(id);
         if(acompanhamento.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+
         } else {
             return acompanhamento.get();
         }
@@ -39,6 +40,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
     public List<AcompanhamentoPedido> listar(){
         if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum acompanhamento cadastrado!");
+
         } else {
             return repository.findAll();
         }

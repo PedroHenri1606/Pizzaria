@@ -24,6 +24,7 @@ public class SaborServiceImpl implements SaborService {
         Sabor sabor = new Sabor();
 
         BeanUtils.copyProperties(saborDTO,sabor);
+        sabor.setNome(saborDTO.getNome().toUpperCase());
 
         return repository.save(sabor);
     }
@@ -32,6 +33,7 @@ public class SaborServiceImpl implements SaborService {
         Optional<Sabor> sabor = repository.findById(id);
         if(sabor.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o sabor informado!");
+
         } else {
             return sabor.get();
         }
@@ -40,6 +42,7 @@ public class SaborServiceImpl implements SaborService {
     public List<Sabor> listar(){
         if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum sabor cadastrado!");
+
         } else {
             return repository.findAll();
         }

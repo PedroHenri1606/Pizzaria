@@ -31,6 +31,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         Optional<Endereco> endereco = repository.findById(id);
         if(endereco.isEmpty()){
             throw new RuntimeException("não foi possivel localizar o endereco informado!");
+
         } else {
             return endereco.get();
         }
@@ -39,6 +40,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     public List<Endereco> listar(){
         if(repository.findAll().isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum endereco cadastrado!");
+
         } else {
             return repository.findAll();
         }
