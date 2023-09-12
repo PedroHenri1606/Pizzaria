@@ -28,7 +28,7 @@ public class Swagger {
     public Contact contact(){
         Contact contact = new Contact();
 
-        contact.setName("Pedro Henrique Vieira");
+        contact.setName("Pedro Henrique Vieira de Oliveira");
         contact.setUrl("https://github.com/PedroHenri1606");
         contact.setEmail("pedrohenri1606@gmail.com");
 
