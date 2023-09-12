@@ -1,5 +1,6 @@
 package com.piazzariap1.pizzaria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.piazzariap1.pizzaria.entity.abstractEntity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,5 +22,6 @@ public class Sabor extends AbstractEntity {
 
     @Getter @Setter
     @ManyToMany(mappedBy = "sabores")
+    @JsonIgnore
     private Set<ProdutoPedido> produtosPedidos;
 }
