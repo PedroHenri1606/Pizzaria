@@ -16,93 +16,93 @@ public class SaborController {
     public SaborServiceImpl service;
 
     @PostMapping
-    private ResponseEntity<Object> cadastrar(@Valid @RequestBody final SaborDTO saborDTO){
+    public ResponseEntity<Object> cadastrar(@Valid @RequestBody final SaborDTO saborDTO){
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(saborDTO));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar")
-    private ResponseEntity<Object> buscarPorId(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> buscarPorId(@RequestParam("id") final Long id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/descricao")
-    private ResponseEntity<Object> buscarPorNome(@RequestParam("conteudo") String conteudo){
+    public ResponseEntity<Object> buscarPorNome(@RequestParam("conteudo") String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorNome(conteudo));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/comecando")
-    private ResponseEntity<Object> buscarAcompanhamentoComecandoCom(@RequestParam("conteudo") final String conteudo){
+    public ResponseEntity<Object> buscarSaborComecandoCom(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarSaborComecandoCom(conteudo));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/terminando")
-    private ResponseEntity<Object> buscarAcompanhamentoTerminandoCom(@RequestParam("conteudo") final String conteudo){
+    public ResponseEntity<Object> buscarSaborTerminandoCom(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarSaborTerminandoCom(conteudo));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/contendo")
-    private ResponseEntity<Object> buscarAcompanhamntoQueContenha(@RequestParam("conteudo") final String conteudo){
+    public ResponseEntity<Object> buscarSaborQueContenha(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarSaborQueContenha(conteudo));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/listar")
-    private ResponseEntity<Object> listar(){
+    public ResponseEntity<Object> listar(){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.listar());
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 
     @PutMapping(value = "/editar")
-    private ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final SaborDTO saborDTO){
+    public ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final SaborDTO saborDTO){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.editar(id,saborDTO));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @DeleteMapping(value = "/deletar")
-    private ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> delete(@RequestParam("id") final Long id){
         try {
             service.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Sabor deletado com sucesso!");
+            return ResponseEntity.status(HttpStatus.OK).body("{sabor.delete-mapping-sucesso}");
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, não foi possivel localizar o sabor informado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{sabor.delete-mapping-failed}");
         }
     }
 }

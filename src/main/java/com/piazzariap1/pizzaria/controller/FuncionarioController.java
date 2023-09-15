@@ -16,104 +16,104 @@ public class FuncionarioController {
     public FuncionarioServiceImpl service;
 
     @PostMapping
-    private ResponseEntity<Object> cadastrar(@Valid @RequestBody final FuncionarioDTO funcionarioDTO){
+    public ResponseEntity<Object> cadastrar(@Valid @RequestBody final FuncionarioDTO funcionarioDTO){
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(funcionarioDTO));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar")
-    private ResponseEntity<Object> buscarPorId(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> buscarPorId(@RequestParam("id") final Long id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
 
     @GetMapping(value = "/buscar/nome")
-    private ResponseEntity<Object> buscarPorNome(@RequestParam("conteudo") String conteudo){
+    public ResponseEntity<Object> buscarPorNome(@RequestParam("conteudo") String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorNome(conteudo));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/cpf")
-    private ResponseEntity<Object> buscarPorCpf(@RequestParam("conteudo") String cpf){
+    public ResponseEntity<Object> buscarPorCpf(@RequestParam("conteudo") String cpf){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorCpf(cpf));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/comecando")
-    private ResponseEntity<Object> buscarClienteComecandoCom(@RequestParam("conteudo") final String nome){
+    public ResponseEntity<Object> buscarFuncionarioComecandoCom(@RequestParam("conteudo") final String nome){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarFuncionarioComecandoCom(nome));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/terminando")
-    private ResponseEntity<Object> buscarClienteTerminandoCom(@RequestParam("conteudo") final String nome){
+    public ResponseEntity<Object> buscarFuncionarioTerminandoCom(@RequestParam("conteudo") final String nome){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarFuncionarioTerminandoCom(nome));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/buscar/contendo")
-    private ResponseEntity<Object> buscarClienteQueContenha(@RequestParam("conteudo") final String nome){
+    public ResponseEntity<Object> buscarFuncionarioQueContenha(@RequestParam("conteudo") final String nome){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarFuncionarioQueContenha(nome));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/listar")
-    private ResponseEntity<Object> listar(){
+    public ResponseEntity<Object> listar(){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.listar());
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 
     @PutMapping(value = "/editar")
-    private ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final FuncionarioDTO funcionarioDTO){
+    public ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final FuncionarioDTO funcionarioDTO){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.editar(id,funcionarioDTO));
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> delete(@RequestParam("id") final Long id){
         try {
             service.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Funcionario deletado com sucesso!");
+            return ResponseEntity.status(HttpStatus.OK).body("{funcionario.delete-mapping-sucesso}");
 
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error, não foi possivel localizar o funcionario informado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{funcionario.delete-mapping-failed}");
         }
     }
 }
