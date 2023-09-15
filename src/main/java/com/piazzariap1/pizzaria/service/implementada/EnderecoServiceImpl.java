@@ -19,6 +19,9 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Autowired
     public EnderecoRepository repository;
 
+    private static final String nao_localizado = "{endereco.exception.nao-localizado}";
+    private static final String nao_cadastrado = "{endereco.exception.nao-cadastrado}";
+
     @Transactional
     public Endereco cadastrar(EnderecoDTO enderecoDTO){
         Endereco endereco = new Endereco();
@@ -31,7 +34,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Endereco buscarPorId(Long id){
         Optional<Endereco> endereco = repository.findById(id);
         if(endereco.isEmpty()){
-            throw new NaoLocalizadoException("{endereco.exception.nao-localizado}");
+            throw new NaoLocalizadoException(nao_localizado);
 
         } else {
             return endereco.get();
@@ -40,7 +43,7 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     public List<Endereco> listar(){
         if(repository.findAll().isEmpty()){
-            throw new NaoLocalizadoException("{endereco.exception.nao-cadastrado}");
+            throw new NaoLocalizadoException(nao_cadastrado);
 
         } else {
             return repository.findAll();
@@ -52,7 +55,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         Endereco enderecoBanco = this.buscarPorId(id);
 
         if(id == 0 || !enderecoNovo.getId().equals(enderecoBanco.getId())){
-            throw new NaoLocalizadoException("{endereco.exception.nao-localizado}");
+            throw new NaoLocalizadoException(nao_localizado);
         }
 
         enderecoBanco.setNumero(enderecoNovo.getNumero());

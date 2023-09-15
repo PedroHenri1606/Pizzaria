@@ -19,6 +19,9 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
     @Autowired
     public AcompanhamentoPedidoRepository repository;
 
+    private static final String nao_localizado = "{acompanhamento.exception.nao-localizado}";
+    private static final String nao_cadastrado = "{acompanhamento-pedido.exception.nao-cadastrado}";
+
     @Transactional
     public AcompanhamentoPedido cadastrar(AcompanhamentoPedidoDTO acompanhamentoPedidoDTO){
         AcompanhamentoPedido acompanhamento = new AcompanhamentoPedido();
@@ -31,7 +34,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
     public AcompanhamentoPedido buscarPorId(Long id){
         Optional<AcompanhamentoPedido> acompanhamento = repository.findById(id);
         if(acompanhamento.isEmpty()){
-            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException(nao_localizado);
 
         } else {
             return acompanhamento.get();
@@ -40,7 +43,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
 
     public List<AcompanhamentoPedido> listar(){
         if(repository.findAll().isEmpty()){
-            throw new NaoLocalizadoException("{acompanhamento-pedido.exception.nao-cadastrado}");
+            throw new NaoLocalizadoException(nao_cadastrado);
 
         } else {
             return repository.findAll();
@@ -52,7 +55,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
         AcompanhamentoPedido acompanhamentoBanco = this.buscarPorId(id);
 
         if(id == 0 || !acompanhamentoNovo.getId().equals(acompanhamentoBanco.getId())){
-            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException(nao_localizado);
         }
 
         acompanhamentoBanco.setQuantidade(acompanhamentoBanco.getQuantidade());

@@ -19,6 +19,9 @@ public class PedidoServiceImpl implements PedidoService {
     @Autowired
     public PedidoRepository repository;
 
+    private static final String nao_localizado = "{pedido.exception.nao-localizado}";
+    private static final String nao_cadastrado = "{pedido.exception.nao-cadastrado}";
+
     @Transactional
     public Pedido cadastrar(PedidoDTO pedidoDTO){
         Pedido pedido = new Pedido();
@@ -31,7 +34,7 @@ public class PedidoServiceImpl implements PedidoService {
     public Pedido buscarPorId(Long id){
         Optional<Pedido> pedido = repository.findById(id);
         if(pedido.isEmpty()){
-            throw new NaoLocalizadoException("{pedido.exception.nao-localizado}");
+            throw new NaoLocalizadoException(nao_localizado);
 
         } else {
             return pedido.get();
@@ -40,7 +43,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     public List<Pedido> listar(){
         if(repository.findAll().isEmpty()){
-            throw new NaoLocalizadoException("{pedido.exception.nao-cadastrado}");
+            throw new NaoLocalizadoException(nao_cadastrado);
 
         } else {
             return repository.findAll();
@@ -52,7 +55,7 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido pedidoBanco = this.buscarPorId(id);
 
         if(id == 0 || !pedidoNovo.getId().equals(pedidoBanco.getId())){
-            throw new NaoLocalizadoException("{pedido.exception.nao-localizado}");
+            throw new NaoLocalizadoException(nao_localizado);
         }
 
         pedidoBanco.setItem(pedidoNovo.getItem());

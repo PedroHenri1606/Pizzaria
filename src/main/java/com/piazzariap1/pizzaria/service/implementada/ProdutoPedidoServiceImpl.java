@@ -19,6 +19,9 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
     @Autowired
     public ProdutoPedidoRepository repository;
 
+    private static final String nao_localizado = "{produto-pedido.exception.nao-localizado}";
+    private static final String nao_cadastrado = "{produto-pedido.exception.nao-cadastrado}";
+
     @Transactional
     public ProdutoPedido cadastrar(ProdutoPedidoDTO produtoPedidoDTO){
         ProdutoPedido itemPedido = new ProdutoPedido();
@@ -31,7 +34,7 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
     public ProdutoPedido buscarPorId(Long id){
         Optional<ProdutoPedido> itemPedido = repository.findById(id);
         if(itemPedido.isEmpty()){
-            throw new NaoLocalizadoException("{produto-pedido.exception.nao-localizado}");
+            throw new NaoLocalizadoException(nao_localizado);
 
         } else {
             return itemPedido.get();
@@ -40,7 +43,7 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
 
     public List<ProdutoPedido> listar(){
         if(repository.findAll().isEmpty()){
-            throw new NaoLocalizadoException("{produto-pedido.exception.nao-cadastrado}");
+            throw new NaoLocalizadoException(nao_cadastrado);
 
         } else {
             return repository.findAll();
@@ -52,7 +55,7 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
         ProdutoPedido itemPedidoBanco = this.buscarPorId(id);
 
         if(id == 0 || !itemPedidoNovo.getId().equals(itemPedidoBanco.getId())){
-            throw new NaoLocalizadoException("{produto-pedido.exception.nao-localizado}");
+            throw new NaoLocalizadoException(nao_localizado);
         }
 
         itemPedidoBanco.setQuantidade(itemPedidoNovo.getQuantidade());
