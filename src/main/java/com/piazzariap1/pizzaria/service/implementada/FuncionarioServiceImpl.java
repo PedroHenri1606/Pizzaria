@@ -20,15 +20,15 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Autowired
     public FuncionarioRepository repository;
 
-    private static final String nao_localizado = "{funcionario.exception.nao-localizado}";
-    private static final String nao_localizado2 = "{funcionario.exception.nao-localizado2}";
-    private static final String nao_cadastrado = "{funcionario.exception.nao-cadastrado}";
-    private static final String cpf_cadastrado = "{funcionario.exception.cpf-cadastrado}";
+    private static final String NAO_LOCALIZADO = "{funcionario.exception.nao-localizado}";
+    private static final String NAO_LOCALIZADO2 = "{funcionario.exception.nao-localizado2}";
+    private static final String NAO_CADASTRADO = "{funcionario.exception.nao-cadastrado}";
+    private static final String CPF_CADASTRADO = "{funcionario.exception.cpf-cadastrado}";
 
     @Transactional
     public Funcionario cadastrar(FuncionarioDTO funcionarioDTO) {
         if (!repository.findByCpf(funcionarioDTO.getCpf()).isEmpty()) {
-            throw new CadastroNaoRealizadoException(cpf_cadastrado);
+            throw new CadastroNaoRealizadoException(CPF_CADASTRADO);
         } else {
 
             Funcionario funcionario = new Funcionario();
@@ -43,7 +43,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public Funcionario buscarPorId(Long id){
         Optional<Funcionario> funcionario = repository.findById(id);
         if(funcionario.isEmpty()){
-            throw new NaoLocalizadoException(nao_localizado);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO);
 
         } else {
             return funcionario.get();
@@ -52,10 +52,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> buscarPorNome(String nome) {
         if(nome.isEmpty()){
-            throw new NaoLocalizadoException(nao_localizado);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO);
 
         } else if(repository.findByNome(nome.toUpperCase()).isEmpty()){
-            throw new NaoLocalizadoException(nao_localizado2);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
             return repository.findByNome(nome.toUpperCase());
@@ -64,10 +64,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> buscarPorCpf(String cpf) {
         if (cpf == null){
-            throw new NaoLocalizadoException(nao_localizado);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO);
 
         } else if(repository.findByCpf(cpf).isEmpty()){
-            throw new NaoLocalizadoException(nao_localizado2);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
             return repository.findByCpf(cpf);
@@ -76,10 +76,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> buscarFuncionarioComecandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new NaoLocalizadoException(nao_localizado);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO);
 
         } else if(repository.findByNomeStartingWith(nome.toUpperCase()).isEmpty()){
-            throw new NaoLocalizadoException(nao_localizado2);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
             return repository.findByNomeStartingWith(nome.toUpperCase());
@@ -88,10 +88,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> buscarFuncionarioTerminandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new NaoLocalizadoException(nao_localizado);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO);
 
         } else if(repository.findByNomeEndingWith(nome.toUpperCase()).isEmpty()){
-            throw new NaoLocalizadoException(nao_localizado2);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
             return repository.findByNomeEndingWith(nome.toUpperCase());
@@ -101,10 +101,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> buscarFuncionarioQueContenha(String nome) {
         if (nome.isEmpty()) {
-            throw new NaoLocalizadoException(nao_localizado);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO);
 
         } else if (repository.findByNomeContaining(nome.toUpperCase()).isEmpty()) {
-            throw new NaoLocalizadoException(nao_localizado2);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
             return repository.findByNomeContaining(nome.toUpperCase());
@@ -113,7 +113,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> listar(){
         if(repository.findAll().isEmpty()){
-            throw new NaoLocalizadoException(nao_cadastrado);
+            throw new NaoLocalizadoException(NAO_CADASTRADO);
 
         } else {
             return repository.findAll();
@@ -125,7 +125,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         Funcionario funcionarioBanco = this.buscarPorId(id);
 
         if(id == 0 || !funcionarioNovo.getId().equals(funcionarioBanco.getId())){
-            throw new NaoLocalizadoException(nao_localizado);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
 
         funcionarioBanco.setNome(funcionarioNovo.getNome());

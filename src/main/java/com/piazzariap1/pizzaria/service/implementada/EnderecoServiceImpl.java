@@ -19,8 +19,8 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Autowired
     public EnderecoRepository repository;
 
-    private static final String nao_localizado = "{endereco.exception.nao-localizado}";
-    private static final String nao_cadastrado = "{endereco.exception.nao-cadastrado}";
+    private static final String NAO_LOCALIZADO = "{endereco.exception.nao-localizado}";
+    private static final String NAO_CADASTRADO = "{endereco.exception.nao-cadastrado}";
 
     @Transactional
     public Endereco cadastrar(EnderecoDTO enderecoDTO){
@@ -34,7 +34,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Endereco buscarPorId(Long id){
         Optional<Endereco> endereco = repository.findById(id);
         if(endereco.isEmpty()){
-            throw new NaoLocalizadoException(nao_localizado);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO);
 
         } else {
             return endereco.get();
@@ -43,7 +43,7 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     public List<Endereco> listar(){
         if(repository.findAll().isEmpty()){
-            throw new NaoLocalizadoException(nao_cadastrado);
+            throw new NaoLocalizadoException(NAO_CADASTRADO);
 
         } else {
             return repository.findAll();
@@ -55,7 +55,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         Endereco enderecoBanco = this.buscarPorId(id);
 
         if(id == 0 || !enderecoNovo.getId().equals(enderecoBanco.getId())){
-            throw new NaoLocalizadoException(nao_localizado);
+            throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
 
         enderecoBanco.setNumero(enderecoNovo.getNumero());
