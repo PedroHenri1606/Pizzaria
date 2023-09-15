@@ -1,6 +1,6 @@
 package com.piazzariap1.pizzaria.dto;
 
-import com.piazzariap1.pizzaria.dto.abstractEntityDTO.AbstractEntityDTO;
+import com.piazzariap1.pizzaria.dto.abstractentitydto.AbstractEntityDTO;
 import com.piazzariap1.pizzaria.entity.Cliente;
 import com.piazzariap1.pizzaria.validation.constraints.CEP;
 import jakarta.validation.constraints.Min;

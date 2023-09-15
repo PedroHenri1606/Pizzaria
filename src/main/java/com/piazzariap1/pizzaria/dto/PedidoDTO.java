@@ -1,6 +1,6 @@
 package com.piazzariap1.pizzaria.dto;
 
-import com.piazzariap1.pizzaria.dto.abstractEntityDTO.AbstractEntityDTO;
+import com.piazzariap1.pizzaria.dto.abstractentitydto.AbstractEntityDTO;
 import com.piazzariap1.pizzaria.entity.*;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;

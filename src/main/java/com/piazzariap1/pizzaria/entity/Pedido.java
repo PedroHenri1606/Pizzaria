@@ -1,6 +1,6 @@
 package com.piazzariap1.pizzaria.entity;
 
-import com.piazzariap1.pizzaria.entity.abstractEntity.AbstractEntity;
+import com.piazzariap1.pizzaria.entity.abstractentity.AbstractEntity;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
 import jakarta.persistence.*;

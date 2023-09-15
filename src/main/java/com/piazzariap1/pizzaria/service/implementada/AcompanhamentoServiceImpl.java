@@ -1,4 +1,4 @@
-package com.piazzariap1.pizzaria.service.Implementada;
+package com.piazzariap1.pizzaria.service.implementada;
 
 import com.piazzariap1.pizzaria.dto.AcompanhamentoDTO;
 import com.piazzariap1.pizzaria.entity.Acompanhamento;

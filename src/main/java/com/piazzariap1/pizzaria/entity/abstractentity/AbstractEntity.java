@@ -1,4 +1,4 @@
-package com.piazzariap1.pizzaria.entity.abstractEntity;
+package com.piazzariap1.pizzaria.entity.abstractentity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.piazzariap1.pizzaria.controller;
 
 import com.piazzariap1.pizzaria.dto.EnderecoDTO;
-import com.piazzariap1.pizzaria.service.Implementada.EnderecoServiceImpl;
+import com.piazzariap1.pizzaria.service.implementada.EnderecoServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

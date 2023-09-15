@@ -1,8 +1,8 @@
 package com.piazzariap1.pizzaria.entity.enuns;
 
 public enum FormaDePagamento {
-    Dinheiro,
+    DINHEIRO,
     PIX,
-    Cartao_credito,
-    Cartao_debito
+    CARTAO_CREDITO,
+    CARTAO_DEBITO
 }

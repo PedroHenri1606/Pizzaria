@@ -1,4 +1,4 @@
-package com.piazzariap1.pizzaria.dto.abstractEntityDTO;
+package com.piazzariap1.pizzaria.dto.abstractentitydto;
 
 import lombok.Getter;
 import lombok.Setter;

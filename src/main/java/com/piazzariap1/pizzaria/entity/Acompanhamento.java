@@ -1,6 +1,6 @@
 package com.piazzariap1.pizzaria.entity;
 
-import com.piazzariap1.pizzaria.entity.abstractEntity.AbstractEntity;
+import com.piazzariap1.pizzaria.entity.abstractentity.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

@@ -4,7 +4,7 @@ import com.piazzariap1.pizzaria.validation.constraints.Telefone;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class TelefoneValidation implements ConstraintValidator<Telefone,String> {
+public class TelefoneValidation  implements ConstraintValidator<Telefone,String> {
 
     @Override
     public void initialize(Telefone constraintAnnotation) {
@@ -18,7 +18,7 @@ public class TelefoneValidation implements ConstraintValidator<Telefone,String> 
                 value.equals("88888888888") || value.equals("99999999999") || (value.length() != 11)) {
             return (false);
         }
-            value = value.replaceAll("[0-9]{2} [0-9]{5}[0-9]{4}", " ");
+            value = value.replaceAll("\\\\(\\\\d{2}\\\\) \\\\d{5}-\\\\d{4}\"", " ");
 
         return value.length() == 11;
         }
