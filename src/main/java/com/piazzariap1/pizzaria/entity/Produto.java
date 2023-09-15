@@ -8,17 +8,15 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tb_produto")
+@Getter @Setter
 public class Produto extends AbstractEntity {
 
-    @Getter @Setter
     @Column(name = "descricao")
     private String descricao;
 
-    @Getter @Setter
     @Column(name = "valor")
     private Long valor;
 
-    @Getter @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "tamanho")
     private TamanhoProduto tamanho;

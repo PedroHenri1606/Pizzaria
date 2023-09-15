@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class FuncionarioController {
 
     @Autowired
-    private FuncionarioServiceImpl service;
+    public FuncionarioServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final FuncionarioDTO funcionarioDTO){

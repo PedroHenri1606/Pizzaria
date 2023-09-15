@@ -7,17 +7,15 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tb_cliente")
+@Getter @Setter
 public class Cliente extends AbstractEntity {
 
-    @Getter @Setter
     @Column(name = "nome")
     private String nome;
 
-    @Getter @Setter
     @Column(name = "cpf")
     private String cpf;
 
-    @Getter @Setter
     @Column(name = "telefone")
     private String telefone;
 

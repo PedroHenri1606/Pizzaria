@@ -7,22 +7,23 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
+@Getter @Setter
 public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
+
     private Long id;
 
-    @Getter @Setter
+
     @Column(name = "hr_cadastro")
     private LocalDateTime cadastro;
 
-    @Getter @Setter
+
     @Column(name = "hr_edicao")
     private LocalDateTime edicao;
 
-    @Getter @Setter
+
     @Column(name = "ativo")
     private boolean ativo;
 

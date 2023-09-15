@@ -10,35 +10,26 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter @Setter
 public class PedidoDTO extends AbstractEntityDTO {
 
-    @Getter @Setter
     private Cliente cliente;
 
-    @Getter @Setter
     private Set<ProdutoPedido> item = new HashSet<>();
 
-    @Getter @Setter
     private Set<AcompanhamentoPedido> acompanhamento = new HashSet<>();
 
-    @Getter @Setter
     private Funcionario funcionario;
 
-    @Getter @Setter
     private String observacao;
 
-    @Getter @Setter
     private Boolean entregar;
 
-    @Getter @Setter
     private Boolean pago;
 
-    @Getter @Setter
     private SituacaoPedido situacaoPedido;
 
-    @Getter @Setter
     private FormaDePagamento formaDePagamento;
 
-    @Getter @Setter
     private Long valorTotal;
 }

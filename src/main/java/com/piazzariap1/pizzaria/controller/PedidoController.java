@@ -83,7 +83,7 @@ import org.springframework.web.bind.annotation.*;
 public class PedidoController {
 
     @Autowired
-    private PedidoServiceImpl service;
+    public PedidoServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final PedidoDTO pedidoDTO){

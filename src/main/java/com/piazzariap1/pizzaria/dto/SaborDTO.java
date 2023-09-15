@@ -9,17 +9,14 @@ import lombok.Setter;
 
 import java.util.Set;
 
-
+@Getter @Setter
 public class SaborDTO extends AbstractEntityDTO {
 
-    @Getter @Setter
     @NotNull(message = "{campo.sabor-nome-NotNull")
     @NotBlank(message = "{campo.sabor-nome-NotBlank}")
     private String nome;
 
-    @Getter @Setter
     private String descricao;
 
-    @Getter @Setter
     private Set<ProdutoPedido> produtosPedidos;
 }

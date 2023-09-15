@@ -16,7 +16,7 @@ import java.util.Optional;
 public class PedidoServiceImpl implements PedidoService {
 
     @Autowired
-    private PedidoRepository repository;
+    public PedidoRepository repository;
 
     @Transactional
     public Pedido cadastrar(PedidoDTO pedidoDTO){
@@ -30,7 +30,7 @@ public class PedidoServiceImpl implements PedidoService {
     public Pedido buscarPorId(Long id){
         Optional<Pedido> pedido = repository.findById(id);
         if(pedido.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o pedido informado!");
+            throw new RuntimeException("{pedido.exception.nao-localizado}");
 
         } else {
             return pedido.get();
@@ -39,7 +39,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     public List<Pedido> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum pedido cadastrado!");
+            throw new RuntimeException("{pedido.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -51,7 +51,7 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido pedidoBanco = this.buscarPorId(id);
 
         if(id == 0 || !pedidoNovo.getId().equals(pedidoBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o pedido informado!");
+            throw new RuntimeException("{pedido.exception.nao-localizado}");
         }
 
         pedidoBanco.setItem(pedidoNovo.getItem());

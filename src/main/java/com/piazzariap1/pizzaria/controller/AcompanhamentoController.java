@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 public class AcompanhamentoController {
 
     @Autowired
-    private AcompanhamentoServiceImpl service;
+    public AcompanhamentoServiceImpl service;
 
 
     @PostMapping

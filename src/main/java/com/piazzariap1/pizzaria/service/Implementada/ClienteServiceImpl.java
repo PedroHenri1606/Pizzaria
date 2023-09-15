@@ -16,12 +16,12 @@ import java.util.Optional;
 public class ClienteServiceImpl implements ClienteService {
 
     @Autowired
-    private ClienteRepository repository;
+    public ClienteRepository repository;
 
     @Transactional
     public Cliente cadastrar(ClienteDTO clienteDTO) {
         if (!repository.findByCpf(clienteDTO.getCpf()).isEmpty()) {
-            throw new RuntimeException("o cpf informado já esta cadastrado!");
+            throw new RuntimeException("{cliente.exception.cpf-cadastrado}");
         } else {
 
             Cliente cliente = new Cliente();
@@ -36,7 +36,7 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente buscarPorId(Long id){
         Optional<Cliente> cliente = repository.findById(id);
         if(cliente.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+            throw new RuntimeException("{cliente.exception.nao-localizado}");
 
         } else {
             return cliente.get();
@@ -45,10 +45,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> buscarPorNome(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+            throw new RuntimeException("{cliente.exception.nao-localizado}");
 
         } else if(repository.findByNome(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+            throw new RuntimeException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByNome(nome.toUpperCase());
@@ -56,11 +56,11 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     public List<Cliente> buscarPorCpf(String cpf) {
-        if (cpf == null || cpf.equals(0)){
-            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+        if (cpf == null){
+            throw new RuntimeException("{cliente.exception.nao-localizado}");
 
         } else if(repository.findByCpf(cpf).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+            throw new RuntimeException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByCpf(cpf);
@@ -69,10 +69,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> buscarClienteComecandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+            throw new RuntimeException("{cliente.exception.nao-localizado}");
 
         } else if(repository.findByNomeStartingWith(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+            throw new RuntimeException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeStartingWith(nome.toUpperCase());
@@ -81,10 +81,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> buscarClienteTerminandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+            throw new RuntimeException("{cliente.exception.nao-localizado}");
 
         } else if(repository.findByNomeEndingWith(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+            throw new RuntimeException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeEndingWith(nome.toUpperCase());
@@ -94,10 +94,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> buscarClienteQueContenha(String nome) {
         if (nome.isEmpty()) {
-            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+            throw new RuntimeException("{cliente.exception.nao-localizado}");
 
         } else if (repository.findByNomeContaining(nome.toUpperCase()).isEmpty()) {
-            throw new RuntimeException("não foi possivel localizar nenhum cliente!");
+            throw new RuntimeException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeContaining(nome.toUpperCase());
@@ -106,7 +106,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum cliente cadastrado!");
+            throw new RuntimeException("{cliente.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -118,12 +118,11 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente clienteBanco = this.buscarPorId(id);
 
         if(id == 0 || !clienteNovo.getId().equals(clienteBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o cliente informado!");
+            throw new RuntimeException("{cliente.exception.nao-localizado}");
         }
 
         clienteBanco.setNome(clienteNovo.getNome());
         clienteBanco.setTelefone(clienteNovo.getTelefone());
-        clienteBanco.setCpf(clienteNovo.getCpf());
 
         return repository.save(clienteBanco);
     }

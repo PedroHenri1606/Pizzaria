@@ -10,17 +10,15 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_sabor")
+@Getter @Setter
 public class Sabor extends AbstractEntity {
 
-    @Getter @Setter
     @Column(name = "nome")
     private String nome;
 
-    @Getter @Setter
     @Column(name = "descricao")
     private String descricao;
 
-    @Getter @Setter
     @ManyToMany(mappedBy = "sabores")
     @JsonIgnore
     private Set<ProdutoPedido> produtosPedidos;

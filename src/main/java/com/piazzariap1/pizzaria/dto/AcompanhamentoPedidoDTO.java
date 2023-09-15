@@ -8,17 +8,15 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter @Setter
 public class AcompanhamentoPedidoDTO extends AbstractEntityDTO {
 
-    @Getter @Setter
     @NotNull(message = "{campo.acompanhamentoPedido-acompanhamento-NotNull}")
     private AcompanhamentoPedido acompanhamentoPedido;
 
-    @Getter @Setter
     @Min(value = 1, message = "{campo.acompanhamentoPedido-quantidade-Min}")
     private Integer quantidade;
 
-    @Getter @Setter
     private Pedido pedido;
 
 }

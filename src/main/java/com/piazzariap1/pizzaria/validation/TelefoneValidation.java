@@ -18,12 +18,8 @@ public class TelefoneValidation implements ConstraintValidator<Telefone,String> 
                 value.equals("88888888888") || value.equals("99999999999") || (value.length() != 11)) {
             return (false);
         }
-            value = value.replaceAll("[0-9]{2}[ ][0-9]{5}[0-9]{4}", " ");
+            value = value.replaceAll("[0-9]{2} [0-9]{5}[0-9]{4}", " ");
 
-            if (value.length() != 11) {
-                return false;
-            } else {
-                return true;
-            }
+        return value.length() == 11;
         }
     }

@@ -16,7 +16,7 @@ import java.util.Optional;
 public class ProdutoServiceImpl implements ProdutoService {
 
     @Autowired
-    private ProdutoRepository repository;
+    public ProdutoRepository repository;
 
     @Transactional
     public Produto cadastrar(ProdutoDTO produtoDTO){
@@ -31,7 +31,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto buscarPorId(Long id){
         Optional<Produto> produto = repository.findById(id);
         if(produto.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o produto informado!");
+            throw new RuntimeException("{produto.exception.nao-localizado}");
 
         } else {
             return produto.get();
@@ -40,7 +40,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     public List<Produto> buscarPorDescricao(String descricao) {
         if(descricao.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+            throw new RuntimeException("{produto.exception.nao-localizado}");
 
         } else if(repository.findByDescricao(descricao.toUpperCase()).isEmpty()){
             throw new RuntimeException("não foi possivel localizar nenhum acompanhamento!");
@@ -51,11 +51,11 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     public List<Produto> buscarPorValor(Long valor) {
-        if (valor == null || valor.equals(0)){
-            throw new RuntimeException("não foi possivel localizar o produto informado!");
+        if (valor == null ){
+            throw new RuntimeException("{produto.exception.nao-localizado}");
 
         } else if(repository.findByValor(valor).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum produto!");
+            throw new RuntimeException("{produto.exception.nao-localizado2}");
 
         } else {
             return repository.findByValor(valor);
@@ -64,10 +64,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     public List<Produto> buscarProdutoComecandoCom(String descricao) {
         if(descricao.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o produto informado!");
+            throw new RuntimeException("{produto.exception.nao-localizado}");
 
         } else if(repository.findByDescricaoStartingWith(descricao.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum produto!");
+            throw new RuntimeException("{produto.exception.nao-localizado2}");
 
         } else {
             return repository.findByDescricaoStartingWith(descricao.toUpperCase());
@@ -76,10 +76,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     public List<Produto> buscarProdutoTerminandoCom(String descricao) {
         if(descricao.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o produto informado!");
+            throw new RuntimeException("{produto.exception.nao-localizado}");
 
         } else if(repository.findByDescricaoEndingWith(descricao.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum produto!");
+            throw new RuntimeException("{produto.exception.nao-localizado2}");
 
         } else {
             return repository.findByDescricaoEndingWith(descricao.toUpperCase());
@@ -89,10 +89,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     public List<Produto> buscarProdutoQueContenha(String descricao) {
         if (descricao.isEmpty()) {
-            throw new RuntimeException("não foi possivel localizar o produto informado!");
+            throw new RuntimeException("{produto.exception.nao-localizado}");
 
         } else if (repository.findByDescricaoContaining(descricao.toUpperCase()).isEmpty()) {
-            throw new RuntimeException("não foi possivel localizar nenhum produto!");
+            throw new RuntimeException("{produto.exception.nao-localizado2}");
 
         } else {
             return repository.findByDescricaoContaining(descricao.toUpperCase());
@@ -101,7 +101,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     public List<Produto> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum produto cadastrado!");
+            throw new RuntimeException("{produto.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -113,7 +113,7 @@ public class ProdutoServiceImpl implements ProdutoService {
         Produto produtoBanco = this.buscarPorId(id);
 
         if(id == 0 || !produtoNovo.getId().equals(produtoBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o produto informado!");
+            throw new RuntimeException("{produto.exception.nao-localizado}");
         }
 
         produtoBanco.setDescricao(produtoNovo.getDescricao());

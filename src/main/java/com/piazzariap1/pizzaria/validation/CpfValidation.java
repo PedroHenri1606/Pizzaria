@@ -30,7 +30,7 @@ public class CpfValidation implements ConstraintValidator<CPF,String> {
                 // converte o i-esimo caractere do CPF em um numero:
                 // por exemplo, transforma o caractere '0' no inteiro 0
                 // (48 eh a posicao de '0' na tabela ASCII)
-                num = (int)(CPF.charAt(i) - 48);
+                num = CPF.charAt(i) - 48;
                 sm = sm + (num * peso);
                 peso = peso - 1;
             }
@@ -44,7 +44,7 @@ public class CpfValidation implements ConstraintValidator<CPF,String> {
             sm = 0;
             peso = 11;
             for(i=0; i<10; i++) {
-                num = (int)(CPF.charAt(i) - 48);
+                num = CPF.charAt(i) - 48;
                 sm = sm + (num * peso);
                 peso = peso - 1;
             }
@@ -55,9 +55,7 @@ public class CpfValidation implements ConstraintValidator<CPF,String> {
             else dig11 = (char)(r + 48);
 
             // Verifica se os digitos calculados conferem com os digitos informados.
-            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
-                return(true);
-            else return(false);
+            return (dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10));
         } catch (Exception erro) {
             return(false);
         }

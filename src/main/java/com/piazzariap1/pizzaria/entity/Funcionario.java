@@ -9,17 +9,15 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tb_funcionario")
+@Getter @Setter
 public class Funcionario extends AbstractEntity {
 
-    @Getter @Setter
     @Column(name = "nome")
     private String nome;
 
-    @Getter @Setter
     @Column(name = "cpf")
     private String cpf;
 
-    @Getter @Setter
     @Column(name = "telefone")
     private String telefone;
 }

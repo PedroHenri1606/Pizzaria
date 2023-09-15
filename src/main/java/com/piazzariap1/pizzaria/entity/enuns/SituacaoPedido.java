@@ -7,5 +7,5 @@ public enum SituacaoPedido {
     Em_producao,
     Em_processo_de_entrega,
     Entregue,
-    Finalizado;
+    Finalizado
 }

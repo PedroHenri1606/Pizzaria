@@ -8,98 +8,88 @@ import java.util.List;
 public interface ClienteService {
 
 
-    /**@PostMapping
-     *
+    /**
      * Ao receber o objeto cliente, sera efetuado as validações, e se for altorizado
      * ira persistir os dados no banco de dados
      *
      * @param clienteDTO novo cliente
-     * @return
+     * @return cliente cadastrado no banco de dados
      */
     Cliente cadastrar(ClienteDTO clienteDTO);
 
 
-    /**@GetMapping
-     *
+    /**
      * Ao receber o id, deve buscar no banco de dados o cliente referente ao id
      *
      * @param id do cliente já existente
-     * @return
+     * @return cliente cadastrado no banco de dados
      */
     Cliente buscarPorId(Long id);
 
-    /**@GetMapping
-     *
+    /**
      * Busca no banco de dados, todos os clientes que possuem a mesmo id
      *
      * @param nome do clientes já existente
-     * @return
+     * @return cliente cadastrado no banco de dados
      */
     List<Cliente> buscarPorNome(String nome);
 
 
-    /**@GetMapping
-     *
+    /**
      * Busca no banco de dados, o cliente que possue o cpf enviado
      *
      * @param cpf do cliente já existente
-     * @return
+     * @return cliente cadastrado no banco de dados
      */
     List<Cliente> buscarPorCpf(String cpf);
 
 
-    /**@GetMapping
-     *
+    /**
      * Busca no banco de dados, todos os clientes que começam pelo nome enviada
      *
      * @param nome do cliente já existente
-     * @return
+     * @return cliente cadastrado no banco de dados
      */
     List<Cliente> buscarClienteComecandoCom(String nome);
 
 
-    /**@GetMapping
-     *
+    /**
      *Busca no banco de dados, todos os clientes que terminam pelo nome enviada
      *
      * @param nome do cliente já existente
-     * @return
+     * @return cliente cadastrado no banco de dados
      */
     List<Cliente> buscarClienteTerminandoCom(String nome);
 
 
-    /**@GetMapping
-     *
+    /**
      * Busca no banco de dados, todos os clientes que contenha o nome enviada
      *
      * @param nome do cliente já existente
-     * @return
+     * @return cliente cadastrado no banco de dados
      */
     List<Cliente> buscarClienteQueContenha(String nome);
 
-    /**@GetMapping
-     *
+    /**
      * Busca no banco de dados, todos os clientes já cadastrados
      *
-     * @return
+     * @return todos os clientes cadastrados no banco de dados
      */
     List<Cliente> listar();
 
 
-    /**@PutMapping
-     *
+    /**
      * Ao receber o id do cliente, e as informações do cliente a ser alterado, deve comparar os ids e se forem iguais
      * deve persistir as dados atualizados
      *
      * @param id do cliente já existente
      * @param clienteDTO objeto cliente que fornecera as novas informações do cliente selecionado
-     * @return
+     * @return cliente atualizado, podendo alterar nome, telefone
      */
     Cliente editar(Long id, ClienteDTO clienteDTO);
 
 
-    /**@DeleteMapping
-     *
+    /**
      * Ao receber o id do cliente, efetua a busca para verificar se o id é valido e em seguida, deleta o cliente
      *
      * @param id utilizado para passar as informações do cliente a ser deletado

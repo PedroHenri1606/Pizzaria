@@ -17,7 +17,7 @@ import java.util.Optional;
 public class SaborServiceImpl implements SaborService {
 
     @Autowired
-    private SaborRepository repository;
+    public SaborRepository repository;
 
     @Transactional
     public Sabor cadastrar(SaborDTO saborDTO){
@@ -32,7 +32,7 @@ public class SaborServiceImpl implements SaborService {
     public Sabor buscarPorId(Long id){
         Optional<Sabor> sabor = repository.findById(id);
         if(sabor.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+            throw new RuntimeException("{sabor.exception.nao-localizado}");
 
         } else {
             return sabor.get();
@@ -41,10 +41,10 @@ public class SaborServiceImpl implements SaborService {
 
     public List<Sabor> buscarPorNome(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+            throw new RuntimeException("{sabor.exception.nao-localizado}");
 
         } else if(repository.findByNome(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum sabor!");
+            throw new RuntimeException("{sabor.exception.nao-localizado2}");
 
         } else {
             return repository.findByNome(nome.toUpperCase());
@@ -53,10 +53,10 @@ public class SaborServiceImpl implements SaborService {
 
     public List<Sabor> buscarSaborComecandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+            throw new RuntimeException("{sabor.exception.nao-localizado}");
 
         } else if(repository.findByNomeStartingWith(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum sabor!");
+            throw new RuntimeException("{sabor.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeStartingWith(nome.toUpperCase());
@@ -65,10 +65,10 @@ public class SaborServiceImpl implements SaborService {
 
     public List<Sabor> buscarSaborTerminandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+            throw new RuntimeException("{sabor.exception.nao-localizado}");
 
         } else if(repository.findByNomeEndingWith(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum sabor!");
+            throw new RuntimeException("{sabor.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeEndingWith(nome.toUpperCase());
@@ -77,10 +77,10 @@ public class SaborServiceImpl implements SaborService {
 
     public List<Sabor> buscarSaborQueContenha(String nome) {
         if (nome.isEmpty()) {
-            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+            throw new RuntimeException("{sabor.exception.nao-localizado}");
 
         } else if (repository.findByNomeContaining(nome.toUpperCase()).isEmpty()) {
-            throw new RuntimeException("não foi possivel localizar nenhum sabor!");
+            throw new RuntimeException("{sabor.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeContaining(nome.toUpperCase());
@@ -89,7 +89,7 @@ public class SaborServiceImpl implements SaborService {
 
     public List<Sabor> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum sabor cadastrado!");
+            throw new RuntimeException("{sabor.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -101,7 +101,7 @@ public class SaborServiceImpl implements SaborService {
         Sabor saborBanco = this.buscarPorId(id);
 
         if(id == 0 || !saborNovo.getId().equals(saborBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o sabor informado!");
+            throw new RuntimeException("{sabor.exception.nao-localizado}");
         }
 
         saborBanco.setNome(saborNovo.getNome());

@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.*;
 public class EnderecoController {
 
     @Autowired
-    private EnderecoServiceImpl service;
+    public EnderecoServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final EnderecoDTO enderecoDTO){

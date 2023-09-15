@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProdutoController {
 
     @Autowired
-    private ProdutoServiceImpl service;
+    public ProdutoServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final ProdutoDTO produtoDTO){

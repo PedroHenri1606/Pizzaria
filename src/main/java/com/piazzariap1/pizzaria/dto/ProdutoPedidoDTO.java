@@ -12,20 +12,17 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter @Setter
 public class ProdutoPedidoDTO extends AbstractEntityDTO {
 
-    @Getter @Setter
     @NotNull(message = "{campo.produtoPedido-acompanhamento-NotNull}")
     private Produto produto;
 
-    @Getter @Setter
     @Min(value = 1, message = "{campo.produtoPedido-quantidade-Min}")
     private Integer quantidade;
 
-    @Getter @Setter
     @NotNull(message = "{campo.produtoPedido-sabores-NotNull}")
     private Set<Sabor> sabores = new HashSet<>();
 
-    @Getter @Setter
     private Pedido pedido;
 }

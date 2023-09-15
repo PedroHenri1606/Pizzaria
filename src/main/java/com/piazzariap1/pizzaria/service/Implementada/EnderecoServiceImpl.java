@@ -16,7 +16,7 @@ import java.util.Optional;
 public class EnderecoServiceImpl implements EnderecoService {
 
     @Autowired
-    private EnderecoRepository repository;
+    public EnderecoRepository repository;
 
     @Transactional
     public Endereco cadastrar(EnderecoDTO enderecoDTO){
@@ -30,7 +30,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Endereco buscarPorId(Long id){
         Optional<Endereco> endereco = repository.findById(id);
         if(endereco.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o endereco informado!");
+            throw new RuntimeException("{endereco.exception.nao-localizado}");
 
         } else {
             return endereco.get();
@@ -39,7 +39,7 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     public List<Endereco> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum endereco cadastrado!");
+            throw new RuntimeException("{endereco.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -51,7 +51,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         Endereco enderecoBanco = this.buscarPorId(id);
 
         if(id == 0 || !enderecoNovo.getId().equals(enderecoBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o endereco informado!");
+            throw new RuntimeException("{endereco.exception.nao-localizado}");
         }
 
         enderecoBanco.setNumero(enderecoNovo.getNumero());

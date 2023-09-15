@@ -9,13 +9,12 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tb_acompanhamento")
+@Getter @Setter
 public class Acompanhamento extends AbstractEntity {
 
-    @Getter @Setter
     @Column(name = "descricao")
     private String descricao;
 
-    @Getter @Setter
     @Column(name = "valor")
     private Long valor;
 

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 public class SaborController {
 
     @Autowired
-    private SaborServiceImpl service;
+    public SaborServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final SaborDTO saborDTO){
@@ -109,7 +109,7 @@ public class SaborController {
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
+    private ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
             service.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body("Sabor deletado com sucesso!");

@@ -93,7 +93,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProdutoPedidoController {
 
     @Autowired
-    private ProdutoPedidoServiceImpl service;
+    public ProdutoPedidoServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final ProdutoPedidoDTO produtoPedidoDTO){

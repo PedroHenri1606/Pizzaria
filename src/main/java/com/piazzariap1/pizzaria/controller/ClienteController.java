@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class ClienteController {
 
     @Autowired
-    private ClienteServiceImpl service;
+    public ClienteServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final ClienteDTO clienteDTO){

@@ -16,22 +16,27 @@ import java.util.Optional;
 public class FuncionarioServiceImpl implements FuncionarioService {
 
     @Autowired
-    private FuncionarioRepository repository;
+    public FuncionarioRepository repository;
 
     @Transactional
-    public Funcionario cadastrar(FuncionarioDTO funcionarioDTO){
-        Funcionario funcionario = new Funcionario();
+    public Funcionario cadastrar(FuncionarioDTO funcionarioDTO) {
+        if (!repository.findByCpf(funcionarioDTO.getCpf()).isEmpty()) {
+            throw new RuntimeException("{funcionario.exception.cpf-cadastrado}");
+        } else {
 
-        BeanUtils.copyProperties(funcionarioDTO,funcionario);
-        funcionario.setNome(funcionarioDTO.getNome().toUpperCase());
+            Funcionario funcionario = new Funcionario();
 
-        return repository.save(funcionario);
+            BeanUtils.copyProperties(funcionarioDTO, funcionario);
+            funcionario.setNome(funcionarioDTO.getNome().toUpperCase());
+
+            return repository.save(funcionario);
+        }
     }
 
     public Funcionario buscarPorId(Long id){
         Optional<Funcionario> funcionario = repository.findById(id);
         if(funcionario.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado}");
 
         } else {
             return funcionario.get();
@@ -40,10 +45,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> buscarPorNome(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado}");
 
         } else if(repository.findByNome(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado2}");
 
         } else {
             return repository.findByNome(nome.toUpperCase());
@@ -51,11 +56,11 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     public List<Funcionario> buscarPorCpf(String cpf) {
-        if (cpf == null || cpf.equals(0)){
-            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+        if (cpf == null){
+            throw new RuntimeException("{funcionario.exception.nao-localizado}");
 
         } else if(repository.findByCpf(cpf).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado2}");
 
         } else {
             return repository.findByCpf(cpf);
@@ -64,10 +69,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> buscarFuncionarioComecandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado}");
 
         } else if(repository.findByNomeStartingWith(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeStartingWith(nome.toUpperCase());
@@ -76,10 +81,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> buscarFuncionarioTerminandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado}");
 
         } else if(repository.findByNomeEndingWith(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeEndingWith(nome.toUpperCase());
@@ -89,10 +94,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> buscarFuncionarioQueContenha(String nome) {
         if (nome.isEmpty()) {
-            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado}");
 
         } else if (repository.findByNomeContaining(nome.toUpperCase()).isEmpty()) {
-            throw new RuntimeException("não foi possivel localizar nenhum funcionario!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeContaining(nome.toUpperCase());
@@ -101,7 +106,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     public List<Funcionario> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum funcionario cadastrado!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado2}");
 
         } else {
             return repository.findAll();
@@ -113,12 +118,11 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         Funcionario funcionarioBanco = this.buscarPorId(id);
 
         if(id == 0 || !funcionarioNovo.getId().equals(funcionarioBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o funcionario informado!");
+            throw new RuntimeException("{funcionario.exception.nao-localizado}");
         }
 
         funcionarioBanco.setNome(funcionarioNovo.getNome());
         funcionarioBanco.setTelefone(funcionarioNovo.getTelefone());
-        funcionarioBanco.setCpf(funcionarioNovo.getCpf());
 
         return repository.save(funcionarioBanco);
     }

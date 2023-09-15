@@ -16,7 +16,7 @@ import java.util.Optional;
 public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoService {
 
     @Autowired
-    private AcompanhamentoPedidoRepository repository;
+    public AcompanhamentoPedidoRepository repository;
 
     @Transactional
     public AcompanhamentoPedido cadastrar(AcompanhamentoPedidoDTO acompanhamentoPedidoDTO){
@@ -30,7 +30,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
     public AcompanhamentoPedido buscarPorId(Long id){
         Optional<AcompanhamentoPedido> acompanhamento = repository.findById(id);
         if(acompanhamento.isEmpty()){
-            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
 
         } else {
             return acompanhamento.get();
@@ -39,7 +39,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
 
     public List<AcompanhamentoPedido> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("não foi possivel localizar nenhum acompanhamento do pedido cadastrado!");
+            throw new RuntimeException("{acompanhamento-pedido.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -51,7 +51,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
         AcompanhamentoPedido acompanhamentoBanco = this.buscarPorId(id);
 
         if(id == 0 || !acompanhamentoNovo.getId().equals(acompanhamentoBanco.getId())){
-            throw new RuntimeException("não foi possivel localizar o acompanhamento informado!");
+            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
         }
 
         acompanhamentoBanco.setQuantidade(acompanhamentoBanco.getQuantidade());

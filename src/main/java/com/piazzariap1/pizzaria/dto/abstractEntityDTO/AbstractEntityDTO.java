@@ -5,17 +5,14 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter @Setter
 public abstract class AbstractEntityDTO {
 
-    @Getter @Setter
     private Long id;
 
-    @Getter @Setter
     private LocalDateTime cadastro;
 
-    @Getter @Setter
     private LocalDateTime edicao;
 
-    @Getter @Setter
     private boolean ativo;
 }

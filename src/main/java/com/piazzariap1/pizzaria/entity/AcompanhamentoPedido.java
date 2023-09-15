@@ -8,14 +8,14 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tb_acompanhamento_pedido")
+@Getter @Setter
 public class AcompanhamentoPedido extends AbstractEntity {
 
-    @Getter @Setter
+
     @ManyToOne
     @JoinColumn(name = "acompanhamento_id")
     private Acompanhamento acompanhamento;
 
-    @Getter @Setter
     @Column(name = "quantidade")
     private Integer quantidade;
 

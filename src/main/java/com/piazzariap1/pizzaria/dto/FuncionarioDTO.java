@@ -8,18 +8,16 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter @Setter
 public class FuncionarioDTO extends AbstractEntityDTO {
 
-    @Getter @Setter
     @NotNull(message = "{campo.cliente/funcionario-nome-NotNull}")
     @NotBlank(message = "{campo.cliente/funcionario-nome-NotBlank}")
     private String nome;
 
-    @Getter @Setter
     @CPF(message = "{campo.cliente/funcionario-cpf-CPF}")
     private String cpf;
 
-    @Getter @Setter
     @Telefone(message = "{campo.cliente/funcionario-telefone-Tell}")
     private String telefone;
 }

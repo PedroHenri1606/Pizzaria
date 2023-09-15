@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.*;
 public class AcompanhamentoPedidoController {
 
     @Autowired
-    private AcompanhamentoPedidoServiceImpl service;
+    public AcompanhamentoPedidoServiceImpl service;
 
     @PostMapping
     private ResponseEntity<Object> cadastrar(@Valid @RequestBody final AcompanhamentoPedidoDTO acompanhamentoPedidoDTO){

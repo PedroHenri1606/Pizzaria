@@ -9,27 +9,23 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter @Setter
 public class EnderecoDTO extends AbstractEntityDTO {
 
-    @Getter @Setter
     @CEP(message = "{campo.endereco-cep-CEP}")
     private String cep;
 
-    @Getter @Setter
     @NotNull(message = "{campo.endereco-bairro-NotNull}")
     @NotBlank(message = "{campo.endereco-bairro-NotBlank}")
     private String bairro;
 
-    @Getter @Setter
     @NotNull(message = "{campo.endereco-logadouro-NotNull}")
     @NotBlank(message = "{campo.endereco-logadouro-NotBlank}")
     private String logadouro;
 
-    @Getter @Setter
     @Min(value = 1,message = "{campo.endereço-numero-Min}")
     private Integer numero;
 
-    @Getter @Setter
     @NotNull(message = "{campo.endereço-cliente-NotNull}")
     private Cliente cliente;
 }
