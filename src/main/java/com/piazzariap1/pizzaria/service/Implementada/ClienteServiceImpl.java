@@ -4,6 +4,8 @@ import com.piazzariap1.pizzaria.dto.ClienteDTO;
 import com.piazzariap1.pizzaria.entity.Cliente;
 import com.piazzariap1.pizzaria.repository.ClienteRepository;
 import com.piazzariap1.pizzaria.service.ClienteService;
+import com.piazzariap1.pizzaria.service.exception.CadastroNaoRealizadoException;
+import com.piazzariap1.pizzaria.service.exception.NaoLocalizadoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     public Cliente cadastrar(ClienteDTO clienteDTO) {
         if (!repository.findByCpf(clienteDTO.getCpf()).isEmpty()) {
-            throw new RuntimeException("{cliente.exception.cpf-cadastrado}");
+            throw new CadastroNaoRealizadoException("{cliente.exception.cpf-cadastrado}");
         } else {
 
             Cliente cliente = new Cliente();
@@ -36,7 +38,7 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente buscarPorId(Long id){
         Optional<Cliente> cliente = repository.findById(id);
         if(cliente.isEmpty()){
-            throw new RuntimeException("{cliente.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado}");
 
         } else {
             return cliente.get();
@@ -45,10 +47,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> buscarPorNome(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("{cliente.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado}");
 
         } else if(repository.findByNome(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("{cliente.exception.nao-localizado2}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByNome(nome.toUpperCase());
@@ -57,10 +59,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> buscarPorCpf(String cpf) {
         if (cpf == null){
-            throw new RuntimeException("{cliente.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado}");
 
         } else if(repository.findByCpf(cpf).isEmpty()){
-            throw new RuntimeException("{cliente.exception.nao-localizado2}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByCpf(cpf);
@@ -69,10 +71,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> buscarClienteComecandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("{cliente.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado}");
 
         } else if(repository.findByNomeStartingWith(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("{cliente.exception.nao-localizado2}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeStartingWith(nome.toUpperCase());
@@ -81,10 +83,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> buscarClienteTerminandoCom(String nome) {
         if(nome.isEmpty()){
-            throw new RuntimeException("{cliente.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado}");
 
         } else if(repository.findByNomeEndingWith(nome.toUpperCase()).isEmpty()){
-            throw new RuntimeException("{cliente.exception.nao-localizado2}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeEndingWith(nome.toUpperCase());
@@ -94,10 +96,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> buscarClienteQueContenha(String nome) {
         if (nome.isEmpty()) {
-            throw new RuntimeException("{cliente.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado}");
 
         } else if (repository.findByNomeContaining(nome.toUpperCase()).isEmpty()) {
-            throw new RuntimeException("{cliente.exception.nao-localizado2}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado2}");
 
         } else {
             return repository.findByNomeContaining(nome.toUpperCase());
@@ -106,7 +108,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     public List<Cliente> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("{cliente.exception.nao-cadastrado}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -118,7 +120,7 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente clienteBanco = this.buscarPorId(id);
 
         if(id == 0 || !clienteNovo.getId().equals(clienteBanco.getId())){
-            throw new RuntimeException("{cliente.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{cliente.exception.nao-localizado}");
         }
 
         clienteBanco.setNome(clienteNovo.getNome());

@@ -4,6 +4,7 @@ import com.piazzariap1.pizzaria.dto.AcompanhamentoDTO;
 import com.piazzariap1.pizzaria.entity.Acompanhamento;
 import com.piazzariap1.pizzaria.repository.AcompanhamentoRepository;
 import com.piazzariap1.pizzaria.service.AcompanhamentoService;
+import com.piazzariap1.pizzaria.service.exception.NaoLocalizadoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
     public Acompanhamento buscarPorId(Long id){
         Optional<Acompanhamento> acompanhamento = repository.findById(id);
         if(acompanhamento.isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else {
             return acompanhamento.get();
@@ -40,10 +41,10 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
 
     public List<Acompanhamento> buscarPorDescricao(String descricao) {
         if(descricao.isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else if(repository.findByDescricao(descricao.toUpperCase()).isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else {
             return repository.findByDescricao(descricao.toUpperCase());
@@ -52,10 +53,10 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
 
     public List<Acompanhamento> buscarPorValor(Long valor) {
         if (valor == null){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else if(repository.findByValor(valor).isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else {
             return repository.findByValor(valor);
@@ -64,10 +65,10 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
 
     public List<Acompanhamento> buscarAcompanhamentoComecandoCom(String descricao) {
         if(descricao.isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else if(repository.findByDescricaoStartingWith(descricao.toUpperCase()).isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else {
             return repository.findByDescricaoStartingWith(descricao.toUpperCase());
@@ -76,10 +77,10 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
 
     public List<Acompanhamento> buscarAcompanhamentoTerminandoCom(String descricao) {
         if(descricao.isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else if(repository.findByDescricaoEndingWith(descricao.toUpperCase()).isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else {
             return repository.findByDescricaoEndingWith(descricao.toUpperCase());
@@ -88,10 +89,10 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
 
     public List<Acompanhamento> buscarAcompanhamentoQueContenha(String descricao) {
         if (descricao.isEmpty()) {
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else if (repository.findByDescricaoContaining(descricao.toUpperCase()).isEmpty()) {
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else {
             return repository.findByDescricaoContaining(descricao.toUpperCase());
@@ -100,7 +101,7 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
 
     public List<Acompanhamento> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-cadastrado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -112,7 +113,7 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
         Acompanhamento acompanhamentoBanco = this.buscarPorId(id);
 
         if(id == 0 || !acompanhamentoNovo.getId().equals(acompanhamentoBanco.getId())){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
         }
 
         acompanhamentoBanco.setDescricao(acompanhamentoNovo.getDescricao());

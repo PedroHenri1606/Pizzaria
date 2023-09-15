@@ -4,6 +4,7 @@ import com.piazzariap1.pizzaria.dto.AcompanhamentoPedidoDTO;
 import com.piazzariap1.pizzaria.entity.AcompanhamentoPedido;
 import com.piazzariap1.pizzaria.repository.AcompanhamentoPedidoRepository;
 import com.piazzariap1.pizzaria.service.AcompanhamentoPedidoService;
+import com.piazzariap1.pizzaria.service.exception.NaoLocalizadoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
     public AcompanhamentoPedido buscarPorId(Long id){
         Optional<AcompanhamentoPedido> acompanhamento = repository.findById(id);
         if(acompanhamento.isEmpty()){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
 
         } else {
             return acompanhamento.get();
@@ -39,7 +40,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
 
     public List<AcompanhamentoPedido> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("{acompanhamento-pedido.exception.nao-cadastrado}");
+            throw new NaoLocalizadoException("{acompanhamento-pedido.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -51,7 +52,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
         AcompanhamentoPedido acompanhamentoBanco = this.buscarPorId(id);
 
         if(id == 0 || !acompanhamentoNovo.getId().equals(acompanhamentoBanco.getId())){
-            throw new RuntimeException("{acompanhamento.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{acompanhamento.exception.nao-localizado}");
         }
 
         acompanhamentoBanco.setQuantidade(acompanhamentoBanco.getQuantidade());

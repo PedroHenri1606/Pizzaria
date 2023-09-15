@@ -4,6 +4,7 @@ import com.piazzariap1.pizzaria.dto.EnderecoDTO;
 import com.piazzariap1.pizzaria.entity.Endereco;
 import com.piazzariap1.pizzaria.repository.EnderecoRepository;
 import com.piazzariap1.pizzaria.service.EnderecoService;
+import com.piazzariap1.pizzaria.service.exception.NaoLocalizadoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Endereco buscarPorId(Long id){
         Optional<Endereco> endereco = repository.findById(id);
         if(endereco.isEmpty()){
-            throw new RuntimeException("{endereco.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{endereco.exception.nao-localizado}");
 
         } else {
             return endereco.get();
@@ -39,7 +40,7 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     public List<Endereco> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("{endereco.exception.nao-cadastrado}");
+            throw new NaoLocalizadoException("{endereco.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -51,7 +52,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         Endereco enderecoBanco = this.buscarPorId(id);
 
         if(id == 0 || !enderecoNovo.getId().equals(enderecoBanco.getId())){
-            throw new RuntimeException("{endereco.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{endereco.exception.nao-localizado}");
         }
 
         enderecoBanco.setNumero(enderecoNovo.getNumero());

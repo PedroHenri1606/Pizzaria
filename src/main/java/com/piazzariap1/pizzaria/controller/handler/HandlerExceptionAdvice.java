@@ -1,4 +1,4 @@
-package com.piazzariap1.pizzaria.controller;
+package com.piazzariap1.pizzaria.controller.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -18,7 +18,7 @@ public class HandlerExceptionAdvice {
     public Map<String,String> handleValidationException(MethodArgumentNotValidException ex){
         Map<String,String> errors = new HashMap<>();
 
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
+        ex.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
 

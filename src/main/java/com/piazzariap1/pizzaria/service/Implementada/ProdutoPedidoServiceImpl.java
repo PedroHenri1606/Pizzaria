@@ -4,6 +4,7 @@ import com.piazzariap1.pizzaria.dto.ProdutoPedidoDTO;
 import com.piazzariap1.pizzaria.entity.ProdutoPedido;
 import com.piazzariap1.pizzaria.repository.ProdutoPedidoRepository;
 import com.piazzariap1.pizzaria.service.ProdutoPedidoService;
+import com.piazzariap1.pizzaria.service.exception.NaoLocalizadoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
     public ProdutoPedido buscarPorId(Long id){
         Optional<ProdutoPedido> itemPedido = repository.findById(id);
         if(itemPedido.isEmpty()){
-            throw new RuntimeException("{produto-pedido.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{produto-pedido.exception.nao-localizado}");
 
         } else {
             return itemPedido.get();
@@ -39,7 +40,7 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
 
     public List<ProdutoPedido> listar(){
         if(repository.findAll().isEmpty()){
-            throw new RuntimeException("{produto-pedido.exception.nao-cadastrado}");
+            throw new NaoLocalizadoException("{produto-pedido.exception.nao-cadastrado}");
 
         } else {
             return repository.findAll();
@@ -51,7 +52,7 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
         ProdutoPedido itemPedidoBanco = this.buscarPorId(id);
 
         if(id == 0 || !itemPedidoNovo.getId().equals(itemPedidoBanco.getId())){
-            throw new RuntimeException("{produto-pedido.exception.nao-localizado}");
+            throw new NaoLocalizadoException("{produto-pedido.exception.nao-localizado}");
         }
 
         itemPedidoBanco.setQuantidade(itemPedidoNovo.getQuantidade());
