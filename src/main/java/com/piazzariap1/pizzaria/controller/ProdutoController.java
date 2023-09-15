@@ -8,20 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/*
-
-    {
-        "id": 1,
-        "cadastro": "2023-09-03T23:31:33.6303253",
-        "edicao": null,
-        "ativo": true,
-        "descricao": "Pizza GG",
-        "tamanho": "GG",
-        "valor": 65
-    }
-
- */
-
 @RestController
 @RequestMapping(value = "/produto")
 public class ProdutoController {

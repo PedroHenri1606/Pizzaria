@@ -8,19 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/*
-
-    {
-        "id": 1,
-        "cadastro": "2023-09-03T23:25:06.555647",
-        "edicao": null,
-        "ativo": true,
-        "descricao": "Coca Colla 1L",
-        "valor": 8
-    }
-
- */
-
 @RestController
 @RequestMapping(value = "/acompanhamento")
 public class AcompanhamentoController {

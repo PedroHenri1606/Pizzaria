@@ -8,20 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/*
-
-    {
-        "id": 1,
-        "cadastro": "2023-09-03T23:14:02.563571",
-        "edicao": null,
-        "ativo": true,
-        "nome": "Pedro Henrique",
-        "cpf": "12345678911",
-        "telefone": "45 998265476"
-    }
-
- */
-
 @RestController
 @RequestMapping(value = "/cliente")
 public class ClienteController {

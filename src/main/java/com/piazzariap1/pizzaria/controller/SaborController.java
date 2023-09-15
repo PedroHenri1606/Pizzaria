@@ -8,19 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/*
-
-    {
-        "id": 1,
-        "cadastro": "2023-09-03T23:23:19.200986",
-        "edicao": null,
-        "ativo": true,
-        "nome": "Chocolate",
-        "descricao": "Chocolate"
-    }
-
- */
-
 @RestController
 @RequestMapping(value = "/sabor")
 public class SaborController {
