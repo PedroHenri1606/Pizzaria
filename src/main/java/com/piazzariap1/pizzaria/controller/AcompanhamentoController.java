@@ -17,7 +17,7 @@ public class AcompanhamentoController {
 
 
     @PostMapping
-    public ResponseEntity<Object> cadastrar(@Valid @RequestBody final AcompanhamentoDTO acompanhamentoDTO){
+    public ResponseEntity<Object> salvar(@Valid @RequestBody final AcompanhamentoDTO acompanhamentoDTO){
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(acompanhamentoDTO));
 
@@ -27,7 +27,7 @@ public class AcompanhamentoController {
     }
 
     @GetMapping(value = "/buscar")
-    public ResponseEntity<Object> buscarPorId(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> buscarOndeId(@RequestParam("id") final Long id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
 
@@ -37,7 +37,7 @@ public class AcompanhamentoController {
     }
 
     @GetMapping(value = "/buscar/descricao")
-    public ResponseEntity<Object> buscarPorDescricao(@RequestParam("conteudo") String conteudo){
+    public ResponseEntity<Object> buscarOndeDescricao(@RequestParam("conteudo") String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorDescricao(conteudo));
 
@@ -47,7 +47,7 @@ public class AcompanhamentoController {
     }
 
     @GetMapping(value = "/buscar/valor")
-    public ResponseEntity<Object> buscarPorValor(@RequestParam("conteudo") Long valor){
+    public ResponseEntity<Object> buscarOndeValor(@RequestParam("conteudo") Long valor){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorValor(valor));
 
@@ -57,7 +57,7 @@ public class AcompanhamentoController {
     }
 
     @GetMapping(value = "/buscar/comecando")
-    public ResponseEntity<Object> buscarAcompanhamentoComecandoCom(@RequestParam("conteudo") final String conteudo){
+    public ResponseEntity<Object> buscarAcompanhamentoComecando(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarAcompanhamentoComecandoCom(conteudo));
 
@@ -67,7 +67,7 @@ public class AcompanhamentoController {
     }
 
     @GetMapping(value = "/buscar/terminando")
-    public ResponseEntity<Object> buscarAcompanhamentoTerminandoCom(@RequestParam("conteudo") final String conteudo){
+    public ResponseEntity<Object> buscarAcompanhamentoTerminando(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarAcompanhamentoTerminandoCom(conteudo));
 
@@ -77,7 +77,7 @@ public class AcompanhamentoController {
     }
 
     @GetMapping(value = "/buscar/contendo")
-    public ResponseEntity<Object> buscarAcompanhamentoQueContenha(@RequestParam("conteudo") final String conteudo){
+    public ResponseEntity<Object> buscarAcompanhamentoContendo(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarAcompanhamentoQueContenha(conteudo));
 
@@ -87,7 +87,7 @@ public class AcompanhamentoController {
     }
 
     @GetMapping(value = "/listar")
-    public ResponseEntity<Object> listar(){
+    public ResponseEntity<Object> listarTodos(){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.listar());
 
@@ -97,7 +97,7 @@ public class AcompanhamentoController {
     }
 
     @PutMapping(value = "/editar")
-    public ResponseEntity<Object> editar(@RequestParam("id") final Long id, @Valid @RequestBody final AcompanhamentoDTO acompanhamentoDTO){
+    public ResponseEntity<Object> atualizar(@RequestParam("id") final Long id, @Valid @RequestBody final AcompanhamentoDTO acompanhamentoDTO){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.editar(id,acompanhamentoDTO));
 
@@ -107,7 +107,7 @@ public class AcompanhamentoController {
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<Object> delete(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
             service.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body("{acompanhamento.delete-mapping-sucesso}");

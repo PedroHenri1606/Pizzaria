@@ -4,7 +4,9 @@ import com.piazzariap1.pizzaria.entity.abstractentity.AbstractEntity;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
@@ -13,6 +15,8 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_pedido")
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pedido extends AbstractEntity {
 
     @ManyToOne

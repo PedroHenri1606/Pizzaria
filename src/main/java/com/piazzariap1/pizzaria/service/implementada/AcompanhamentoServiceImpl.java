@@ -45,71 +45,87 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
     }
 
     public List<Acompanhamento> buscarPorDescricao(String descricao) {
-        if(descricao.isEmpty()){
+        if(descricao.toUpperCase().isEmpty()){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
+        }
 
-        } else if(repository.findByDescricao(descricao.toUpperCase()).isEmpty()){
+        List<Acompanhamento> acompanhamentos = repository.findByDescricao(descricao.toUpperCase());
+
+        if(acompanhamentos.isEmpty()){
             throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
-            return repository.findByDescricao(descricao.toUpperCase());
+            return acompanhamentos;
         }
     }
 
     public List<Acompanhamento> buscarPorValor(Long valor) {
         if (valor == null){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
+        }
 
-        } else if(repository.findByValor(valor).isEmpty()){
+        List<Acompanhamento> acompanhamentos = repository.findByValor(valor);
+
+        if(acompanhamentos.isEmpty()){
             throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
-            return repository.findByValor(valor);
+            return acompanhamentos;
         }
     }
 
     public List<Acompanhamento> buscarAcompanhamentoComecandoCom(String descricao) {
         if(descricao.isEmpty()){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
+        }
 
-        } else if(repository.findByDescricaoStartingWith(descricao.toUpperCase()).isEmpty()){
+        List<Acompanhamento> acompanhamentos = repository.findByDescricaoStartingWith(descricao.toUpperCase());
+
+        if(acompanhamentos.isEmpty()){
             throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
-            return repository.findByDescricaoStartingWith(descricao.toUpperCase());
+            return acompanhamentos;
         }
     }
 
     public List<Acompanhamento> buscarAcompanhamentoTerminandoCom(String descricao) {
-        if(descricao.isEmpty()){
+        if(descricao.isEmpty()) {
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
+        }
 
-        } else if(repository.findByDescricaoEndingWith(descricao.toUpperCase()).isEmpty()){
+        List<Acompanhamento> acompanhamentos = repository.findByDescricaoEndingWith(descricao.toUpperCase());
+
+         if(acompanhamentos.isEmpty()){
             throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
-            return repository.findByDescricaoEndingWith(descricao.toUpperCase());
+            return acompanhamentos;
         }
     }
 
     public List<Acompanhamento> buscarAcompanhamentoQueContenha(String descricao) {
         if (descricao.isEmpty()) {
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
+        }
 
-        } else if (repository.findByDescricaoContaining(descricao.toUpperCase()).isEmpty()) {
+        List<Acompanhamento> acompanhamentos = repository.findByDescricaoContaining(descricao.toUpperCase());
+
+        if (acompanhamentos.isEmpty()) {
             throw new NaoLocalizadoException(NAO_LOCALIZADO2);
 
         } else {
-            return repository.findByDescricaoContaining(descricao.toUpperCase());
+            return acompanhamentos;
         }
     }
 
     public List<Acompanhamento> listar(){
-        if(repository.findAll().isEmpty()){
+        List<Acompanhamento> acompanhamentos = repository.findAll();
+        if(acompanhamentos.isEmpty()){
             throw new NaoLocalizadoException(NAO_CADASTRADO);
 
         } else {
-            return repository.findAll();
+            return acompanhamentos;
         }
     }
 
