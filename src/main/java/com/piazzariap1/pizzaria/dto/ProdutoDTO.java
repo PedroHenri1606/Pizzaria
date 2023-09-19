@@ -20,4 +20,11 @@ public class ProdutoDTO extends AbstractEntityDTO {
 
     @NotNull(message = "{campo.produto-tamanho-NotNull}")
     private TamanhoProduto tamanho;
+
+    public ProdutoDTO(Long id, String descricao, Long valor, TamanhoProduto tamanho) {
+        super(id);
+        this.descricao = descricao;
+        this.valor = valor;
+        this.tamanho = tamanho;
+    }
 }

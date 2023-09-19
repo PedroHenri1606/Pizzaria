@@ -15,4 +15,8 @@ public abstract class AbstractEntityDTO {
     private LocalDateTime edicao;
 
     private boolean ativo;
+
+    protected AbstractEntityDTO(Long id) {
+        this.id = id;
+    }
 }

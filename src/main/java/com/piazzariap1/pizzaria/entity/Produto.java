@@ -24,4 +24,11 @@ public class Produto extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "tamanho")
     private TamanhoProduto tamanho;
+
+    public Produto(Long id, String descricao, Long valor, TamanhoProduto tamanho) {
+        super(id);
+        this.descricao = descricao;
+        this.valor = valor;
+        this.tamanho = tamanho;
+    }
 }

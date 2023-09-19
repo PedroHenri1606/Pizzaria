@@ -19,4 +19,11 @@ public class SaborDTO extends AbstractEntityDTO {
     private String descricao;
 
     private Set<ProdutoPedido> produtosPedidos;
+
+    public SaborDTO(Long id, String nome, String descricao, Set<ProdutoPedido> produtosPedidos) {
+        super(id);
+        this.nome = nome;
+        this.descricao = descricao;
+        this.produtosPedidos = produtosPedidos;
+    }
 }

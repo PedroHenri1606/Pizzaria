@@ -20,4 +20,11 @@ public class ClienteDTO extends AbstractEntityDTO {
 
     @Telefone(message = "{campo.cliente/funcionario-telefone-Tell}")
     private String telefone;
+
+    public ClienteDTO(Long id, String nome, String cpf, String telefone) {
+        super(id);
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+    }
 }

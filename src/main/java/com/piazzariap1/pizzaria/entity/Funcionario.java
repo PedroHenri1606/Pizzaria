@@ -24,4 +24,11 @@ public class Funcionario extends AbstractEntity {
 
     @Column(name = "telefone")
     private String telefone;
+
+    public Funcionario(Long id, String nome, String cpf, String telefone) {
+        super(id);
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+    }
 }

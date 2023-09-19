@@ -38,4 +38,12 @@ public class ProdutoPedido extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
+
+    public ProdutoPedido(Long id, Produto produto, Integer quantidade, Set<Sabor> sabores, Pedido pedido) {
+        super(id);
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.sabores = sabores;
+        this.pedido = pedido;
+    }
 }

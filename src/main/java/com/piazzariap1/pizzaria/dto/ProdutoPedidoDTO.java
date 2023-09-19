@@ -25,4 +25,12 @@ public class ProdutoPedidoDTO extends AbstractEntityDTO {
     private Set<Sabor> sabores = new HashSet<>();
 
     private Pedido pedido;
+
+    public ProdutoPedidoDTO(Long id, Produto produto, Integer quantidade, Set<Sabor> sabores, Pedido pedido) {
+        super(id);
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.sabores = sabores;
+        this.pedido = pedido;
+    }
 }

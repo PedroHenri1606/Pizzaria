@@ -21,4 +21,10 @@ public class Acompanhamento extends AbstractEntity {
 
     @Column(name = "valor")
     private Long valor;
+
+    public Acompanhamento(Long id, String descricao, Long valor) {
+        super(id);
+        this.descricao = descricao;
+        this.valor = valor;
+    }
 }

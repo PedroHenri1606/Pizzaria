@@ -26,4 +26,11 @@ public class Sabor extends AbstractEntity {
     @ManyToMany(mappedBy = "sabores")
     @JsonIgnore
     private Set<ProdutoPedido> produtosPedidos;
+
+    public Sabor(Long id, String nome, String descricao, Set<ProdutoPedido> produtosPedidos) {
+        super(id);
+        this.nome = nome;
+        this.descricao = descricao;
+        this.produtosPedidos = produtosPedidos;
+    }
 }

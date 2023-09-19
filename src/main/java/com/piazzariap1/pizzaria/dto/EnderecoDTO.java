@@ -28,4 +28,13 @@ public class EnderecoDTO extends AbstractEntityDTO {
 
     @NotNull(message = "{campo.endereço-cliente-NotNull}")
     private Cliente cliente;
+
+    public EnderecoDTO(Long id, String cep, String bairro, String logadouro, Integer numero, Cliente cliente) {
+        super(id);
+        this.cep = cep;
+        this.bairro = bairro;
+        this.logadouro = logadouro;
+        this.numero = numero;
+        this.cliente = cliente;
+    }
 }

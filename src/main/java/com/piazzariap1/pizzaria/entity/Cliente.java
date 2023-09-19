@@ -23,4 +23,10 @@ public class Cliente extends AbstractEntity {
     @Column(name = "telefone")
     private String telefone;
 
+    public Cliente(Long id, String nome, String cpf, String telefone) {
+        super(id);
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+    }
 }

@@ -52,4 +52,18 @@ public class Pedido extends AbstractEntity {
 
     @Column(name = "valor_total")
     private Long valorTotal;
+
+    public Pedido(Long id, Cliente cliente, Funcionario funcionario, String observacao, Boolean entregar, FormaDePagamento formaDePagamento) {
+        super(id);
+        this.cliente = cliente;
+        this.funcionario = funcionario;
+        this.observacao = observacao;
+        this.entregar = entregar;
+        this.formaDePagamento = formaDePagamento;
+    }
+
+    public void adicionarProduto(Set<ProdutoPedido> item, Set<AcompanhamentoPedido> acompanhamento){
+        this.item = item;
+        this.acompanhamento = acompanhamento;
+    }
 }

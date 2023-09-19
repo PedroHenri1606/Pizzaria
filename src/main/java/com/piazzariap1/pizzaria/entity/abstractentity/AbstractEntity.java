@@ -35,4 +35,8 @@ public abstract class AbstractEntity {
         this.cadastro = LocalDateTime.now();
         this.ativo = true;
     }
+
+    protected AbstractEntity(Long id) {
+        this.id = id;
+    }
 }

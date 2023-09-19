@@ -28,4 +28,11 @@ public class AcompanhamentoPedido extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
+
+    public AcompanhamentoPedido(Long id, Acompanhamento acompanhamento, Integer quantidade, Pedido pedido) {
+        super(id);
+        this.acompanhamento = acompanhamento;
+        this.quantidade = quantidade;
+        this.pedido = pedido;
+    }
 }
