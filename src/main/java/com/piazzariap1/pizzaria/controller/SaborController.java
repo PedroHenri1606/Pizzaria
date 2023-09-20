@@ -70,7 +70,7 @@ public class SaborController {
     }
 
     @GetMapping(value = "/buscar/contendo")
-    public ResponseEntity<List<Sabor>> buscarSaborQueContendo(@RequestParam("conteudo") final String conteudo){
+    public ResponseEntity<List<Sabor>> buscarSaborContendo(@RequestParam("conteudo") final String conteudo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarSaborQueContenha(conteudo));
 
