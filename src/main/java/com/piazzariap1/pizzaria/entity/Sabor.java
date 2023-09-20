@@ -27,10 +27,9 @@ public class Sabor extends AbstractEntity {
     @JsonIgnore
     private Set<ProdutoPedido> produtosPedidos;
 
-    public Sabor(Long id, String nome, String descricao, Set<ProdutoPedido> produtosPedidos) {
+    public Sabor(Long id, String nome, String descricao) {
         super(id);
         this.nome = nome;
         this.descricao = descricao;
-        this.produtosPedidos = produtosPedidos;
     }
 }
