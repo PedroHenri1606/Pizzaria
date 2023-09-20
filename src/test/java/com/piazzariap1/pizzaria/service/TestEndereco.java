@@ -1,10 +1,8 @@
 package com.piazzariap1.pizzaria.service;
 
 import com.piazzariap1.pizzaria.controller.EnderecoController;
-import com.piazzariap1.pizzaria.dto.AcompanhamentoPedidoDTO;
 import com.piazzariap1.pizzaria.dto.EnderecoDTO;
 import com.piazzariap1.pizzaria.entity.*;
-import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.repository.EnderecoRepository;
 import com.piazzariap1.pizzaria.service.implementada.EnderecoServiceImpl;
 import org.junit.jupiter.api.Assertions;
