@@ -58,7 +58,7 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
 
-        acompanhamentoBanco.setQuantidade(acompanhamentoBanco.getQuantidade());
+        acompanhamentoBanco.setQuantidade(acompanhamentoNovo.getQuantidade());
 
         return repository.save(acompanhamentoBanco);
     }

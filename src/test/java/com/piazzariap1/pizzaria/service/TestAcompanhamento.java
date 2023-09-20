@@ -44,7 +44,7 @@ class TestAcompanhamento {
 
 
         //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
-        Mockito.when(repository.save(Mockito.any(Acompanhamento.class))).thenAnswer(invocation -> {
+        when(repository.save(Mockito.any(Acompanhamento.class))).thenAnswer(invocation -> {
             Acompanhamento acompanhamentoSalvo = invocation.getArgument(0);
             acompanhamentoSalvo.setId(2L);
             return acompanhamentoSalvo;
