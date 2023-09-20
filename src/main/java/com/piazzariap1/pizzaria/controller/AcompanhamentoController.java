@@ -66,7 +66,7 @@ public class AcompanhamentoController {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarAcompanhamentoComecandoCom(conteudo));
 
         } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+                throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
         }
     }
 
