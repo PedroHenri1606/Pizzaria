@@ -1,10 +1,7 @@
 package com.piazzariap1.pizzaria.service;
 
-import com.piazzariap1.pizzaria.controller.ClienteController;
 import com.piazzariap1.pizzaria.controller.FuncionarioController;
-import com.piazzariap1.pizzaria.dto.ClienteDTO;
 import com.piazzariap1.pizzaria.dto.FuncionarioDTO;
-import com.piazzariap1.pizzaria.entity.Cliente;
 import com.piazzariap1.pizzaria.entity.Funcionario;
 import com.piazzariap1.pizzaria.repository.FuncionarioRepository;
 import com.piazzariap1.pizzaria.service.implementada.FuncionarioServiceImpl;
