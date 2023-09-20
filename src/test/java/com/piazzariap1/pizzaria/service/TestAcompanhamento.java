@@ -43,12 +43,12 @@ class TestAcompanhamento {
         Acompanhamento acompanhamento = new Acompanhamento(1L,"COCA COLA 1L", 12L);
 
 
-        //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
-        when(repository.save(Mockito.any(Acompanhamento.class))).thenAnswer(invocation -> {
-            Acompanhamento acompanhamentoSalvo = invocation.getArgument(0);
-            acompanhamentoSalvo.setId(2L);
-            return acompanhamentoSalvo;
-        });
+            //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
+            when(repository.save(Mockito.any(Acompanhamento.class))).thenAnswer(invocation -> {
+                Acompanhamento acompanhamentoSalvo = invocation.getArgument(0);
+                acompanhamentoSalvo.setId(2L);
+                return acompanhamentoSalvo;
+            });
 
         List<Acompanhamento> acompanhamentos = new ArrayList<>();
         acompanhamentos.add(acompanhamento);
