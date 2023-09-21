@@ -24,6 +24,7 @@ class TestEnderecoException {
     @Autowired
     EnderecoServiceImpl service;
 
+    //CADASTRAR
     @Test
     @DisplayName("Cadastrar endereco (Teste Exception não localizado controller)!")
     void cadastrarTestExceptionController(){
@@ -33,6 +34,8 @@ class TestEnderecoException {
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
+
+    //BUSCAR POR ID
     @Test
     @DisplayName("Buscou endereco por id (Teste Exception não localizado controller)!")
     void buscarPorIdTestExpectionController(){
@@ -50,6 +53,8 @@ class TestEnderecoException {
         Assertions.assertEquals("{endereco.exception.nao-localizado}", exception.getMessage());
     }
 
+
+    //LISTAR TODOS
     @Test
     @DisplayName("Buscou todos os enderecos (Teste Exception não localizado controller)!")
     void listarTodosTestExpectionController(){
@@ -58,7 +63,17 @@ class TestEnderecoException {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou todos os enderecos (Teste Exception não cadastrado service)!")
+    void listarTodosTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.listar());
+
+        Assertions.assertEquals("{endereco.exception.nao-cadastrado}", exception.getMessage());
+    }
+
+
+    //ATUALIZAR
     @Test
     @DisplayName("Editar endereco (Teste Exception não localizado controller)!")
     void atualizarTestExpectionController(){
@@ -67,7 +82,18 @@ class TestEnderecoException {
 
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Editar endereco (Teste Exception não localizado service)!")
+    void atualizarTestExpectionService(){
 
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.editar(0L,null));
+
+        Assertions.assertEquals("{endereco.exception.nao-localizado}", exception.getMessage());
+    }
+
+
+    //DELETAR
     @Test
     @DisplayName("Deletar endereco (Teste Exception não localizado controller)!")
     void deletarTestExpectionController(){

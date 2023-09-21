@@ -122,11 +122,12 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Transactional
     public Cliente editar(Long id, ClienteDTO clienteNovo){
-        Cliente clienteBanco = this.buscarPorId(id);
-
-        if(id == 0 || !clienteNovo.getId().equals(clienteBanco.getId())){
+        if(id == 0){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
+
+        Cliente clienteBanco = this.buscarPorId(id);
+
 
         clienteBanco.setNome(clienteNovo.getNome());
         clienteBanco.setTelefone(clienteNovo.getTelefone());

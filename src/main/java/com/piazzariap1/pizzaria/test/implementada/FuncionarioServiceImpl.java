@@ -122,11 +122,11 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     @Transactional
     public Funcionario editar(Long id, FuncionarioDTO funcionarioNovo){
-        Funcionario funcionarioBanco = this.buscarPorId(id);
-
-        if(id == 0 || !funcionarioNovo.getId().equals(funcionarioBanco.getId())){
+        if(id == 0){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
+
+        Funcionario funcionarioBanco = this.buscarPorId(id);
 
         funcionarioBanco.setNome(funcionarioNovo.getNome());
         funcionarioBanco.setTelefone(funcionarioNovo.getTelefone());

@@ -25,6 +25,7 @@ class TestFuncionarioTestException {
     @Autowired
     FuncionarioServiceImpl service;
 
+    //CADASTRAR
     @Test
     @DisplayName("Cadastrar funcionario (Teste Exception não localizado controller)!")
     void cadastrarTestExceptionController(){
@@ -34,6 +35,8 @@ class TestFuncionarioTestException {
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
+
+    //BUSCAR POR ID
     @Test
     @DisplayName("Buscou funcionario por id (Teste Exception não localizado controller)!")
     void buscarPorIdTestExpectionController(){
@@ -51,6 +54,8 @@ class TestFuncionarioTestException {
         Assertions.assertEquals("{funcionario.exception.nao-localizado}", exception.getMessage());
     }
 
+
+    //BUSCAR POR NOME
     @Test
     @DisplayName("Buscou funcionario por nome (Teste Exception não localizado controller)!")
     void buscarPorNomeTestExpectionController(){
@@ -59,7 +64,25 @@ class TestFuncionarioTestException {
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou funcionario por descricao (Teste Exception não localizado service)!")
+    void buscarPorNomeTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarPorNome(""));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Buscou funcionario por descricao (Teste Exception não localizado2 service)!")
+    void buscarPorNomeTest2ExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarPorNome("aaa"));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado2}", exception.getMessage());
+    }
+
+
+    //BUSCAR POR CPF
     @Test
     @DisplayName("Buscou funcionario por CPF (Teste Exception não localizado controller)!")
     void buscarPorCPFTestExpectionController(){
@@ -68,7 +91,26 @@ class TestFuncionarioTestException {
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou funcionario por CPF (Teste Exception não localizado service)!")
+    void buscarPorCpfTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarPorCpf(null));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Buscou funcionario por CPF (Teste Exception não localizado2 service)!")
+    void buscarPorCpfTest2ExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarPorCpf("aaa"));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado2}", exception.getMessage());
+    }
+
+
+
+    //BUSCAR COMECANDO COM
     @Test
     @DisplayName("Buscou funcionario comecando por (Teste Exception não localizado controller)!")
     void buscarFuncionarioComecandoTestExpectionController(){
@@ -77,7 +119,25 @@ class TestFuncionarioTestException {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou funcionario comecando por (Teste Exception não localizado service)!")
+    void buscarFuncionarioComecandoTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarFuncionarioComecandoCom(""));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Buscou funcionario comecando por (Teste Exception não localizado2 service)!")
+    void buscarFuncionarioComecandoTest2ExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarFuncionarioComecandoCom("aaa"));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado2}", exception.getMessage());
+    }
+
+
+    //BUSCAR TERMINANDO COM
     @Test
     @DisplayName("Buscou funcionario terminando por (Teste Exception não localizado controller)!")
     void buscarFuncionarioTerminandoTestExpectionController(){
@@ -86,7 +146,25 @@ class TestFuncionarioTestException {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou funcionario terminando por (Teste Exception não localizado service)!")
+    void buscarFuncionarioTerminandoTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarFuncionarioTerminandoCom(""));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Buscou funcionario terminando por (Teste Exception não localizado2 service)!")
+    void buscarFuncionarioTerminandoTest2ExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarFuncionarioTerminandoCom("aaa"));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado2}", exception.getMessage());
+    }
+
+
+    //BUSCAR CONTENDO
     @Test
     @DisplayName("Buscou funcionario contendo (Teste Exception não localizado controller)!")
     void buscarFuncionarioContendoTestExpectionController(){
@@ -95,7 +173,25 @@ class TestFuncionarioTestException {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou funcionario contendo (Teste Exception não localizado service)!")
+    void buscarFuncionariooContendoTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarFuncionarioQueContenha(""));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Buscou funcionario contendo (Teste Exception não localizado2 service)!")
+    void buscarFuncionariooContendoTest2ExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarFuncionarioQueContenha("aaa"));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado2}", exception.getMessage());
+    }
+
+
+    //LISTAR TODOS
     @Test
     @DisplayName("Buscou todos os funcionarios (Teste Exception não localizado controller)!")
     void listarTodosTestExpectionController(){
@@ -104,7 +200,17 @@ class TestFuncionarioTestException {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou todos os funcionario (Teste Exception não cadastrado service)!")
+    void listarTodosTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.listar());
+
+        Assertions.assertEquals("{funcionario.exception.nao-cadastrado}", exception.getMessage());
+    }
+
+
+    //ATUALIZAR
     @Test
     @DisplayName("Editar Funcionario (Teste Exception não localizado controller)!")
     void atualizarTestExpectionController(){
@@ -113,7 +219,17 @@ class TestFuncionarioTestException {
 
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Editar Funcionario (Teste Exception não localizado service)!")
+    void atualizarTestExpectionService(){
 
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.editar(0L,null));
+
+        Assertions.assertEquals("{funcionario.exception.nao-localizado}", exception.getMessage());
+    }
+
+    //DELETAR
     @Test
     @DisplayName("Deletar Funcionario (Teste Exception não localizado controller)!")
     void deletarTestExpectionController(){

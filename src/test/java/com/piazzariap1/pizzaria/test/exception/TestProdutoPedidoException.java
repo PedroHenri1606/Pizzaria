@@ -24,6 +24,7 @@ class TestProdutoPedidoException {
     @Autowired
     ProdutoPedidoServiceImpl service;
 
+    //CADASTRAR
     @Test
     @DisplayName("Cadastrar produto do pedido (Teste Exception não localizado controller)!")
     void cadastrarTestExceptionController(){
@@ -33,6 +34,8 @@ class TestProdutoPedidoException {
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
+
+    //BUSCAR POR ID
     @Test
     @DisplayName("Buscou produto do pedido por id (Teste Exception não localizado controller)!")
     void buscarPorIdTestExpectionController(){
@@ -50,6 +53,8 @@ class TestProdutoPedidoException {
         Assertions.assertEquals("{produto-pedido.exception.nao-localizado}", exception.getMessage());
     }
 
+
+    //LISTAR TODOS
     @Test
     @DisplayName("Buscou todos os produtos do pedido (Teste Exception não localizado controller)!")
     void listarTodosTestExpectionController(){
@@ -59,6 +64,8 @@ class TestProdutoPedidoException {
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
 
+
+    //ATUALIZAR
     @Test
     @DisplayName("Editar produto do pedido (Teste Exception não localizado controller)!")
     void atualizarTestExpectionController(){
@@ -67,7 +74,18 @@ class TestProdutoPedidoException {
 
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Editar Produto do pedido (Teste Exception não localizado service)!")
+    void atualizarTestExpectionService(){
 
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.editar(0L,null));
+
+        Assertions.assertEquals("{produto-pedido.exception.nao-localizado}", exception.getMessage());
+    }
+
+
+    //DELETAR
     @Test
     @DisplayName("Deletar produto do pedido (Teste Exception não localizado controller)!")
     void deletarTestExpectionController(){

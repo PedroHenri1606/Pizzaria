@@ -2,7 +2,6 @@ package com.piazzariap1.pizzaria.test.exception;
 
 import com.piazzariap1.pizzaria.controller.AcompanhamentoController;
 import com.piazzariap1.pizzaria.dto.AcompanhamentoDTO;
-import com.piazzariap1.pizzaria.entity.Acompanhamento;
 import com.piazzariap1.pizzaria.repository.AcompanhamentoRepository;
 import com.piazzariap1.pizzaria.test.implementada.AcompanhamentoServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -46,17 +45,17 @@ class TestAcompanhamentoException {
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
-
-
-    //BUSCAR POR VALOR
     @Test
-    @DisplayName("Buscou acompanhamento por valor (Teste Exception não localizado service)!")
-    void buscarPorValorTestExpectionService(){
+    @DisplayName("Buscou acompanhamento por valor (Teste Exception não localizado2 service)!")
+    void buscarPorIdTest2ExpectionService(){
 
-        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarPorValor(null));
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarPorId(0L));
 
         Assertions.assertEquals("{acompanhamento.exception.nao-localizado}", exception.getMessage());
     }
+
+
+    //BUSCAR POR VALOR
     @Test
     @DisplayName("Buscou acompanhamento por valor (Teste Exception não localizado controller)!")
     void buscarPorValorTestExpectionController(){
@@ -66,6 +65,14 @@ class TestAcompanhamentoException {
         Assertions.assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
     @Test
+    @DisplayName("Buscou acompanhamento por valor (Teste Exception não localizado service)!")
+    void buscarPorValorTestExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarPorValor(null));
+
+        Assertions.assertEquals("{acompanhamento.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
     @DisplayName("Buscou acompanhamento por valor (Teste Exception não localizado2 service)!")
     void buscarPorValorTest2ExpectionService(){
 
@@ -73,6 +80,7 @@ class TestAcompanhamentoException {
 
         Assertions.assertEquals("{acompanhamento.exception.nao-localizado2}", exception.getMessage());
     }
+
 
     //BUSCAR POR DESCRICAO
     @Test
@@ -190,6 +198,14 @@ class TestAcompanhamentoException {
         final ResponseStatusException exception = Assertions.assertThrows(ResponseStatusException.class, () -> controller.listarTodos());
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
+    }
+    @Test
+    @DisplayName("Buscou todos os acompanhamentos (Teste Exception não cadastrado service)!")
+    void listarTodosTestExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.listar());
+
+        Assertions.assertEquals("{acompanhamento.exception.nao-cadastrado}", exception.getMessage());
     }
 
 

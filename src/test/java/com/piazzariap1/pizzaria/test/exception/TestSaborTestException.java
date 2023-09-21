@@ -24,6 +24,8 @@ class TestSaborTestException {
     @Autowired
     SaborServiceImpl service;
 
+
+    //CADASTRAR
     @Test
     @DisplayName("Cadastrar sabor (Teste Exception não localizado controller)!")
     void cadastrarTestExceptionController(){
@@ -33,6 +35,8 @@ class TestSaborTestException {
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
+
+    //BUSCAR POR ID
     @Test
     @DisplayName("Buscou sabor por id (Teste Exception não localizado controller)!")
     void buscarPorIdTestExpectionController(){
@@ -50,6 +54,8 @@ class TestSaborTestException {
         Assertions.assertEquals("{sabor.exception.nao-localizado}", exception.getMessage());
     }
 
+
+    //BUSCAR POR NOME
     @Test
     @DisplayName("Buscou sabor por nome (Teste Exception não localizado controller)!")
     void buscarPorNomeTestExpectionController(){
@@ -58,7 +64,25 @@ class TestSaborTestException {
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou sabor por nome (Teste Exception não localizado service)!")
+    void buscarPorNomeTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarPorNome(""));
+
+        Assertions.assertEquals("{sabor.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Buscou sabor por nome (Teste Exception não localizado2 service)!")
+    void buscarPorNomeTest2ExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarPorNome("aaa"));
+
+        Assertions.assertEquals("{sabor.exception.nao-localizado2}", exception.getMessage());
+    }
+
+
+    //BUSCAR COMECANDO COM
     @Test
     @DisplayName("Buscou sabor comecando por (Teste Exception não localizado controller)!")
     void buscarSaborComecandoTestExpectionController(){
@@ -67,7 +91,25 @@ class TestSaborTestException {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou sabor comecando por (Teste Exception não localizado service)!")
+    void buscarPorComecandoTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarSaborComecandoCom(""));
+
+        Assertions.assertEquals("{sabor.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Buscou sabor comecando por (Teste Exception não localizado2 service)!")
+    void buscarPorComecandoTest2ExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarSaborComecandoCom("aaa"));
+
+        Assertions.assertEquals("{sabor.exception.nao-localizado2}", exception.getMessage());
+    }
+
+
+    //BUSCAR TERMINANDO POR
     @Test
     @DisplayName("Buscou sabor terminando por (Teste Exception não localizado controller)!")
     void buscarSaborTerminandoTestExpectionController(){
@@ -76,7 +118,25 @@ class TestSaborTestException {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou sabor terminando por (Teste Exception não localizado service)!")
+    void buscarPorTerminandoTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarSaborTerminandoCom(""));
+
+        Assertions.assertEquals("{sabor.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Buscou sabor terminando por (Teste Exception não localizado2 service)!")
+    void buscarPorTerminandoTest2ExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarSaborTerminandoCom("aaa"));
+
+        Assertions.assertEquals("{sabor.exception.nao-localizado2}", exception.getMessage());
+    }
+
+
+    //BUSCAR CONTENDO
     @Test
     @DisplayName("Buscou sabor contendo (Teste Exception não localizado controller)!")
     void buscarSaborContendoTestExpectionController(){
@@ -85,7 +145,25 @@ class TestSaborTestException {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou sabor contendo (Teste Exception não localizado service)!")
+    void buscarPorContendoTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarSaborQueContenha(""));
+
+        Assertions.assertEquals("{sabor.exception.nao-localizado}", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Buscou sabor contendo (Teste Exception não localizado2 service)!")
+    void buscarPorContendoTest2ExpectionService(){
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.buscarSaborQueContenha("aaa"));
+
+        Assertions.assertEquals("{sabor.exception.nao-localizado2}", exception.getMessage());
+    }
+
+
+    //LISTAR TODOS
     @Test
     @DisplayName("Buscou todos os sabores (Teste Exception não localizado controller)!")
     void listarTodosTestExpectionController(){
@@ -94,7 +172,17 @@ class TestSaborTestException {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Buscou todos os sabores (Teste Exception não cadastrado service)!")
+    void listarTodosTestExpectionService(){
 
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.listar());
+
+        Assertions.assertEquals("{sabor.exception.nao-cadastrado}", exception.getMessage());
+    }
+
+
+    //EDITAR
     @Test
     @DisplayName("Editar sabor (Teste Exception não localizado controller)!")
     void atualizarTestExpectionController(){
@@ -103,7 +191,18 @@ class TestSaborTestException {
 
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
+    @Test
+    @DisplayName("Editar sabor (Teste Exception não localizado service)!")
+    void atualizarTestExpectionService(){
 
+
+        final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.editar(0L,null));
+
+        Assertions.assertEquals("{sabor.exception.nao-localizado}", exception.getMessage());
+    }
+
+
+    //DELETAR
     @Test
     @DisplayName("Deletar sabor (Teste Exception não localizado controller)!")
     void deletarTestExpectionController(){
