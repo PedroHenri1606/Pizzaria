@@ -3,7 +3,6 @@ package com.piazzariap1.pizzaria.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.piazzariap1.pizzaria.entity.abstractentity.AbstractEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +15,6 @@ import java.util.Set;
 @Table(name = "tb_produto_pedido")
 @Getter @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class ProdutoPedido extends AbstractEntity {
 
     @ManyToOne

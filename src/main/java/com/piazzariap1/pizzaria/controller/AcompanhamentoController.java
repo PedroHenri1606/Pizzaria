@@ -2,7 +2,7 @@ package com.piazzariap1.pizzaria.controller;
 
 import com.piazzariap1.pizzaria.dto.AcompanhamentoDTO;
 import com.piazzariap1.pizzaria.entity.Acompanhamento;
-import com.piazzariap1.pizzaria.test.implementada.AcompanhamentoServiceImpl;
+import com.piazzariap1.pizzaria.service.implementada.AcompanhamentoServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

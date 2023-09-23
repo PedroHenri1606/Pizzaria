@@ -16,7 +16,6 @@
 	<properties>
 		<java.version>17</java.version>
 
-			<java.version>17</java.version>
 		<jacoco.version>0.8.10</jacoco.version>
 		<sonar.token>sqb_41a6a50a311798a057f25482ab6e0965693c92b8</sonar.token>
 		<sonar.projectName>sonarPizzaria</sonar.projectName>
@@ -34,6 +33,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
