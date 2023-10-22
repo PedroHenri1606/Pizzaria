@@ -1,7 +1,5 @@
 package com.piazzariap1.pizzaria.dto;
 
-import com.piazzariap1.pizzaria.dto.abstractentitydto.AbstractEntityDTO;
-import com.piazzariap1.pizzaria.entity.Cliente;
 import com.piazzariap1.pizzaria.validation.constraints.CEP;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class EnderecoDTO extends AbstractEntityDTO {
+public class EnderecoDTO   {
+
+    private Long id;
 
     @CEP(message = "{campo.endereco-cep-CEP}")
     private String cep;
@@ -25,16 +25,4 @@ public class EnderecoDTO extends AbstractEntityDTO {
 
     @Min(value = 1,message = "{campo.endereço-numero-Min}")
     private Integer numero;
-
-    @NotNull(message = "{campo.endereço-cliente-NotNull}")
-    private Cliente cliente;
-
-    public EnderecoDTO(Long id, String cep, String bairro, String logadouro, Integer numero, Cliente cliente) {
-        super(id);
-        this.cep = cep;
-        this.bairro = bairro;
-        this.logadouro = logadouro;
-        this.numero = numero;
-        this.cliente = cliente;
-    }
 }

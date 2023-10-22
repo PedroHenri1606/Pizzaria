@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/sabor")
+@CrossOrigin(origins = "*")
 public class SaborController {
 
     @Autowired
@@ -100,10 +102,10 @@ public class SaborController {
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
             service.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("{sabor.delete-mapping-sucesso}");
+            return ResponseEntity.status(HttpStatus.OK).build();
 
         } catch (Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "{sabor.delete-mapping-failed}");

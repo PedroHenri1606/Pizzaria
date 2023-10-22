@@ -1,6 +1,5 @@
 package com.piazzariap1.pizzaria.entity;
 
-import com.piazzariap1.pizzaria.entity.abstractentity.AbstractEntity;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
 import jakarta.persistence.*;
@@ -15,16 +14,33 @@ import java.util.Set;
 @Table(name = "tb_pedido")
 @Getter @Setter
 @NoArgsConstructor
-public class Pedido extends AbstractEntity {
+public class Pedido{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "ativo")
+    private boolean ativo;
 
     @ManyToOne
     @JoinColumn(name = "cliente")
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(
+            name = "tb_item_pedido",
+            joinColumns = @JoinColumn(name = "pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
     private Set<ProdutoPedido> item = new HashSet<>();
 
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(
+            name = "tb_acompanhamento_pedido",
+            joinColumns = @JoinColumn(name = "pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "acompanhamento_id")
+    )
     private Set<AcompanhamentoPedido> acompanhamento = new HashSet<>();
 
     @ManyToOne
@@ -50,18 +66,4 @@ public class Pedido extends AbstractEntity {
 
     @Column(name = "valor_total")
     private Long valorTotal;
-
-    public Pedido(Long id, Cliente cliente, Funcionario funcionario, String observacao, Boolean entregar, FormaDePagamento formaDePagamento) {
-        super(id);
-        this.cliente = cliente;
-        this.funcionario = funcionario;
-        this.observacao = observacao;
-        this.entregar = entregar;
-        this.formaDePagamento = formaDePagamento;
-    }
-
-    public void adicionarProduto(Set<ProdutoPedido> item, Set<AcompanhamentoPedido> acompanhamento){
-        this.item = item;
-        this.acompanhamento = acompanhamento;
-    }
 }

@@ -1,6 +1,6 @@
 package com.piazzariap1.pizzaria.dto;
 
-import com.piazzariap1.pizzaria.dto.abstractentitydto.AbstractEntityDTO;
+import com.piazzariap1.pizzaria.entity.Endereco;
 import com.piazzariap1.pizzaria.validation.constraints.CPF;
 import com.piazzariap1.pizzaria.validation.constraints.Telefone;
 import jakarta.validation.constraints.NotBlank;
@@ -8,8 +8,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter @Setter
-public class ClienteDTO extends AbstractEntityDTO {
+public class ClienteDTO   {
+
+    private Long id;
+
+    private boolean ativo;
 
     @NotNull(message = "{campo.cliente/funcionario-nome-NotNull}")
     @NotBlank(message = "{campo.cliente/funcionario-nome-NotBlank}")
@@ -21,10 +27,5 @@ public class ClienteDTO extends AbstractEntityDTO {
     @Telefone(message = "{campo.cliente/funcionario-telefone-Tell}")
     private String telefone;
 
-    public ClienteDTO(Long id, String nome, String cpf, String telefone) {
-        super(id);
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-    }
+    private Set<Endereco> enderecos;
 }

@@ -29,8 +29,9 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         BeanUtils.copyProperties(produtoDTO,produto);
         produto.setDescricao(produtoDTO.getDescricao().toUpperCase());
+        repository.save(produto);
 
-        return repository.save(produto);
+        return produto;
     }
 
     public Produto buscarPorId(Long id){
@@ -122,7 +123,9 @@ public class ProdutoServiceImpl implements ProdutoService {
         }
 
         produtoBanco.setDescricao(produtoNovo.getDescricao());
+        produtoBanco.setTamanho(produtoNovo.getTamanho());
         produtoBanco.setValor(produtoNovo.getValor());
+        produtoBanco.setAtivo(produtoNovo.isAtivo());
 
         return repository.save(produtoBanco);
     }

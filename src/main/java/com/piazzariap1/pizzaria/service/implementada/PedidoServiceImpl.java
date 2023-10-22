@@ -27,8 +27,9 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido pedido = new Pedido();
 
         BeanUtils.copyProperties(pedidoDTO,pedido);
+        repository.save(pedido);
 
-        return repository.save(pedido);
+        return pedido;
     }
 
     public Pedido buscarPorId(Long id){
@@ -63,6 +64,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedidoBanco.setEntregar(pedidoNovo.getEntregar());
         pedidoBanco.setObservacao(pedidoNovo.getObservacao());
         pedidoBanco.setFormaDePagamento(pedidoNovo.getFormaDePagamento());
+        pedidoBanco.setAtivo(pedidoNovo.isAtivo());
 
         return repository.save(pedidoBanco);
     }

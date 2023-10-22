@@ -1,6 +1,5 @@
 package com.piazzariap1.pizzaria.dto;
 
-import com.piazzariap1.pizzaria.dto.abstractentitydto.AbstractEntityDTO;
 import com.piazzariap1.pizzaria.entity.enuns.TamanhoProduto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +8,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ProdutoDTO extends AbstractEntityDTO {
+public class ProdutoDTO   {
+
+    private Long id;
+
+    private boolean ativo;
 
     @NotNull(message = "{campo.produto-descricao.NotNull}")
     @NotBlank(message = "{campo.produto-descricao-NotBlak}")
@@ -20,11 +23,4 @@ public class ProdutoDTO extends AbstractEntityDTO {
 
     @NotNull(message = "{campo.produto-tamanho-NotNull}")
     private TamanhoProduto tamanho;
-
-    public ProdutoDTO(Long id, String descricao, Long valor, TamanhoProduto tamanho) {
-        super(id);
-        this.descricao = descricao;
-        this.valor = valor;
-        this.tamanho = tamanho;
-    }
 }

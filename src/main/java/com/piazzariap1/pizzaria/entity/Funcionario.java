@@ -1,9 +1,7 @@
 package com.piazzariap1.pizzaria.entity;
 
-import com.piazzariap1.pizzaria.entity.abstractentity.AbstractEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.piazzariap1.pizzaria.entity.abstractentity.User;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +10,14 @@ import lombok.Setter;
 @Table(name = "tb_funcionario")
 @Getter @Setter
 @NoArgsConstructor
-public class Funcionario extends AbstractEntity {
+public class Funcionario extends User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "ativo")
+    private boolean ativo;
 
     @Column(name = "nome")
     private String nome;
@@ -22,11 +27,4 @@ public class Funcionario extends AbstractEntity {
 
     @Column(name = "telefone")
     private String telefone;
-
-    public Funcionario(Long id, String nome, String cpf, String telefone) {
-        super(id);
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-    }
 }

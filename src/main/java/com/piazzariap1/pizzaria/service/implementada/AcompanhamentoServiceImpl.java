@@ -30,8 +30,9 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
 
         BeanUtils.copyProperties(acompanhamentoDTO,acompanhamento);
         acompanhamento.setDescricao(acompanhamentoDTO.getDescricao().toUpperCase());
+        repository.save(acompanhamento);
 
-        return repository.save(acompanhamento);
+        return acompanhamento;
     }
 
     public Acompanhamento buscarPorId(Long id){
@@ -139,6 +140,7 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
 
         acompanhamentoBanco.setDescricao(acompanhamentoNovo.getDescricao());
         acompanhamentoBanco.setValor(acompanhamentoBanco.getValor());
+        acompanhamentoBanco.setAtivo(acompanhamentoBanco.isAtivo());
 
         return repository.save(acompanhamentoBanco);
     }

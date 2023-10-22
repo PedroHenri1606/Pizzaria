@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/endereco")
+@CrossOrigin(origins = "*")
 public class EnderecoController {
 
     @Autowired
@@ -60,10 +61,10 @@ public class EnderecoController {
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
             service.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("{endereco.delete-mapping-sucesso}");
+            return ResponseEntity.status(HttpStatus.OK).build();
 
         } catch (Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "{endereco.delete-mapping-failed}");

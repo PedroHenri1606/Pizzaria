@@ -30,8 +30,9 @@ public class SaborServiceImpl implements SaborService {
 
         BeanUtils.copyProperties(saborDTO,sabor);
         sabor.setNome(saborDTO.getNome().toUpperCase());
+        repository.save(sabor);
 
-        return repository.save(sabor);
+        return sabor;
     }
 
     public Sabor buscarPorId(Long id){
@@ -111,6 +112,7 @@ public class SaborServiceImpl implements SaborService {
 
         saborBanco.setNome(saborNovo.getNome());
         saborBanco.setDescricao(saborNovo.getDescricao());
+        saborBanco.setAtivo(saborNovo.isAtivo());
 
         return repository.save(saborBanco);
     }

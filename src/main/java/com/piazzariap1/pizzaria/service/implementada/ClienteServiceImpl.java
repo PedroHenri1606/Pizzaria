@@ -35,8 +35,9 @@ public class ClienteServiceImpl implements ClienteService {
 
             BeanUtils.copyProperties(clienteDTO, cliente);
             cliente.setNome(clienteDTO.getNome().toUpperCase());
+            repository.save(cliente);
 
-            return repository.save(cliente);
+            return cliente;
         }
     }
 
@@ -129,8 +130,10 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente clienteBanco = this.buscarPorId(id);
 
 
-        clienteBanco.setNome(clienteNovo.getNome());
+        clienteBanco.setNome(clienteNovo.getNome().toUpperCase());
         clienteBanco.setTelefone(clienteNovo.getTelefone());
+        clienteBanco.setAtivo(clienteNovo.isAtivo());
+
 
         return repository.save(clienteBanco);
     }

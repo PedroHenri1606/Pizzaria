@@ -27,8 +27,9 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
         AcompanhamentoPedido acompanhamento = new AcompanhamentoPedido();
 
         BeanUtils.copyProperties(acompanhamentoPedidoDTO,acompanhamento);
+        repository.save(acompanhamento);
 
-        return repository.save(acompanhamento);
+        return acompanhamento;
     }
 
     public AcompanhamentoPedido buscarPorId(Long id){
@@ -59,6 +60,8 @@ public class AcompanhamentoPedidoServiceImpl implements AcompanhamentoPedidoServ
         }
 
         acompanhamentoBanco.setQuantidade(acompanhamentoNovo.getQuantidade());
+        acompanhamentoBanco.setObservacao(acompanhamentoBanco.getObservacao());
+        acompanhamentoBanco.setAcompanhamento(acompanhamentoBanco.getAcompanhamento());
 
         return repository.save(acompanhamentoBanco);
     }

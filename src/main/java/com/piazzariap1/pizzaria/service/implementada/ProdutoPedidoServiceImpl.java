@@ -27,8 +27,9 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
         ProdutoPedido itemPedido = new ProdutoPedido();
 
         BeanUtils.copyProperties(produtoPedidoDTO,itemPedido);
+        repository.save(itemPedido);
 
-        return repository.save(itemPedido);
+        return itemPedido;
     }
 
     public ProdutoPedido buscarPorId(Long id){
@@ -59,6 +60,8 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
         }
 
         itemPedidoBanco.setQuantidade(itemPedidoNovo.getQuantidade());
+        itemPedidoBanco.setSabores(itemPedidoBanco.getSabores());
+        itemPedidoBanco.setObservacao(itemPedidoBanco.getObservacao());
 
         return repository.save(itemPedidoBanco);
     }

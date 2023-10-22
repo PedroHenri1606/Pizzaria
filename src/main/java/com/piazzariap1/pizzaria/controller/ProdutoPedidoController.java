@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/produto-pedido")
+@CrossOrigin(origins = "*")
 public class ProdutoPedidoController {
 
     @Autowired
@@ -60,10 +61,10 @@ public class ProdutoPedidoController {
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
             service.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("{produto-pedido.delete-mapping-sucesso}");
+            return ResponseEntity.status(HttpStatus.OK).build();
 
         } catch (Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "{produto-pedido.delete-mapping-failed}");

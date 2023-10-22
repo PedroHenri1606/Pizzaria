@@ -14,6 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/acompanhamento")
+@CrossOrigin(origins = "*")
+
 public class AcompanhamentoController {
 
     @Autowired
@@ -111,10 +113,10 @@ public class AcompanhamentoController {
     }
 
     @DeleteMapping(value = "/deletar")
-    public ResponseEntity<String> deletar(@RequestParam("id") final Long id){
+    public ResponseEntity<Object> deletar(@RequestParam("id") final Long id){
         try {
             service.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("{acompanhamento.delete-mapping-sucesso}");
+            return ResponseEntity.status(HttpStatus.OK).build();
 
         } catch (Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "{acompanhamento.delete-mapping-failed}");

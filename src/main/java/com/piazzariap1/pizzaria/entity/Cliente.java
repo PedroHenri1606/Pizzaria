@@ -1,16 +1,24 @@
 package com.piazzariap1.pizzaria.entity;
 
-import com.piazzariap1.pizzaria.entity.abstractentity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_cliente")
 @Getter @Setter
 @NoArgsConstructor
-public class Cliente extends AbstractEntity {
+public class Cliente{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "ativo")
+    private boolean ativo;
 
     @Column(name = "nome")
     private String nome;
@@ -21,10 +29,7 @@ public class Cliente extends AbstractEntity {
     @Column(name = "telefone")
     private String telefone;
 
-    public Cliente(Long id, String nome, String cpf, String telefone) {
-        super(id);
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-    }
+    @OneToMany
+    @JoinColumn(name = "cliente")
+    private Set<Endereco> enderecos;
 }

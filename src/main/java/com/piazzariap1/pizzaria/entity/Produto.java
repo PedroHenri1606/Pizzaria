@@ -1,18 +1,26 @@
 package com.piazzariap1.pizzaria.entity;
 
-import com.piazzariap1.pizzaria.entity.abstractentity.AbstractEntity;
 import com.piazzariap1.pizzaria.entity.enuns.TamanhoProduto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tb_produto")
 @Getter @Setter
 @NoArgsConstructor
 
-public class Produto extends AbstractEntity {
+public class Produto   {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "ativo")
+    private boolean ativo;
 
     @Column(name = "descricao")
     private String descricao;
@@ -23,11 +31,4 @@ public class Produto extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "tamanho")
     private TamanhoProduto tamanho;
-
-    public Produto(Long id, String descricao, Long valor, TamanhoProduto tamanho) {
-        super(id);
-        this.descricao = descricao;
-        this.valor = valor;
-        this.tamanho = tamanho;
-    }
 }

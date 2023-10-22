@@ -27,8 +27,9 @@ public class EnderecoServiceImpl implements EnderecoService {
         Endereco endereco = new Endereco();
 
         BeanUtils.copyProperties(enderecoDTO,endereco);
+        repository.save(endereco);
 
-        return repository.save(endereco);
+        return endereco;
     }
 
     public Endereco buscarPorId(Long id){

@@ -23,7 +23,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class TestAcompanhamentoPedido {
+class  TestAcompanhamentoPedido {
 
     @MockBean
     AcompanhamentoPedidoRepository repository;

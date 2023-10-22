@@ -35,8 +35,9 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
             BeanUtils.copyProperties(funcionarioDTO, funcionario);
             funcionario.setNome(funcionarioDTO.getNome().toUpperCase());
+            repository.save(funcionario);
 
-            return repository.save(funcionario);
+            return funcionario;
         }
     }
 
@@ -130,6 +131,9 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
         funcionarioBanco.setNome(funcionarioNovo.getNome());
         funcionarioBanco.setTelefone(funcionarioNovo.getTelefone());
+        funcionarioBanco.setEmail(funcionarioBanco.getEmail());
+        funcionarioBanco.setSenha(funcionarioBanco.getSenha());
+        funcionarioBanco.setAtivo(funcionarioBanco.isAtivo());
 
         return repository.save(funcionarioBanco);
     }

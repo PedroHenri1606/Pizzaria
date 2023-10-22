@@ -1,12 +1,9 @@
 package com.piazzariap1.pizzaria.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.piazzariap1.pizzaria.entity.abstractentity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +12,11 @@ import java.util.Set;
 @Table(name = "tb_produto_pedido")
 @Getter @Setter
 @NoArgsConstructor
-public class ProdutoPedido extends AbstractEntity {
+public class ProdutoPedido{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
@@ -24,6 +25,9 @@ public class ProdutoPedido extends AbstractEntity {
     @Column(name = "quantidade")
     private Integer quantidade;
 
+    @Column(name = "observacao")
+    private String observacao;
+
     @ManyToMany
     @JoinTable(
             name = "tb_sabor_produto",
@@ -31,17 +35,4 @@ public class ProdutoPedido extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "sabor_id")
     )
     private Set<Sabor> sabores = new HashSet<>();
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "pedido_id")
-    private Pedido pedido;
-
-    public ProdutoPedido(Long id, Produto produto, Integer quantidade, Set<Sabor> sabores, Pedido pedido) {
-        super(id);
-        this.produto = produto;
-        this.quantidade = quantidade;
-        this.sabores = sabores;
-        this.pedido = pedido;
-    }
 }
