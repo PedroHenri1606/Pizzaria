@@ -64,7 +64,6 @@ public class PedidoServiceImpl implements PedidoService {
         pedidoBanco.setEntregar(pedidoNovo.getEntregar());
         pedidoBanco.setObservacao(pedidoNovo.getObservacao());
         pedidoBanco.setFormaDePagamento(pedidoNovo.getFormaDePagamento());
-        pedidoBanco.setAtivo(pedidoNovo.isAtivo());
 
         return repository.save(pedidoBanco);
     }

@@ -1,11 +1,7 @@
 package com.piazzariap1.pizzaria.service;
 
-import com.piazzariap1.pizzaria.controller.AcompanhamentoPedidoController;
-import com.piazzariap1.pizzaria.dto.AcompanhamentoPedidoDTO;
 import com.piazzariap1.pizzaria.entity.*;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
-import com.piazzariap1.pizzaria.repository.AcompanhamentoPedidoRepository;
-import com.piazzariap1.pizzaria.service.implementada.AcompanhamentoPedidoServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

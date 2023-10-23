@@ -131,9 +131,9 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
         funcionarioBanco.setNome(funcionarioNovo.getNome());
         funcionarioBanco.setTelefone(funcionarioNovo.getTelefone());
-        funcionarioBanco.setEmail(funcionarioBanco.getEmail());
-        funcionarioBanco.setSenha(funcionarioBanco.getSenha());
-        funcionarioBanco.setAtivo(funcionarioBanco.isAtivo());
+        funcionarioBanco.setEmail(funcionarioNovo.getEmail());
+        funcionarioBanco.setSenha(funcionarioNovo.getSenha());
+        funcionarioBanco.setAtivo(funcionarioNovo.isAtivo());
 
         return repository.save(funcionarioBanco);
     }

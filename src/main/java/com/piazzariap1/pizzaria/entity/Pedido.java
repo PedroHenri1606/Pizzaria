@@ -20,9 +20,6 @@ public class Pedido{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "ativo")
-    private boolean ativo;
-
     @ManyToOne
     @JoinColumn(name = "cliente")
     private Cliente cliente;
@@ -33,7 +30,7 @@ public class Pedido{
             joinColumns = @JoinColumn(name = "pedido_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )
-    private Set<ProdutoPedido> item = new HashSet<>();
+    private Set<Produto> item = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -41,7 +38,7 @@ public class Pedido{
             joinColumns = @JoinColumn(name = "pedido_id"),
             inverseJoinColumns = @JoinColumn(name = "acompanhamento_id")
     )
-    private Set<AcompanhamentoPedido> acompanhamento = new HashSet<>();
+    private Set<Acompanhamento> acompanhamento = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "funcionario")

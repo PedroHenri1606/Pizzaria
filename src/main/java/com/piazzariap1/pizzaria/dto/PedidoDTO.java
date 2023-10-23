@@ -14,13 +14,11 @@ public class PedidoDTO   {
 
     private Long id;
 
-    private boolean ativo;
-
     private Cliente cliente;
 
-    private Set<ProdutoPedido> item = new HashSet<>();
+    private Set<Produto> item = new HashSet<>();
 
-    private Set<AcompanhamentoPedido> acompanhamento = new HashSet<>();
+    private Set<Acompanhamento> acompanhamento = new HashSet<>();
 
     private Funcionario funcionario;
 

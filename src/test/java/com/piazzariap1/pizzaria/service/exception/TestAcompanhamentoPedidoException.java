@@ -1,8 +1,5 @@
 package com.piazzariap1.pizzaria.service.exception;
 
-import com.piazzariap1.pizzaria.controller.AcompanhamentoPedidoController;
-import com.piazzariap1.pizzaria.repository.AcompanhamentoPedidoRepository;
-import com.piazzariap1.pizzaria.service.implementada.AcompanhamentoPedidoServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

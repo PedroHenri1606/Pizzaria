@@ -139,8 +139,8 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
         Acompanhamento acompanhamentoBanco = this.buscarPorId(id);
 
         acompanhamentoBanco.setDescricao(acompanhamentoNovo.getDescricao());
-        acompanhamentoBanco.setValor(acompanhamentoBanco.getValor());
-        acompanhamentoBanco.setAtivo(acompanhamentoBanco.isAtivo());
+        acompanhamentoBanco.setValor(acompanhamentoNovo.getValor());
+        acompanhamentoBanco.setAtivo(acompanhamentoNovo.isAtivo());
 
         return repository.save(acompanhamentoBanco);
     }

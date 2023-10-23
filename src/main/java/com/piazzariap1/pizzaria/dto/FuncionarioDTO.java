@@ -1,5 +1,7 @@
 package com.piazzariap1.pizzaria.dto;
 
+import com.piazzariap1.pizzaria.dto.abstractentitydto.UserDTO;
+import com.piazzariap1.pizzaria.entity.abstractentity.User;
 import com.piazzariap1.pizzaria.validation.constraints.CPF;
 import com.piazzariap1.pizzaria.validation.constraints.Telefone;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class FuncionarioDTO   {
+public class FuncionarioDTO extends UserDTO {
 
     private Long id;
 

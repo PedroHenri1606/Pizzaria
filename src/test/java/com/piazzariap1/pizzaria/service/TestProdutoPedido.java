@@ -1,12 +1,8 @@
 package com.piazzariap1.pizzaria.service;
 
-import com.piazzariap1.pizzaria.controller.ProdutoPedidoController;
-import com.piazzariap1.pizzaria.dto.ProdutoPedidoDTO;
 import com.piazzariap1.pizzaria.entity.*;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.TamanhoProduto;
-import com.piazzariap1.pizzaria.repository.ProdutoPedidoRepository;
-import com.piazzariap1.pizzaria.service.implementada.ProdutoPedidoServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -9,9 +9,4 @@ public abstract class UserDTO {
    private String email;
 
    private String senha;
-
-   public UserDTO(String email, String senha) {
-      this.email = email;
-      this.senha = senha;
-   }
 }
