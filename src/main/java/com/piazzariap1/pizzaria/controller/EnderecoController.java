@@ -50,6 +50,16 @@ public class EnderecoController {
         }
     }
 
+    @GetMapping(value = "/listar/cliente")
+    public ResponseEntity<List<Endereco>> listarPorClienteId(@RequestParam("id") final Long id){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.listarPorIdDoCliente(id));
+
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+        }
+    }
+
     @PutMapping(value = "/editar")
     public ResponseEntity<Endereco> atualizar(@RequestParam("id") final Long id, @Valid @RequestBody final EnderecoDTO enderecoDTO){
         try {

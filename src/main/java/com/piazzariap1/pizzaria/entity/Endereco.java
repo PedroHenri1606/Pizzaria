@@ -27,4 +27,7 @@ public class Endereco{
 
     @Column(name = "numero")
     private Integer numero;
+
+    @ManyToOne
+    private Cliente cliente;
 }

@@ -40,6 +40,10 @@ public class Pedido{
     )
     private Set<Acompanhamento> acompanhamento = new HashSet<>();
 
+    @OneToOne
+    @JoinColumn(name = "endereco_entrega")
+    private Endereco enderecoEntrega;
+
     @ManyToOne
     @JoinColumn(name = "funcionario")
     private Funcionario funcionario;

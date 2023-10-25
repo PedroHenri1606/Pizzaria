@@ -2,6 +2,7 @@ package com.piazzariap1.pizzaria.service.implementada;
 
 import com.piazzariap1.pizzaria.dto.PedidoDTO;
 import com.piazzariap1.pizzaria.entity.Pedido;
+import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
 import com.piazzariap1.pizzaria.repository.PedidoRepository;
 import com.piazzariap1.pizzaria.service.PedidoService;
 import com.piazzariap1.pizzaria.service.exception.NaoLocalizadoException;
@@ -27,6 +28,7 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido pedido = new Pedido();
 
         BeanUtils.copyProperties(pedidoDTO,pedido);
+        pedido.setSituacaoPedido(SituacaoPedido.EM_ABERTO);
         repository.save(pedido);
 
         return pedido;
@@ -64,6 +66,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedidoBanco.setEntregar(pedidoNovo.getEntregar());
         pedidoBanco.setObservacao(pedidoNovo.getObservacao());
         pedidoBanco.setFormaDePagamento(pedidoNovo.getFormaDePagamento());
+        pedidoBanco.setEnderecoEntrega(pedidoNovo.getEnderecoEntrega());
 
         return repository.save(pedidoBanco);
     }

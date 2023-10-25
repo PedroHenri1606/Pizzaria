@@ -20,6 +20,8 @@ public class PedidoDTO   {
 
     private Set<Acompanhamento> acompanhamento = new HashSet<>();
 
+    private Endereco enderecoEntrega;
+
     private Funcionario funcionario;
 
     private String observacao;
