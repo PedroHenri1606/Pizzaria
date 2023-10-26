@@ -16,7 +16,7 @@ public class PedidoDTO   {
 
     private Cliente cliente;
 
-    private Set<Produto> item = new HashSet<>();
+    private Set<ProdutoPedido> item = new HashSet<>();
 
     private Set<Acompanhamento> acompanhamento = new HashSet<>();
 

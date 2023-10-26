@@ -30,7 +30,7 @@ public class Pedido{
             joinColumns = @JoinColumn(name = "pedido_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )
-    private Set<Produto> item = new HashSet<>();
+    private Set<ProdutoPedido> item = new HashSet<>();
 
     @ManyToMany
     @JoinTable(

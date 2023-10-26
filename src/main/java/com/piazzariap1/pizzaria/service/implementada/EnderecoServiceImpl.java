@@ -50,16 +50,6 @@ public class EnderecoServiceImpl implements EnderecoService {
             return repository.findAll();
         }
     }
-
-    public List<Endereco> listarPorIdDoCliente(Long id){
-        if(repository.listarPorIdDoCliente(id).isEmpty()){
-            throw new NaoLocalizadoException(NAO_CADASTRADO);
-
-        } else {
-            return repository.listarPorIdDoCliente(id);
-        }
-    }
-
     @Transactional
     public Endereco editar(Long id, EnderecoDTO enderecoNovo){
         Endereco enderecoBanco = this.buscarPorId(id);

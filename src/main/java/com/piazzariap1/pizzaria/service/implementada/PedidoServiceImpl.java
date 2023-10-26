@@ -61,7 +61,6 @@ public class PedidoServiceImpl implements PedidoService {
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
 
-        pedidoBanco.setItem(pedidoNovo.getItem());
         pedidoBanco.setAcompanhamento(pedidoNovo.getAcompanhamento());
         pedidoBanco.setEntregar(pedidoNovo.getEntregar());
         pedidoBanco.setObservacao(pedidoNovo.getObservacao());
