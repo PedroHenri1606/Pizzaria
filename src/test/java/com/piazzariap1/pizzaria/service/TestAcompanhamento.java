@@ -40,7 +40,7 @@ class TestAcompanhamento {
     void injectData(){
 
         //BANCO DE DADOS
-        Acompanhamento acompanhamento = new Acompanhamento(1L,"COCA COLA 1L", 12L);
+        Acompanhamento acompanhamento = new Acompanhamento(1L,true,"COCA COLA 1L", 12L);
 
 
             //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
@@ -78,7 +78,7 @@ class TestAcompanhamento {
         when(repository.findAll()).thenReturn(acompanhamentos);
 
         //TESTAR ATUALIZAR
-        Acompanhamento acompanhamentoNovo = new Acompanhamento(1L,"COCA COLA 2L", 14L);
+        Acompanhamento acompanhamentoNovo = new Acompanhamento(1L,true,"COCA COLA 1L", 12L);
         when(repository.save(acompanhamentoNovo)).thenReturn(acompanhamentos.get(0));
 
     }
@@ -87,7 +87,7 @@ class TestAcompanhamento {
     @DisplayName("Cadastrou acompanhamento com sucesso!")
     void salvarTest(){
 
-        AcompanhamentoDTO acompanhamentoDTO = new AcompanhamentoDTO(1L,"COCA COLA 1L", 12L);
+        AcompanhamentoDTO acompanhamentoDTO = new AcompanhamentoDTO(1L,true,"COCA COLA 1L", 12L);
         var acompanhamento = controller.salvar(acompanhamentoDTO);
 
         Assertions.assertEquals(HttpStatus.CREATED, acompanhamento.getStatusCode());
@@ -184,7 +184,7 @@ class TestAcompanhamento {
     @DisplayName("Editou o acompanhamento som sucesso!")
     void atualizarTest(){
 
-        var acompanhamentoNovo = controller.atualizar(1L,new AcompanhamentoDTO(1L,"COCA COLA 2L", 14L));
+        var acompanhamentoNovo = controller.atualizar(1L,new AcompanhamentoDTO(1L,true,"COCA COLA 2L", 12L));
 
         Assertions.assertEquals(HttpStatus.OK,acompanhamentoNovo.getStatusCode());
         Assertions.assertEquals("COCA COLA 2L", acompanhamentoNovo.getBody().getDescricao());

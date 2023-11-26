@@ -222,7 +222,7 @@ class TestAcompanhamentoException {
     @DisplayName("Buscou acompanhamento (Teste Exception não localizado service)!")
     void atualizarTestExpectionService(){
 
-        AcompanhamentoDTO acompanhamentoDTO = new AcompanhamentoDTO(1L,"teste",1L);
+        AcompanhamentoDTO acompanhamentoDTO = new AcompanhamentoDTO(1L,true,"teste",1L);
         final NaoLocalizadoException exception = Assertions.assertThrows(NaoLocalizadoException.class, () -> service.editar(0L,acompanhamentoDTO));
 
         Assertions.assertEquals("{acompanhamento.exception.nao-localizado}", exception.getMessage());

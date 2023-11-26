@@ -3,6 +3,7 @@ package com.piazzariap1.pizzaria.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +12,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_produto_pedido")
+@Table(name = "TB_PRODUTO_PEDIDO")
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ProdutoPedido{
 
     @Id

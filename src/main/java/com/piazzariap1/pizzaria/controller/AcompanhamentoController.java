@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/acompanhamento")
 @CrossOrigin(origins = "*")
-
 public class AcompanhamentoController {
 
     @Autowired

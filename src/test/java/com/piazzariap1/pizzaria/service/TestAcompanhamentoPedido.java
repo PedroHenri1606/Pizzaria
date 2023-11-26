@@ -1,7 +1,12 @@
 package com.piazzariap1.pizzaria.service;
 
+import com.piazzariap1.pizzaria.controller.AcompanhamentoPedidoController;
+import com.piazzariap1.pizzaria.dto.AcompanhamentoPedidoDTO;
 import com.piazzariap1.pizzaria.entity.*;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
+import com.piazzariap1.pizzaria.entity.enuns.Roles;
+import com.piazzariap1.pizzaria.repository.AcompanhamentoPedidoRepository;
+import com.piazzariap1.pizzaria.service.implementada.AcompanhamentoPedidoServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,14 +17,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class  TestAcompanhamentoPedido {
+class TestAcompanhamentoPedido {
 
     @MockBean
     AcompanhamentoPedidoRepository repository;
@@ -33,13 +36,17 @@ class  TestAcompanhamentoPedido {
     @BeforeEach
     void injectData(){
 
-        Acompanhamento acompanhamento = new Acompanhamento(1L,"COCA COLA 1L", 12L);
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Funcionario funcionario = new Funcionario(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Pedido pedido = new Pedido(1L,cliente,funcionario,"",true, FormaDePagamento.PIX);
+        Acompanhamento acompanhamento = new Acompanhamento(1L,true,"COCA COLA 1L", 12L);
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
+        Set<Endereco> enderecos = new HashSet<>();
+        enderecos.add(endereco);
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+        Cliente cliente = new Cliente(1L,true,"Pedro Henrique Vieira","10250870975","45998265476",enderecos,user);
+        Funcionario funcionario = new Funcionario(1L,true,"Pedro Henrique Vieira","10250870975","45998265476", user);
+        Pedido pedido = new Pedido();
 
         //BANCO DE DADOS
-        AcompanhamentoPedido acompanhamentoPedido = new AcompanhamentoPedido(1L,acompanhamento,2,pedido);
+        AcompanhamentoPedido acompanhamentoPedido = new AcompanhamentoPedido(1L,acompanhamento,2,"");
 
         //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
         when(repository.save(Mockito.any(AcompanhamentoPedido.class))).thenAnswer(invocation -> {
@@ -59,7 +66,7 @@ class  TestAcompanhamentoPedido {
         when(repository.findAll()).thenReturn(acompanhamentoPedidos);
 
         //TESTAR ATUALIZAR
-        AcompanhamentoPedido acompanhamentoPedidoNovo = new AcompanhamentoPedido(1L,acompanhamento,3,pedido);
+        AcompanhamentoPedido acompanhamentoPedidoNovo = new AcompanhamentoPedido(1L,acompanhamento,3,"");
         when(repository.save(acompanhamentoPedidoNovo)).thenReturn(acompanhamentoPedidos.get(0));
     }
 
@@ -67,12 +74,16 @@ class  TestAcompanhamentoPedido {
     @DisplayName("Cadastrou acompanhamento do pedido com sucesso!")
     void salvarTeste(){
 
-        Acompanhamento acompanhamento = new Acompanhamento(1L,"COCA COLA 1L", 12L);
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Funcionario funcionario = new Funcionario(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Pedido pedido = new Pedido(1L,cliente,funcionario,"",true, FormaDePagamento.PIX);
+        Acompanhamento acompanhamento = new Acompanhamento(1L,true,"COCA COLA 1L", 12L);
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
+        Set<Endereco> enderecos = new HashSet<>();
+        enderecos.add(endereco);
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+        Cliente cliente = new Cliente(1L,true,"Pedro Henrique Vieira","10250870975","45998265476",enderecos,user);
+        Funcionario funcionario = new Funcionario(1L,true,"Pedro Henrique Vieira","10250870975","45998265476", user);
+        Pedido pedido = new Pedido();
 
-        AcompanhamentoPedidoDTO acompanhamentoPedidoDTO = new AcompanhamentoPedidoDTO(2L,acompanhamento,2,pedido);
+        AcompanhamentoPedidoDTO acompanhamentoPedidoDTO = new AcompanhamentoPedidoDTO(1L,acompanhamento,2,"");
 
         var acompanhamentoPedido = controller.salvar(acompanhamentoPedidoDTO);
 
@@ -106,14 +117,18 @@ class  TestAcompanhamentoPedido {
     @DisplayName("Editou o acompanhamento do pedido com sucesso!")
     void atualizarTeste(){
 
-        Acompanhamento acompanhamento = new Acompanhamento(1L,"COCA COLA 1L", 12L);
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Funcionario funcionario = new Funcionario(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Pedido pedido = new Pedido(1L,cliente,funcionario,"",true, FormaDePagamento.PIX);
+        Acompanhamento acompanhamento = new Acompanhamento(1L,true,"COCA COLA 1L", 12L);
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
+        Set<Endereco> enderecos = new HashSet<>();
+        enderecos.add(endereco);
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+        Cliente cliente = new Cliente(1L,true,"Pedro Henrique Vieira","10250870975","45998265476",enderecos,user);
+        Funcionario funcionario = new Funcionario(1L,true,"Pedro Henrique Vieira","10250870975","45998265476", user);
+        Pedido pedido = new Pedido();
 
-        AcompanhamentoPedidoDTO acompanhamentoPedidoDTO = new AcompanhamentoPedidoDTO(1L,acompanhamento,3,pedido);
+        AcompanhamentoPedidoDTO acompanhamentoPedidoDTO = new AcompanhamentoPedidoDTO(1L,acompanhamento,3,"");
 
-        var acompanhamentoPedido = controller.atualizar(acompanhamentoPedidoDTO.getId(),acompanhamentoPedidoDTO);
+        var acompanhamentoPedido = controller.atualizar(acompanhamentoPedidoDTO.id(),acompanhamentoPedidoDTO);
 
         Assertions.assertEquals(HttpStatus.OK,acompanhamentoPedido.getStatusCode());
         Assertions.assertEquals("COCA COLA 1L", acompanhamentoPedido.getBody().getAcompanhamento().getDescricao());

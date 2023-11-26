@@ -36,7 +36,7 @@ class TestSabor {
     @BeforeEach
     void injectData(){
 
-        Sabor sabor = new Sabor(1L, "4 QUEIJOS","QUEIJO QUEIJO QUEIJO E QUEIJO");
+        Sabor sabor = new Sabor(1L,true,"4 QUEIJOS","QUEIJO, QUEIJO, QUEIJO E QUEIJO");
 
         //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
         when(repository.save(Mockito.any(Sabor.class))).thenAnswer(invocation -> {
@@ -70,7 +70,7 @@ class TestSabor {
         when(repository.findAll()).thenReturn(sabores);
 
         //TESTAR ATUALIZAR
-        Sabor saborNovo = new Sabor(1L, "3 QUEIJOS","QUEIJO QUEIJO E QUEIJO");
+        Sabor saborNovo = new Sabor(1L,true,"3 QUEIJOS","QUEIJO, QUEIJO E QUEIJO");
         when(repository.save(saborNovo)).thenReturn(sabores.get(0));
     }
 
@@ -78,7 +78,7 @@ class TestSabor {
     @DisplayName("Cadastrou sabor com sucesso!")
     void salvarTest(){
 
-        SaborDTO sabor = new SaborDTO(1L, "4 QUEIJOS","QUEIJO QUEIJO QUEIJO E QUEIJO");
+        SaborDTO sabor = new SaborDTO(1L,true,"4 QUEIJOS","QUEIJO, QUEIJO, QUEIJO E QUEIJO");
         var produto = controller.salvar(sabor);
 
         Assertions.assertEquals(HttpStatus.CREATED, produto.getStatusCode());
@@ -163,10 +163,10 @@ class TestSabor {
     @DisplayName("Editou o sabor som sucesso!")
     void atualizarTest(){
 
-        SaborDTO saborNovo = new SaborDTO(1L, "3 QUEIJOS","QUEIJO QUEIJO E QUEIJO");
+        SaborDTO saborNovo = new SaborDTO(1L, true,"3 QUEIJOS","QUEIJO QUEIJO E QUEIJO");
 
 
-        var produtoNovo = controller.atualizar(saborNovo.getId(),saborNovo);
+        var produtoNovo = controller.atualizar(saborNovo.id(),saborNovo);
 
 
         Assertions.assertEquals(HttpStatus.OK,produtoNovo.getStatusCode());

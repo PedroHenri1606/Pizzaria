@@ -3,6 +3,7 @@ package com.piazzariap1.pizzaria.service;
 import com.piazzariap1.pizzaria.controller.EnderecoController;
 import com.piazzariap1.pizzaria.dto.EnderecoDTO;
 import com.piazzariap1.pizzaria.entity.*;
+import com.piazzariap1.pizzaria.entity.enuns.Roles;
 import com.piazzariap1.pizzaria.repository.EnderecoRepository;
 import com.piazzariap1.pizzaria.service.implementada.EnderecoServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -15,9 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.when;
 
@@ -35,10 +34,8 @@ class TestEndereco {
     @BeforeEach
     void injectData(){
 
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-
         //BANCO DE DADOS
-        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2,cliente);
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
 
         //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
         when(repository.save(Mockito.any(Endereco.class))).thenAnswer(invocation -> {
@@ -58,7 +55,7 @@ class TestEndereco {
         when(repository.findAll()).thenReturn(enderecos);
 
         //TESTAR ATUALIZAR
-        Endereco enderecoNovo = new Endereco(1L,"85859340","MORUMBI III","BELMIRO",2,cliente);
+        Endereco enderecoNovo = new Endereco(1L,"85859340","MORUMBI III","BELMIRO",2);
         when(repository.save(enderecoNovo)).thenReturn(enderecos.get(0));
     }
 
@@ -66,9 +63,8 @@ class TestEndereco {
     @DisplayName("Cadastrou endereco com sucesso!")
     void salvarTeste(){
 
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
 
-        var endereco = controller.salvar(new EnderecoDTO(1L,"85859340","MORUMBI II","BELMIRO",2,cliente));
+        var endereco = controller.salvar(new EnderecoDTO(1L,"85859340","MORUMBI II","BELMIRO",2));
 
         Assertions.assertEquals(1L,endereco.getBody().getId());
         Assertions.assertEquals(HttpStatus.CREATED,endereco.getStatusCode());
@@ -100,10 +96,9 @@ class TestEndereco {
     @DisplayName("Editou o endereco com sucesso!")
     void atualizarTeste(){
 
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        EnderecoDTO enderecoDTO = new EnderecoDTO(1L,"85859340","MORUMBI III","BELMIRO",2,cliente);
+        EnderecoDTO enderecoDTO = new EnderecoDTO(1L,"85859340","MORUMBI III","BELMIRO",2);
 
-        var endereco = controller.atualizar(enderecoDTO.getId(),enderecoDTO);
+        var endereco = controller.atualizar(enderecoDTO.id(),enderecoDTO);
 
         Assertions.assertEquals(HttpStatus.OK,endereco.getStatusCode());
         Assertions.assertEquals("MORUMBI III", endereco.getBody().getBairro());

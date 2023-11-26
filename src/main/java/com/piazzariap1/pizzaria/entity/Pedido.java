@@ -3,6 +3,7 @@ package com.piazzariap1.pizzaria.entity;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +12,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_pedido")
+@Table(name = "TB_PEDIDO")
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Pedido{
 
     @Id
@@ -38,7 +40,7 @@ public class Pedido{
             joinColumns = @JoinColumn(name = "pedido_id"),
             inverseJoinColumns = @JoinColumn(name = "acompanhamento_id")
     )
-    private Set<Acompanhamento> acompanhamento = new HashSet<>();
+    private Set<AcompanhamentoPedido> acompanhamento = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "endereco_entrega")

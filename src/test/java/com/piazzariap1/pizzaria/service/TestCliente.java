@@ -3,6 +3,9 @@ package com.piazzariap1.pizzaria.service;
 import com.piazzariap1.pizzaria.controller.ClienteController;
 import com.piazzariap1.pizzaria.dto.ClienteDTO;
 import com.piazzariap1.pizzaria.entity.Cliente;
+import com.piazzariap1.pizzaria.entity.Endereco;
+import com.piazzariap1.pizzaria.entity.UserEntity;
+import com.piazzariap1.pizzaria.entity.enuns.Roles;
 import com.piazzariap1.pizzaria.repository.ClienteRepository;
 import com.piazzariap1.pizzaria.service.implementada.ClienteServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -15,9 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.when;
 
@@ -36,8 +37,14 @@ class TestCliente {
     @BeforeEach
     void injectData(){
 
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
+        Set<Endereco> enderecos = new HashSet<>();
+        enderecos.add(endereco);
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+
         //BANCO DE DADOS
-        Cliente cliente = new Cliente(1L,"PEDRO HENRIQUE VIEIRA","10250870975","45998265476");
+        Cliente cliente = new Cliente(1L,true,"PEDRO HENRIQUE VIEIRA","10250870975","45998265476",enderecos,user);
+
 
         //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
         when(repository.save(Mockito.any(Cliente.class))).thenAnswer(invocation -> {
@@ -74,7 +81,7 @@ class TestCliente {
         when(repository.findAll()).thenReturn(clientes);
 
         //TESTAR ATUALIZAR
-        Cliente clienteNovo = new Cliente(1L,"PEDRO HENRIQUE", "10250870975","45998111111");
+        Cliente clienteNovo = new Cliente(1L,true,"PEDRO HENRIQUE", "10250870975","45998111111",enderecos,user);
         when(repository.save(clienteNovo)).thenReturn(clientes.get(0));
     }
 
@@ -82,10 +89,15 @@ class TestCliente {
     @DisplayName("Cadastrou cliente com sucesso!")
     void cadastrarTest(){
 
-        var clienteDTO = controller.salvar(new ClienteDTO(1L,"PEDRO HENRIQUE VIEIRA","91148302999","45998265476"));
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
+        Set<Endereco> enderecos = new HashSet<>();
+        enderecos.add(endereco);
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+
+        var clienteDTO = controller.salvar(new ClienteDTO(1L,true,"PEDRO HENRIQUE", "51454781009","45998111111",enderecos,user));
 
         Assertions.assertEquals(HttpStatus.CREATED, clienteDTO.getStatusCode());
-        Assertions.assertEquals("PEDRO HENRIQUE VIEIRA", clienteDTO.getBody().getNome());
+        Assertions.assertEquals("PEDRO HENRIQUE", clienteDTO.getBody().getNome());
         Assertions.assertNotNull(clienteDTO.getBody().getId());
     }
 
@@ -176,7 +188,12 @@ class TestCliente {
     @DisplayName("Editou o cliente som sucesso!")
     void atualizarTest(){
 
-        var clienteNovo = controller.atualizar(1L,new ClienteDTO(1L,"PEDRO HENRIQUE", "10250870975","45998111111"));
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
+        Set<Endereco> enderecos = new HashSet<>();
+        enderecos.add(endereco);
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+
+        var clienteNovo = controller.atualizar(1L,new ClienteDTO(1L,true,"PEDRO HENRIQUE", "10250870975","45998111111",enderecos,user));
 
         Assertions.assertEquals(HttpStatus.OK, clienteNovo.getStatusCode());
         Assertions.assertEquals("PEDRO HENRIQUE", clienteNovo.getBody().getNome());

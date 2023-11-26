@@ -1,8 +1,12 @@
 package com.piazzariap1.pizzaria.service;
 
+import com.piazzariap1.pizzaria.controller.ProdutoPedidoController;
+import com.piazzariap1.pizzaria.dto.ProdutoPedidoDTO;
 import com.piazzariap1.pizzaria.entity.*;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
 import com.piazzariap1.pizzaria.entity.enuns.TamanhoProduto;
+import com.piazzariap1.pizzaria.repository.ProdutoPedidoRepository;
+import com.piazzariap1.pizzaria.service.implementada.ProdutoPedidoServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,17 +37,13 @@ class TestProdutoPedido {
     @BeforeEach
     void injectData(){
 
-        Produto produto = new Produto(1L,"PIZZA GG",65L, TamanhoProduto.GG);
-        Sabor sabor = new Sabor(1L,"4 QUEIJOS","QUEIJO, QUEIJO, QUEIJO E QUEIJO");
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Funcionario funcionario = new Funcionario(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Pedido pedido = new Pedido(1L,cliente,funcionario,"",true, FormaDePagamento.PIX);
-
+        Produto produto = new Produto(1L,true,"PIZZA GG",65L, TamanhoProduto.GG);
+        Sabor sabor = new Sabor(1L,true,"4 QUEIJOS","QUEIJO, QUEIJO, QUEIJO E QUEIJO");
         Set<Sabor> sabores = new HashSet<>();
         sabores.add(sabor);
 
         //BANCO DE DADOS
-        ProdutoPedido produtoPedido = new ProdutoPedido(1L,produto,2,sabores,pedido);
+        ProdutoPedido produtoPedido = new ProdutoPedido(1L,produto,2,"",sabores);
 
         //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
         when(repository.save(Mockito.any(ProdutoPedido.class))).thenAnswer(invocation -> {
@@ -62,7 +62,7 @@ class TestProdutoPedido {
         when(repository.findAll()).thenReturn(produtosPedido);
 
         //TESTAR ATUALIZAR
-        ProdutoPedido produtoPedidoNovo = new ProdutoPedido(1L,produto,3,sabores,pedido);
+        ProdutoPedido produtoPedidoNovo = new ProdutoPedido(1L,produto,3,"",sabores);
         when(repository.save(produtoPedidoNovo)).thenReturn(produtosPedido.get(0));
 
     }
@@ -71,16 +71,11 @@ class TestProdutoPedido {
     @DisplayName("Cadastrou produto do pedido com sucesso!")
     void salvarTeste(){
 
-        Produto produto = new Produto(1L,"PIZZA GG",65L, TamanhoProduto.GG);
-        Sabor sabor = new Sabor(1L,"4 QUEIJOS","QUEIJO, QUEIJO, QUEIJO E QUEIJO");
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Funcionario funcionario = new Funcionario(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Pedido pedido = new Pedido(1L,cliente,funcionario,"",true, FormaDePagamento.PIX);
-
+        Produto produto = new Produto(1L,true,"PIZZA GG",65L, TamanhoProduto.GG);
+        Sabor sabor = new Sabor(1L,true,"4 QUEIJOS","QUEIJO, QUEIJO, QUEIJO E QUEIJO");
         Set<Sabor> sabores = new HashSet<>();
         sabores.add(sabor);
-
-        ProdutoPedidoDTO produtoPedidoDTO = new ProdutoPedidoDTO(1L,produto,2,sabores,pedido);
+        ProdutoPedidoDTO produtoPedidoDTO = new ProdutoPedidoDTO(1L,produto,2,"",sabores);
 
         var produtoPedido = controller.salvar(produtoPedidoDTO);
 
@@ -114,18 +109,14 @@ class TestProdutoPedido {
     @DisplayName("Editou o produto do pedido com sucesso!")
     void atualizarTeste(){
 
-        Produto produto = new Produto(1L,"PIZZA GG",65L, TamanhoProduto.GG);
-        Sabor sabor = new Sabor(1L,"4 QUEIJOS","QUEIJO, QUEIJO, QUEIJO E QUEIJO");
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Funcionario funcionario = new Funcionario(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Pedido pedido = new Pedido(1L,cliente,funcionario,"",true, FormaDePagamento.PIX);
-
+        Produto produto = new Produto(1L,true,"PIZZA GG",65L, TamanhoProduto.GG);
+        Sabor sabor = new Sabor(1L,true,"4 QUEIJOS","QUEIJO, QUEIJO, QUEIJO E QUEIJO");
         Set<Sabor> sabores = new HashSet<>();
         sabores.add(sabor);
 
-        ProdutoPedidoDTO produtoPedidoDTO = new ProdutoPedidoDTO(1L,produto,1,sabores,pedido);
+        ProdutoPedidoDTO produtoPedidoDTO = new ProdutoPedidoDTO(1L,produto,1,"",sabores);
 
-        var acompanhamentoPedido = controller.atualizar(produtoPedidoDTO.getId(),produtoPedidoDTO);
+        var acompanhamentoPedido = controller.atualizar(produtoPedidoDTO.id(),produtoPedidoDTO);
 
         Assertions.assertEquals(HttpStatus.OK,acompanhamentoPedido.getStatusCode());
         Assertions.assertEquals("PIZZA GG", acompanhamentoPedido.getBody().getProduto().getDescricao());

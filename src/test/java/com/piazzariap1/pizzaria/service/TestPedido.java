@@ -4,6 +4,9 @@ import com.piazzariap1.pizzaria.controller.PedidoController;
 import com.piazzariap1.pizzaria.dto.PedidoDTO;
 import com.piazzariap1.pizzaria.entity.*;
 import com.piazzariap1.pizzaria.entity.enuns.FormaDePagamento;
+import com.piazzariap1.pizzaria.entity.enuns.Roles;
+import com.piazzariap1.pizzaria.entity.enuns.SituacaoPedido;
+import com.piazzariap1.pizzaria.entity.enuns.TamanhoProduto;
 import com.piazzariap1.pizzaria.repository.PedidoRepository;
 import com.piazzariap1.pizzaria.service.implementada.PedidoServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -16,9 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.when;
 
@@ -37,11 +38,29 @@ class TestPedido {
     @BeforeEach
     void injectData(){
 
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Funcionario funcionario = new Funcionario(1L,"Pedro Henrique Vieira","10250870975","45998265476");
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
+        Set<Endereco> enderecos = new HashSet<>();
+        enderecos.add(endereco);
+        Cliente cliente = new Cliente(1L,true,"Pedro Henrique Vieira","10250870975","45998265476",enderecos,user);
+        Funcionario funcionario = new Funcionario(1L,true,"Pedro Henrique Vieira","10250870975","45998265476",user);
+
+        Sabor sabor = new Sabor(1L,true, "4 QUEIJOS","QUEIJO QUEIJO QUEIJO E QUEIJO");
+        Set<Sabor> sabores = new HashSet<>();
+        sabores.add(sabor);
+
+        Produto produto = new Produto(1L,true,"PIZZA GG",65L, TamanhoProduto.GG);
+        ProdutoPedido produtoPedido = new ProdutoPedido(1L,produto,1,"",sabores);
+        Set<ProdutoPedido> produtoPedidos = new HashSet<>();
+        produtoPedidos.add(produtoPedido);
+
+        Acompanhamento acompanhamento = new Acompanhamento(1L,true,"COCA COLA 1L", 12L);
+        AcompanhamentoPedido acompanhamentoPedido = new AcompanhamentoPedido(1L,acompanhamento,2,"");
+        Set<AcompanhamentoPedido> acompanhamentoPedidos = new HashSet<>();
+        acompanhamentoPedidos.add(acompanhamentoPedido);
 
         //BANCO DE DADOS
-        Pedido pedido = new Pedido(1L,cliente,funcionario,"",true, FormaDePagamento.PIX);
+        Pedido pedido = new Pedido(1L,cliente,produtoPedidos,acompanhamentoPedidos,endereco,funcionario,"",true,true, SituacaoPedido.EM_ABERTO,FormaDePagamento.PIX,100L);
 
         //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
         when(repository.save(Mockito.any(Pedido.class))).thenAnswer(invocation -> {
@@ -60,7 +79,7 @@ class TestPedido {
         when(repository.findAll()).thenReturn(pedidos);
 
         //TESTAR ATUALIZAR
-        Pedido pedidoNovo = new Pedido(1L,cliente,funcionario,"",true,FormaDePagamento.CARTAO_DEBITO);
+        Pedido pedidoNovo = new Pedido(1L,cliente,produtoPedidos,acompanhamentoPedidos,endereco,funcionario,"",true,true, SituacaoPedido.EM_ABERTO,FormaDePagamento.PIX,100L);
         when(repository.save(pedidoNovo)).thenReturn(pedidos.get(0));
     }
 
@@ -68,10 +87,28 @@ class TestPedido {
     @DisplayName("Cadastrou pedido com sucesso!")
     void salvarTeste(){
 
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Funcionario funcionario = new Funcionario(1L,"Pedro Henrique Vieira","10250870975","45998265476");
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
+        Set<Endereco> enderecos = new HashSet<>();
+        enderecos.add(endereco);
+        Cliente cliente = new Cliente(1L,true,"Pedro Henrique Vieira","10250870975","45998265476",enderecos,user);
+        Funcionario funcionario = new Funcionario(1L,true,"Pedro Henrique Vieira","10250870975","45998265476",user);
 
-        var pedido = controller.salvar(new PedidoDTO(1L,cliente,funcionario,"",true, FormaDePagamento.PIX));
+        Sabor sabor = new Sabor(1L,true, "4 QUEIJOS","QUEIJO QUEIJO QUEIJO E QUEIJO");
+        Set<Sabor> sabores = new HashSet<>();
+        sabores.add(sabor);
+
+        Produto produto = new Produto(1L,true,"PIZZA GG",65L, TamanhoProduto.GG);
+        ProdutoPedido produtoPedido = new ProdutoPedido(1L,produto,1,"",sabores);
+        Set<ProdutoPedido> produtoPedidos = new HashSet<>();
+        produtoPedidos.add(produtoPedido);
+
+        Acompanhamento acompanhamento = new Acompanhamento(1L,true,"COCA COLA 1L", 12L);
+        AcompanhamentoPedido acompanhamentoPedido = new AcompanhamentoPedido(1L,acompanhamento,2,"");
+        Set<AcompanhamentoPedido> acompanhamentoPedidos = new HashSet<>();
+        acompanhamentoPedidos.add(acompanhamentoPedido);
+
+        var pedido = controller.salvar(new PedidoDTO(1L,cliente,produtoPedidos,acompanhamentoPedidos,endereco,funcionario,"",true,true, SituacaoPedido.EM_ABERTO,FormaDePagamento.PIX,100L));
 
         Assertions.assertEquals(1L,pedido.getBody().getId());
         Assertions.assertEquals(HttpStatus.CREATED,pedido.getStatusCode());
@@ -103,12 +140,30 @@ class TestPedido {
     @DisplayName("Editou o pedido com sucesso!")
     void atualizarTeste(){
 
-        Cliente cliente = new Cliente(1L,"Pedro Henrique Vieira","10250870975","45998265476");
-        Funcionario funcionario = new Funcionario(1L,"Pedro Henrique Vieira","10250870975","45998265476");
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+        Endereco endereco = new Endereco(1L,"85859340","MORUMBI II","BELMIRO",2);
+        Set<Endereco> enderecos = new HashSet<>();
+        enderecos.add(endereco);
+        Cliente cliente = new Cliente(1L,true,"Pedro Henrique Vieira","10250870975","45998265476",enderecos,user);
+        Funcionario funcionario = new Funcionario(1L,true,"Pedro Henrique Vieira","10250870975","45998265476",user);
 
-        PedidoDTO pedidoDTO = new PedidoDTO(1L,cliente,funcionario,"",true, FormaDePagamento.CARTAO_DEBITO);
+        Sabor sabor = new Sabor(1L,true, "4 QUEIJOS","QUEIJO QUEIJO QUEIJO E QUEIJO");
+        Set<Sabor> sabores = new HashSet<>();
+        sabores.add(sabor);
 
-        var pedido = controller.atualizar(pedidoDTO.getId(),pedidoDTO);
+        Produto produto = new Produto(1L,true,"PIZZA GG",65L, TamanhoProduto.GG);
+        ProdutoPedido produtoPedido = new ProdutoPedido(1L,produto,1,"",sabores);
+        Set<ProdutoPedido> produtoPedidos = new HashSet<>();
+        produtoPedidos.add(produtoPedido);
+
+        Acompanhamento acompanhamento = new Acompanhamento(1L,true,"COCA COLA 1L", 12L);
+        AcompanhamentoPedido acompanhamentoPedido = new AcompanhamentoPedido(1L,acompanhamento,2,"");
+        Set<AcompanhamentoPedido> acompanhamentoPedidos = new HashSet<>();
+        acompanhamentoPedidos.add(acompanhamentoPedido);
+
+        PedidoDTO pedidoDTO = new PedidoDTO(1L,cliente,produtoPedidos,acompanhamentoPedidos,endereco,funcionario,"",true,true, SituacaoPedido.EM_ABERTO,FormaDePagamento.CARTAO_DEBITO,100L);;
+
+        var pedido = controller.atualizar(pedidoDTO.id(),pedidoDTO);
 
         Assertions.assertEquals(HttpStatus.OK,pedido.getStatusCode());
         Assertions.assertEquals(FormaDePagamento.CARTAO_DEBITO, pedido.getBody().getFormaDePagamento());

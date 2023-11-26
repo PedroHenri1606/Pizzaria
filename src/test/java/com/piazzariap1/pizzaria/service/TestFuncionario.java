@@ -3,6 +3,8 @@ package com.piazzariap1.pizzaria.service;
 import com.piazzariap1.pizzaria.controller.FuncionarioController;
 import com.piazzariap1.pizzaria.dto.FuncionarioDTO;
 import com.piazzariap1.pizzaria.entity.Funcionario;
+import com.piazzariap1.pizzaria.entity.UserEntity;
+import com.piazzariap1.pizzaria.entity.enuns.Roles;
 import com.piazzariap1.pizzaria.repository.FuncionarioRepository;
 import com.piazzariap1.pizzaria.service.implementada.FuncionarioServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -37,8 +39,10 @@ class TestFuncionario {
     @BeforeEach
     void injectData(){
 
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+
         //BANCO DE DADOS
-        Funcionario funcionario = new Funcionario(1L,"PEDRO HENRIQUE VIEIRA","10250870975","45998265476");
+        Funcionario funcionario = new Funcionario(1L,true,"PEDRO HENRIQUE VIEIRA","10250870975","45998265476", user);
 
         //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
         when(repository.save(Mockito.any(Funcionario.class))).thenAnswer(invocation -> {
@@ -75,7 +79,7 @@ class TestFuncionario {
         when(repository.findAll()).thenReturn(funcionarios);
 
         //TESTAR ATUALIZAR
-        Funcionario funcionarioNovo = new Funcionario(1L,"PEDRO HENRIQUE", "10250870975","45998111111");
+        Funcionario funcionarioNovo = new Funcionario(1L,true,"PEDRO HENRIQUE", "10250870975","45998111111", user);
         when(repository.save(funcionarioNovo)).thenReturn(funcionarios.get(0));
     }
 
@@ -83,7 +87,9 @@ class TestFuncionario {
     @DisplayName("Cadastrou funcionario com sucesso!")
     void cadastrarTest(){
 
-        var funcionarioDTO = controller.salvar(new FuncionarioDTO(1L,"PEDRO HENRIQUE VIEIRA","91148302999","45998265476"));
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+
+        var funcionarioDTO = controller.salvar(new FuncionarioDTO(1L,true,"PEDRO HENRIQUE VIEIRA","91148302999","45998265476", user));
 
         Assertions.assertEquals(HttpStatus.CREATED, funcionarioDTO.getStatusCode());
         Assertions.assertEquals("PEDRO HENRIQUE VIEIRA", funcionarioDTO.getBody().getNome());
@@ -177,7 +183,10 @@ class TestFuncionario {
     @DisplayName("Editou o funcionario som sucesso!")
     void atualizarTest(){
 
-        var funcioanarioNovo = controller.atualizar(1L,new FuncionarioDTO(1L,"PEDRO HENRIQUE", "10250870975","45998111111"));
+        UserEntity user = new UserEntity(1L,"pedro","123", Roles.CLIENTE);
+
+
+        var funcioanarioNovo = controller.atualizar(1L,new FuncionarioDTO(1L, true,"PEDRO HENRIQUE", "10250870975","45998111111",user));
 
         Assertions.assertEquals(HttpStatus.OK, funcioanarioNovo.getStatusCode());
         Assertions.assertEquals("PEDRO HENRIQUE", funcioanarioNovo.getBody().getNome());

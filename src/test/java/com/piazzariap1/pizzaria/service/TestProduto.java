@@ -38,7 +38,7 @@ class TestProduto {
     void injectData(){
 
         //BANCO DE DADOS
-        Produto produto = new Produto(1L, "PIZZA GG",65L, TamanhoProduto.GG);
+        Produto produto = new Produto(1L,true,"PIZZA GG",65L, TamanhoProduto.GG);
 
         //INSERÇÃO MANUAL PARA TESTAR CADASTRAR
         when(repository.save(Mockito.any(Produto.class))).thenAnswer(invocation -> {
@@ -75,7 +75,7 @@ class TestProduto {
         when(repository.findAll()).thenReturn(produtos);
 
         //TESTAR ATUALIZAR
-        Produto produtoNovo = new Produto(1L, "PIZZA M",40L, TamanhoProduto.M);
+        Produto produtoNovo = new Produto(1L,true,"PIZZA GG",65L, TamanhoProduto.M);
         when(repository.save(produtoNovo)).thenReturn(produtos.get(0));
     }
 
@@ -83,7 +83,7 @@ class TestProduto {
     @DisplayName("Cadastrou produto com sucesso!")
     void salvarTest(){
 
-        ProdutoDTO produtoDTO = new ProdutoDTO(1L, "PIZZA GG",65L, TamanhoProduto.GG);
+        ProdutoDTO produtoDTO = new ProdutoDTO(1L,true,"PIZZA GG",65L, TamanhoProduto.GG);
         var produto = controller.salvar(produtoDTO);
 
         Assertions.assertEquals(HttpStatus.CREATED, produto.getStatusCode());
@@ -180,11 +180,9 @@ class TestProduto {
     @DisplayName("Editou o produto som sucesso!")
     void atualizarTest(){
 
-        ProdutoDTO produtoDTO = new ProdutoDTO(1L, "PIZZA M",40L, TamanhoProduto.M);
+        ProdutoDTO produtoDTO = new ProdutoDTO(1L,true,"PIZZA M",65L, TamanhoProduto.M);
 
-        var produtoNovo = controller.atualizar(produtoDTO.getId(),produtoDTO);
-
-
+        var produtoNovo = controller.atualizar(produtoDTO.id(),produtoDTO);
 
         Assertions.assertEquals(HttpStatus.OK,produtoNovo.getStatusCode());
         Assertions.assertEquals("PIZZA M", produtoNovo.getBody().getDescricao());

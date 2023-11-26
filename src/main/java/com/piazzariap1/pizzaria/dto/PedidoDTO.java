@@ -10,7 +10,7 @@ import java.util.Set;
 public record PedidoDTO(Long id,
                         Cliente cliente,
                         Set<ProdutoPedido> item,
-                        Set<Acompanhamento> acompanhamentos,
+                        Set<AcompanhamentoPedido> acompanhamentos,
                         Endereco enderecoEntrega,
                         Funcionario funcionario,
                         String observacao,
