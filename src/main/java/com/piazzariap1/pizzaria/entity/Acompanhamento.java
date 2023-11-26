@@ -1,6 +1,9 @@
 package com.piazzariap1.pizzaria.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,8 +22,11 @@ public class Acompanhamento{
     private boolean ativo;
 
     @Column(name = "descricao")
+    @NotNull(message = "{campo.acompanhamento-descricao.NotNull}")
+    @NotBlank(message = "{campo.acompanhamento-descricao-NotBlak}")
     private String descricao;
 
     @Column(name = "valor")
+    @Min(value = 1, message = "{campo.acompanhamento-valor-Min}")
     private Long valor;
 }

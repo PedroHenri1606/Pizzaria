@@ -57,15 +57,15 @@ public class PedidoServiceImpl implements PedidoService {
     public Pedido editar(Long id, PedidoDTO pedidoNovo){
         Pedido pedidoBanco = this.buscarPorId(id);
 
-        if(id == 0 || !pedidoNovo.getId().equals(pedidoBanco.getId())){
+        if(id == 0 || !pedidoNovo.id().equals(pedidoBanco.getId())){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
 
-        pedidoBanco.setAcompanhamento(pedidoNovo.getAcompanhamento());
-        pedidoBanco.setEntregar(pedidoNovo.getEntregar());
-        pedidoBanco.setObservacao(pedidoNovo.getObservacao());
-        pedidoBanco.setFormaDePagamento(pedidoNovo.getFormaDePagamento());
-        pedidoBanco.setEnderecoEntrega(pedidoNovo.getEnderecoEntrega());
+        pedidoBanco.setAcompanhamento(pedidoNovo.acompanhamentos());
+        pedidoBanco.setEntregar(pedidoNovo.entregar());
+        pedidoBanco.setObservacao(pedidoNovo.observacao());
+        pedidoBanco.setFormaDePagamento(pedidoNovo.formaDePagamento());
+        pedidoBanco.setEnderecoEntrega(pedidoNovo.enderecoEntrega());
 
         return repository.save(pedidoBanco);
     }

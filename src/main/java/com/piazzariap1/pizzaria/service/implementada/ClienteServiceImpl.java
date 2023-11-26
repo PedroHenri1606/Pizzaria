@@ -27,14 +27,14 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Transactional
     public Cliente cadastrar(ClienteDTO clienteDTO) {
-        if (!repository.findByCpf(clienteDTO.getCpf()).isEmpty()) {
+        if (!repository.findByCpf(clienteDTO.cpf()).isEmpty()) {
             throw new CadastroNaoRealizadoException(CPF_CADASTRADO);
         } else {
 
             Cliente cliente = new Cliente();
 
             BeanUtils.copyProperties(clienteDTO, cliente);
-            cliente.setNome(clienteDTO.getNome().toUpperCase());
+            cliente.setNome(clienteDTO.nome().toUpperCase());
             repository.save(cliente);
 
             return cliente;
@@ -130,9 +130,9 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente clienteBanco = this.buscarPorId(id);
 
 
-        clienteBanco.setNome(clienteNovo.getNome().toUpperCase());
-        clienteBanco.setTelefone(clienteNovo.getTelefone());
-        clienteBanco.setAtivo(clienteNovo.isAtivo());
+        clienteBanco.setNome(clienteNovo.nome().toUpperCase());
+        clienteBanco.setTelefone(clienteNovo.telefone());
+        clienteBanco.setAtivo(clienteNovo.ativo());
 
 
         return repository.save(clienteBanco);

@@ -29,7 +29,7 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
         Acompanhamento acompanhamento = new Acompanhamento();
 
         BeanUtils.copyProperties(acompanhamentoDTO,acompanhamento);
-        acompanhamento.setDescricao(acompanhamentoDTO.getDescricao().toUpperCase());
+        acompanhamento.setDescricao(acompanhamentoDTO.descricao().toUpperCase());
         repository.save(acompanhamento);
 
         return acompanhamento;
@@ -138,9 +138,9 @@ public class AcompanhamentoServiceImpl implements AcompanhamentoService {
 
         Acompanhamento acompanhamentoBanco = this.buscarPorId(id);
 
-        acompanhamentoBanco.setDescricao(acompanhamentoNovo.getDescricao());
-        acompanhamentoBanco.setValor(acompanhamentoNovo.getValor());
-        acompanhamentoBanco.setAtivo(acompanhamentoNovo.isAtivo());
+        acompanhamentoBanco.setDescricao(acompanhamentoNovo.descricao());
+        acompanhamentoBanco.setValor(acompanhamentoNovo.valor());
+        acompanhamentoBanco.setAtivo(acompanhamentoNovo.ativo());
 
         return repository.save(acompanhamentoBanco);
     }

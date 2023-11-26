@@ -1,28 +1,5 @@
 package com.piazzariap1.pizzaria.dto;
 
-import com.piazzariap1.pizzaria.validation.constraints.CEP;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+public record EnderecoDTO(Long id, String cep, String bairro, String logadouro, Integer numero)  {
 
-@Getter @Setter
-public class EnderecoDTO   {
-
-    private Long id;
-
-    @CEP(message = "{campo.endereco-cep-CEP}")
-    private String cep;
-
-    @NotNull(message = "{campo.endereco-bairro-NotNull}")
-    @NotBlank(message = "{campo.endereco-bairro-NotBlank}")
-    private String bairro;
-
-    @NotNull(message = "{campo.endereco-logadouro-NotNull}")
-    @NotBlank(message = "{campo.endereco-logadouro-NotBlank}")
-    private String logadouro;
-
-    @Min(value = 1,message = "{campo.endereço-numero-Min}")
-    private Integer numero;
 }

@@ -27,14 +27,14 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     @Transactional
     public Funcionario cadastrar(FuncionarioDTO funcionarioDTO) {
-        if (!repository.findByCpf(funcionarioDTO.getCpf()).isEmpty()) {
+        if (!repository.findByCpf(funcionarioDTO.cpf()).isEmpty()) {
             throw new CadastroNaoRealizadoException(CPF_CADASTRADO);
         } else {
 
             Funcionario funcionario = new Funcionario();
 
             BeanUtils.copyProperties(funcionarioDTO, funcionario);
-            funcionario.setNome(funcionarioDTO.getNome().toUpperCase());
+            funcionario.setNome(funcionarioDTO.nome().toUpperCase());
             repository.save(funcionario);
 
             return funcionario;
@@ -129,11 +129,9 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
         Funcionario funcionarioBanco = this.buscarPorId(id);
 
-        funcionarioBanco.setNome(funcionarioNovo.getNome());
-        funcionarioBanco.setTelefone(funcionarioNovo.getTelefone());
-        funcionarioBanco.setEmail(funcionarioNovo.getEmail());
-        funcionarioBanco.setSenha(funcionarioNovo.getSenha());
-        funcionarioBanco.setAtivo(funcionarioNovo.isAtivo());
+        funcionarioBanco.setNome(funcionarioNovo.nome());
+        funcionarioBanco.setTelefone(funcionarioNovo.telefone());
+        funcionarioBanco.setAtivo(funcionarioNovo.ativo());
 
         return repository.save(funcionarioBanco);
     }

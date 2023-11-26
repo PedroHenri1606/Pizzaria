@@ -49,7 +49,7 @@ public class EnderecoController {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
         }
     }
-    
+
     @PutMapping(value = "/editar")
     public ResponseEntity<Endereco> atualizar(@RequestParam("id") final Long id, @Valid @RequestBody final EnderecoDTO enderecoDTO){
         try {

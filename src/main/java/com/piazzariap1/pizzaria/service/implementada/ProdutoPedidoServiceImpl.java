@@ -55,11 +55,11 @@ public class ProdutoPedidoServiceImpl implements ProdutoPedidoService {
     public ProdutoPedido editar(Long id, ProdutoPedidoDTO itemPedidoNovo){
         ProdutoPedido itemPedidoBanco = this.buscarPorId(id);
 
-        if(id == 0 || !itemPedidoNovo.getId().equals(itemPedidoBanco.getId())){
+        if(id == 0 || !itemPedidoNovo.id().equals(itemPedidoBanco.getId())){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
 
-        itemPedidoBanco.setQuantidade(itemPedidoNovo.getQuantidade());
+        itemPedidoBanco.setQuantidade(itemPedidoNovo.quntidade());
         itemPedidoBanco.setSabores(itemPedidoBanco.getSabores());
         itemPedidoBanco.setObservacao(itemPedidoBanco.getObservacao());
 

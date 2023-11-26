@@ -1,6 +1,8 @@
 package com.piazzariap1.pizzaria.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +21,8 @@ public class Sabor{
     private boolean ativo;
 
     @Column(name = "nome")
+    @NotNull(message = "{campo.sabor-nome-NotNull")
+    @NotBlank(message = "{campo.sabor-nome-NotBlank}")
     private String nome;
 
     @Column(name = "descricao")

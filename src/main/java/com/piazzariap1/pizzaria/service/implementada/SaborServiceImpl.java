@@ -29,7 +29,7 @@ public class SaborServiceImpl implements SaborService {
         Sabor sabor = new Sabor();
 
         BeanUtils.copyProperties(saborDTO,sabor);
-        sabor.setNome(saborDTO.getNome().toUpperCase());
+        sabor.setNome(saborDTO.nome().toUpperCase());
         repository.save(sabor);
 
         return sabor;
@@ -106,13 +106,13 @@ public class SaborServiceImpl implements SaborService {
     public Sabor editar(Long id, SaborDTO saborNovo){
         Sabor saborBanco = this.buscarPorId(id);
 
-        if(id == 0 || !saborNovo.getId().equals(saborBanco.getId())){
+        if(id == 0 || !saborNovo.id().equals(saborBanco.getId())){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
 
-        saborBanco.setNome(saborNovo.getNome());
-        saborBanco.setDescricao(saborNovo.getDescricao());
-        saborBanco.setAtivo(saborNovo.isAtivo());
+        saborBanco.setNome(saborNovo.nome());
+        saborBanco.setDescricao(saborNovo.descricao());
+        saborBanco.setAtivo(saborNovo.ativo());
 
         return repository.save(saborBanco);
     }

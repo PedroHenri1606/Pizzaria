@@ -28,7 +28,7 @@ public class ProdutoServiceImpl implements ProdutoService {
         Produto produto = new Produto();
 
         BeanUtils.copyProperties(produtoDTO,produto);
-        produto.setDescricao(produtoDTO.getDescricao().toUpperCase());
+        produto.setDescricao(produtoDTO.descricao().toUpperCase());
         repository.save(produto);
 
         return produto;
@@ -118,14 +118,14 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto editar(Long id, ProdutoDTO produtoNovo){
         Produto produtoBanco = this.buscarPorId(id);
 
-        if(id == 0 || !produtoNovo.getId().equals(produtoBanco.getId())){
+        if(id == 0 || !produtoNovo.id().equals(produtoBanco.getId())){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
 
-        produtoBanco.setDescricao(produtoNovo.getDescricao());
-        produtoBanco.setTamanho(produtoNovo.getTamanho());
-        produtoBanco.setValor(produtoNovo.getValor());
-        produtoBanco.setAtivo(produtoNovo.isAtivo());
+        produtoBanco.setDescricao(produtoNovo.descricao());
+        produtoBanco.setTamanho(produtoNovo.tamanho());
+        produtoBanco.setValor(produtoNovo.valor());
+        produtoBanco.setAtivo(produtoNovo.ativo());
 
         return repository.save(produtoBanco);
     }

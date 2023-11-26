@@ -54,14 +54,14 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Endereco editar(Long id, EnderecoDTO enderecoNovo){
         Endereco enderecoBanco = this.buscarPorId(id);
 
-        if(id == 0 || !enderecoNovo.getId().equals(enderecoBanco.getId())){
+        if(id == 0 || !enderecoNovo.id().equals(enderecoBanco.getId())){
             throw new NaoLocalizadoException(NAO_LOCALIZADO);
         }
 
-        enderecoBanco.setNumero(enderecoNovo.getNumero());
-        enderecoBanco.setBairro(enderecoNovo.getBairro());
-        enderecoBanco.setLogadouro(enderecoNovo.getLogadouro());
-        enderecoBanco.setCep(enderecoNovo.getCep());
+        enderecoBanco.setNumero(enderecoNovo.numero());
+        enderecoBanco.setBairro(enderecoNovo.bairro());
+        enderecoBanco.setLogadouro(enderecoNovo.logadouro());
+        enderecoBanco.setCep(enderecoNovo.cep());
 
         return repository.save(enderecoBanco);
     }
