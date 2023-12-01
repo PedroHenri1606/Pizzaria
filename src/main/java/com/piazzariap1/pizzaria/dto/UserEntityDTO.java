@@ -1,4 +1,6 @@
 package com.piazzariap1.pizzaria.dto;
 
-public record UserEntityDTO(Long id, String username, String password) {
+import com.piazzariap1.pizzaria.entity.enuns.Roles;
+
+public record UserEntityDTO(Long id, String username, Roles roles, String token) {
 }

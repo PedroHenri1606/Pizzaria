@@ -24,13 +24,14 @@ public class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "user_email")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "user_senha")
+    @Column(name = "password")
     private String passwaord;
 
-    @Column(name = "user_role")
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private Roles role;
 
     public UserEntity(String email, String senha) {
@@ -47,12 +48,12 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.getPassword();
+        return passwaord;
     }
 
     @Override
     public String getUsername() {
-        return this.getUsername();
+        return username;
     }
 
     @Override

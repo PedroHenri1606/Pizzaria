@@ -1,49 +1,48 @@
 package com.piazzariap1.pizzaria.controller;
 
 import com.piazzariap1.pizzaria.config.security.TokenService;
+import com.piazzariap1.pizzaria.dto.LoginDTO;
 import com.piazzariap1.pizzaria.dto.UserEntityDTO;
-import com.piazzariap1.pizzaria.dto.security.AuthenticationDTO;
-import com.piazzariap1.pizzaria.dto.security.LoginResponseDTO;
 import com.piazzariap1.pizzaria.entity.UserEntity;
 import com.piazzariap1.pizzaria.service.implementada.UserEntityServiceImpl;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/teste")
 @CrossOrigin(origins = "*")
 public class UserEntityController {
 
     @Autowired
     UserEntityServiceImpl service;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    TokenService tokenService;
-
     @PostMapping(value = "/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
+    public ResponseEntity<UserEntityDTO> logar(@RequestBody LoginDTO loginDTO) {
+        try {
+            return ResponseEntity.ok(service.logar(loginDTO));
 
-        UserEntity user = new UserEntity();
+        }catch(AuthenticationException ex) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 
-        BeanUtils.copyProperties(auth,user);
 
-        var token = tokenService.gerarToken(user);
+    @GetMapping("deslogar")
+    public ResponseEntity<HttpStatus> logout() {
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        SecurityContextHolder.clearContext();
+        return new ResponseEntity<>(null, HttpStatus.OK);
+
     }
 
     @PostMapping
